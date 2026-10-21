@@ -46,5 +46,6 @@
 # pipeline night logs of 2026-10-19 and 2026-10-20: they name customers
 20261020T074630-workload-nights
 20261020T135958-h5-agents
+20261021T104012-h5-agents
 20261020T140458-acceptance
 20261020T144700-acceptance
