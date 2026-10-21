@@ -472,9 +472,11 @@ def pool_prefill_mode():
 
 class ServeFront:
     """ASGI wrapper of the server app: the two internal endpoints the drills and the front read (`/health`,
-    `/internal/memory`) and the activity clock behind the idle exit. Everything else goes to the app untouched."""
+    `/internal/memory`) and the activity clock behind the idle exit. Everything else goes to the app untouched.
+    The QUIET paths are read-only status calls: a poller that lists the models every second must not keep the engine
+    alive, so they do not move the activity clock."""
 
-    QUIET = ("/health", "/api/version", "/metrics", "/internal/memory")
+    QUIET = ("/health", "/api/version", "/metrics", "/internal/memory", "/v1/models")
 
     def __init__(self, app, engine, ledger, cap_fn, idle_s, clock=time.monotonic):
         self.app, self.engine, self.ledger, self.cap_fn, self.idle_s, self.clock = app, engine, ledger, cap_fn, idle_s, clock
