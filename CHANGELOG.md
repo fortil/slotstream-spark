@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The front no longer starts the engine for a `GET`. A poller that listed the models every second would have started the engine whenever the start rule allowed it and held the request open while it loaded. A `GET` now gets an immediate 503 with the code `engine_stopped`, `loading` or `not_allowed`, so a caller can tell a stopped engine from a refused start.
 - The guard drill's case k calls `kill-all.sh --force`. Under pause mode (`NO_WINDOWS=1`) the plain call does nothing, so case k failed whenever production was paused. `deploy/tests/killall_t0.sh` covers it.
 
 ## 0.1.0 - 2026-10-15
