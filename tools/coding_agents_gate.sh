@@ -62,7 +62,11 @@ cleanup() {
 trap cleanup EXIT
 
 tools/mac/tunnel.sh up || exit 1
-# the first request makes the front start the engine; wait for it (503 while loading)
+# A GET never starts the engine (the front answers 503 engine_stopped), so one request that can generate wakes it: the
+# front holds it while the engine loads and the dialect may refuse the body afterwards, which is fine. Then wait for
+# /v1/models (503 while loading).
+curl -s -o /dev/null --max-time 300 -X POST -H 'content-type: application/json' \
+  -d '{"model":"wake","messages":[{"role":"user","content":"hi"}],"max_tokens":1}' "$URL/v1/chat/completions" || true
 for _ in $(seq 1 300); do
   code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$URL/v1/models" 2>/dev/null) || code=000
   [ "$code" = 200 ] && break
