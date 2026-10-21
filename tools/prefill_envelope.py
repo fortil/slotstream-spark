@@ -19,6 +19,9 @@ most 200 ms per launch (the kernel watchdog is `KernelExecTimeout: 1`). `max_row
 row count of a grouped-MoE launch that takes at most 200 ms, capped by a 1 GiB temporary (81,920 rows).
 
   tools/prefill_envelope.py --write      writes db/records/measurements/f5-prefill-envelope.json (and $CAP/result.json)
+  tools/prefill_envelope.py --contexts 65536,131072     measures another context grid (result in $CAP/result.json or
+                                        --out); the stored envelope is untouched unless --write is given. A cell that
+                                        runs out of device memory is recorded with `error` and never fits.
 """
 import argparse
 import json
@@ -186,7 +189,7 @@ def nnls2(rows, ys):
     return [float(v) for v in best[1]]
 
 
-def measure():
+def measure(contexts=CONTEXTS):
     import torch
     from slotstream_spark.kernels import vendored
     from slotstream_spark.memory.ledger import Ledger
@@ -195,9 +198,17 @@ def measure():
     cells = []
     for q in PASSES:
         moe = moe_cell(torch, meter, q)
-        for ctx in CONTEXTS:
-            attn = attention_cell(torch, vendored, meter, q, ctx)
+        for ctx in contexts:
             k = ctx + q
+            try:
+                attn = attention_cell(torch, vendored, meter, q, ctx)
+            except torch.cuda.OutOfMemoryError:
+                torch.cuda.empty_cache()
+                cells.append({"pass": q, "context": ctx, "k": k, "product": q * k, "error": "oom",
+                              "attn_alloc_bytes": None, "attn_nvml_bytes": None, "attn_ms": None,
+                              "moe_alloc_bytes": moe[0], "moe_nvml_bytes": moe[1], "moe_ms": round(moe[2], 3)})
+                print(f"pass {q} ctx {ctx}: attention out of device memory", flush=True)
+                continue
             cells.append({"pass": q, "context": ctx, "k": k, "product": q * k,
                           "attn_alloc_bytes": attn[0], "attn_nvml_bytes": attn[1], "attn_ms": round(attn[2], 3),
                           "moe_alloc_bytes": moe[0], "moe_nvml_bytes": moe[1], "moe_ms": round(moe[2], 3)})
@@ -208,10 +219,14 @@ def measure():
         launches[str(r)] = launch_times(torch, r)
         print(f"rows {r}: {launches[str(r)]}", flush=True)
     budget = Ledger("D5").pass_bytes
-    a_pair, a_tok = nnls2([[c["pass"] * c["k"], c["pass"]] for c in cells], [c["attn_alloc_bytes"] for c in cells])
+    good = [c for c in cells if c.get("error") is None]
+    a_pair, a_tok = nnls2([[c["pass"] * c["k"], c["pass"]] for c in good], [c["attn_alloc_bytes"] for c in good])
     moe_cells = {c["pass"]: c["moe_alloc_bytes"] for c in cells}
     m_tok = nnls2([[q, 0.0] for q in moe_cells], list(moe_cells.values()))[0]
     for c in cells:
+        if c.get("error"):
+            c["transient_bytes"], c["fits"] = None, False
+            continue
         c["transient_bytes"] = c["attn_alloc_bytes"] + c["moe_alloc_bytes"]
         c["fits"] = bool(c["transient_bytes"] <= budget and c["attn_ms"] <= WATCHDOG_MS)
     qk = 0
@@ -221,7 +236,7 @@ def measure():
         qk = c["product"]
     ok_rows = [r for r in ROW_COUNTS if max(launches[str(r)].values()) <= WATCHDOG_MS]
     max_rows = min(max(ok_rows), ROWS_TEMP_CAP) if ok_rows else 0
-    all_ms = [c["attn_ms"] for c in cells] + [v for d in launches.values() for v in d.values()]
+    all_ms = [c["attn_ms"] for c in good] + [v for d in launches.values() for v in d.values()]
     return {
         "tool": "tools/prefill_envelope.py", "torch": torch.__version__, "budget_bytes": int(budget),
         "watchdog_ms": WATCHDOG_MS, "qk_product": int(qk), "bytes_per_pair": a_pair,
@@ -229,16 +244,25 @@ def measure():
         "max_rows_per_launch": int(max_rows), "launch_ms_max": max(all_ms),
         "all_launches_within_watchdog": bool(max(all_ms) <= WATCHDOG_MS),
         "cells": cells, "moe_launches_ms": launches, "seconds": round(time.time() - t0, 1),
-        "passes": list(PASSES), "contexts": list(CONTEXTS),
+        "passes": list(PASSES), "contexts": list(contexts),
     }
 
 
-def main():
+def parse_contexts(text):
+    vals = sorted({int(x) for x in text.split(",") if x.strip()})
+    if not vals or any(v <= 0 for v in vals):
+        raise ValueError(f"--contexts needs positive token counts, got {text!r}")
+    return tuple(vals)
+
+
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true", help=f"write {OUT.relative_to(ROOT)}")
     ap.add_argument("--out", help="explicit output path")
-    a = ap.parse_args()
-    res = measure()
+    ap.add_argument("--contexts", default=None, help="comma-separated context grid (default 2048..32768)")
+    a = ap.parse_args(argv)
+    contexts = parse_contexts(a.contexts) if a.contexts else CONTEXTS
+    res = measure(contexts)
     text = json.dumps(res, indent=1, sort_keys=True)
     outs = []
     if a.out:

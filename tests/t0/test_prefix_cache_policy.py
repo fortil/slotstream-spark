@@ -156,3 +156,142 @@ def test_snapshot_end_is_a_pass_boundary_inside_the_new_tokens():
     assert pc.snapshot_end(p, 3000, 0, 4096, b) is None                       # the first pass reaches past the target
     assert pc.snapshot_end(p, 5990, 4096, 4096, b) is None                    # nothing new before the target
     assert pc.snapshot_target([1, 2, 7, 3, 7, 4], 7) == 4 and pc.snapshot_target([1, 2], 7) is None
+
+
+# ---- the window-scaled cache: charge_active=False ---------------------------------------------------------------
+WINDOW = 131_072
+LONG = 78_000
+
+
+def scaled(max_tokens=WINDOW, **kw):
+    return PrefixCache(max_tokens=max_tokens, charge_active=False, **kw)
+
+
+def long_turns(seed=1, extra=300):
+    """A LONG-token conversation: turn 1, its pass-end snapshot length from the schedule, turns 2 and 3."""
+    p1 = prompt(LONG, seed)
+    end = max(b for b in ps.resume_boundaries(LONG, 4096) if b < LONG)
+    p2 = p1 + prompt(extra, seed + 10)
+    p3 = p2 + prompt(extra, seed + 20)
+    return p1, end, p2, p3
+
+
+def boundaries(p):
+    return ps.resume_boundaries(len(p), 4096)
+
+
+def test_scaled_cache_reports_its_rule_and_the_design_stays_default():
+    assert PrefixCache(max_tokens=MAXT).charge_active is True and PrefixCache(max_tokens=MAXT).stats()["charge_active"]
+    assert scaled().charge_active is False and scaled().stats()["charge_active"] is False
+
+
+def test_long_conversation_keeps_its_boundary_snapshot_across_turns():
+    p1, end, p2, p3 = long_turns()
+    assert LONG - 2048 < end < LONG                                     # the last tail-aware pass end before the trailing tokens
+    c = scaled()
+    assert isinstance(c.take(p1, KEY, boundaries(p1), reserve_tokens=LONG + 32_768), Miss)
+    assert snapshot(c, p1[:end], reserve_tokens=LONG + 32_768)          # S1, whatever the request reserves
+    assert not complete(c, p1)                                          # F1: no room beside S1 (76,800 + 78,037 > 131,072)
+    assert [len(e.tokens) for e in c.entries()] == [end]
+    assert not c.would_store(p1 + prompt(50, 99))                       # the decode-end state would be evicted at once
+    h = c.take(p2, KEY, boundaries(p2), reserve_tokens=len(p2) + 32_768)
+    assert isinstance(h, Hit) and h.reused == end
+    assert [len(e.tokens) for e in c.entries()] == [end]                # a hit never evicts the entry it hands out
+    assert not complete(c, p2)                                          # F2 must not supersede the used S1
+    assert [len(e.tokens) for e in c.entries()] == [end]
+    h3 = c.take(p3, KEY, boundaries(p3))
+    assert isinstance(h3, Hit) and h3.reused == end
+    assert c.charged_tokens() <= WINDOW and len(c.entries()) <= pc.MAX_ENTRIES
+
+
+def test_the_design_charges_the_active_request_and_refuses_the_long_snapshot():
+    p1, end, _, _ = long_turns()
+    c = PrefixCache(max_tokens=WINDOW)                                  # charge_active=True at the same budget
+    assert isinstance(c.take(p1, KEY, boundaries(p1), reserve_tokens=LONG + 32_768), Miss)
+    assert not snapshot(c, p1[:end], reserve_tokens=LONG + 32_768)      # 110,768 reserved leaves 20,304
+    assert snapshot(scaled(), p1[:end], reserve_tokens=LONG + 32_768)   # the reserve is ignored without the charge
+
+
+def test_a_short_prompt_sits_beside_the_long_snapshot_and_a_second_long_one_makes_room():
+    p1, end, p2, _ = long_turns(1)
+    q1, qend, _, _ = long_turns(2)
+    c = scaled()
+    c.take(p1, KEY, boundaries(p1))
+    assert snapshot(c, p1[:end]) and isinstance(c.take(p2, KEY, boundaries(p2)), Hit)
+    short = prompt(20_000, 5)
+    assert isinstance(c.take(short, KEY, set()), Miss) and complete(c, short)
+    assert sorted(len(e.tokens) for e in c.entries()) == [20_000, end]
+    assert isinstance(c.take(q1, KEY, boundaries(q1)), Miss)
+    assert c.charged_tokens() <= WINDOW - LONG                          # the miss made room for B's own snapshot
+    assert snapshot(c, q1[:qend]) and qend in [len(e.tokens) for e in c.entries()]
+    assert c.charged_tokens() <= WINDOW
+
+
+def test_a_hit_never_evicts_the_entry_it_hands_out_without_the_charge():
+    p = prompt(9_000)
+    b = boundaries(p)
+    end = max(x for x in b if x < len(p))
+    c = scaled(max_tokens=17_000)
+    assert snapshot(c, p[:end])
+    h = c.take(p, KEY, b)                                               # 9,000 reserved leaves 8,000 < 8,192: the design evicts
+    assert isinstance(h, Hit) and h.reused == end and len(c.entries()) == 1
+    c2 = PrefixCache(max_tokens=17_000)
+    assert snapshot(c2, p[:end])
+    assert isinstance(c2.take(p, KEY, b), Hit) and c2.entries() == []   # the design: handed out, then evicted
+
+
+def test_a_deeper_boundary_snapshot_still_supersedes_a_used_shallower_one():
+    c = scaled(max_tokens=15_000)
+    p = prompt(16_000)
+    assert snapshot(c, p[:4096])
+    assert isinstance(c.take(p, KEY, {4096, 8192, 12288}), Hit)
+    assert snapshot(c, p[:12288])                                       # 4,096 + 12,288 > 15,000: the used one goes
+    assert [len(e.tokens) for e in c.entries()] == [12288]
+
+
+def test_would_store_checkpoint_predicts_store_checkpoint():
+    for charge_active in (True, False):
+        c = PrefixCache(max_tokens=30_000, charge_active=charge_active)
+        p = prompt(20_000)
+        c.take(p, KEY, {4096}, reserve_tokens=21_000)
+        kw = dict(fresh_equivalent=True, produced_key=KEY, reserve_tokens=21_000)
+        want = c.would_store_checkpoint(p[:4096], **kw)
+        assert want == c.store_checkpoint(st(), p[:4096], 4096 * pc.BYTES_PER_TOKEN, **kw)
+        kw2 = dict(logits_bytes=LOGIT_BYTES, prompt_key=KEY, fresh_equivalent=True, produced_key=KEY, reserve_tokens=21_000)
+        want = c.would_store_checkpoint(p, logits=True, **kw2)
+        assert want == c.store_checkpoint(st(), p, len(p) * pc.BYTES_PER_TOKEN, logits=object(), **kw2)
+        assert want is (not charge_active)                              # 4,096 + 20,037 fits 30,000 only without the charge
+        assert c.charged_tokens() <= 30_000 and len(c.entries()) <= pc.MAX_ENTRIES
+    assert not scaled().would_store_checkpoint([])
+
+
+def test_would_store_predicts_the_decode_end_store():
+    c = PrefixCache(max_tokens=MAXT)
+    assert complete(c, prompt(15_000, 1))
+    big = prompt(25_000, 2)
+    assert not c.would_store(big)
+    assert c.store(st(), big, len(big) * 27_648, key=KEY, input_tokens=24_000)
+    assert [len(e.tokens) for e in c.entries()] == [15_000] and c.entries()[0].reusable   # the new state went first
+    small = prompt(5_000, 3)
+    assert c.would_store(small)
+    assert c.store(st(), small, 5_000 * 27_648, key=KEY, input_tokens=4_000)
+    assert sorted(len(e.tokens) for e in c.entries()) == [5_000, 15_000]
+    assert c.would_store(small)                                         # a duplicate of an unresumable entry is replaced
+    assert not c.would_store(prompt(MAXT + 1, 4)) and not c.would_store([])
+
+
+def test_budget_and_slot_invariants_hold_after_every_call():
+    c = scaled(max_tokens=50_000)
+    for seed, n in enumerate((30_000, 12_000, 45_000, 8_000, 30_000, 20_000, 50_000)):
+        p = prompt(n, seed)
+        b = boundaries(p)
+        c.take(p, KEY, b, reserve_tokens=len(p) + 32_768)
+        assert len(c.entries()) < pc.MAX_ENTRIES and c.charged_tokens() <= 50_000
+        ends = [x for x in b if x < len(p)]
+        if ends:
+            snapshot(c, p[:max(ends)])
+        complete(c, p)
+        assert c.charged_tokens() <= 50_000 and len(c.entries()) <= pc.MAX_ENTRIES
+        if c.would_store(p + [7]):
+            c.store(st(), p + [7], (len(p) + 1) * pc.BYTES_PER_TOKEN, key=KEY, input_tokens=len(p))
+        assert c.charged_tokens() <= 50_000 and len(c.entries()) <= pc.MAX_ENTRIES

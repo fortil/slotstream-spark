@@ -149,6 +149,8 @@ bash tools/spark/install_units.sh
 
 This links the seven user units from `deploy/`, enables the start and stop timers, starts the socket inside the 04:00 to 23:59 window and merges the tagged lines of `deploy/crontab.backup` into your crontab. It changes your crontab and your user units, so read it first and run it yourself. Remove the cron lines and the timers if you do not want a daily window. The port is bound to loopback only unless you add the optional extra bind for containers (RUNBOOK, "Containers on the same host"); use the tunnel below to reach it from another machine.
 
+To serve a context window other than the default 32,768 tokens, write `~/slotstream-spark/serve.env` with one line, for example `SLOTSTREAM_CONTEXT_WINDOW=131072`, mode 600. Both units load it: the engine for the window, the front for its start floor. Stop `slotstream-spark.service` and restart `slotstream-spark-front.service` for it to take effect; remove the file to go back. Never set `SLOTSTREAM_MODE` there. What the window costs is in [memory-modes](memory-modes.md), "Context window".
+
 ## 12. From the Mac
 
 ```
@@ -167,7 +169,7 @@ The guard and the engine can run next to a model router (a server such as llama-
 - the front does not fetch `/running`; it treats the router as reporting no running models (`slotstream_spark/front.py`), so the other start rules still apply: the 04:00 to 23:45 window, a pool cap above the floor, and no development run holding the model;
 - `cli doctor` prints `/running: off`.
 
-Leave `EXPECTED_CONTAINERS` empty too, and the guard does not count the containers that are not its own. Set the number only when you want a heavy run to refuse if some other container went down. While `$R/state/PAUSED` exists, the expected count comes from that file and an explicit environment value does not override it ([guard](guard.md)).
+Leave `EXPECTED_CONTAINERS` empty too, and the guard does not count the containers that are not its own. Set the number only when you want a heavy run to refuse if some other container went down. While `$R/state/PAUSED` exists, the expected count comes from that file unless `EXPECTED_CONTAINERS` is set in the environment, which wins ([guard](guard.md), [memory-modes](memory-modes.md), "Pause mode").
 
 ## If something fails
 

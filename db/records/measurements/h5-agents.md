@@ -1,6 +1,6 @@
 # h5-agents: coding agents and Open WebUI through the tunnel
 Date: 2026-10-21
-Capture: db/sources/runs/2026/10/20261021T104012-h5-agents/
+Capture: db/sources/runs/2026/10/20261021T183429-h5-agents/
 Command: tools/mac/tunnel.sh up && bash tools/coding_agents_gate.sh --out tmp/h5 --record db/records/measurements
 
 | check | ok |
@@ -26,11 +26,11 @@ Command: tools/mac/tunnel.sh up && bash tools/coding_agents_gate.sh --out tmp/h5
 
 - agent versions: claude 2.1.284 (Claude Code); codex codex-cli 0.141.0
 - verdicts: claude pass; codex pass; webui pass
-- claude usage per turn (last API call of each invocation): {"turn1": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "inference_geo": "", "input_tokens": 56947, "iterations": [], "output_tokens": 148, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}, "turn2": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 20480, "inference_geo": "", "input_tokens": 39692, "iterations": [], "output_tokens": 206, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}, "turn3": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "inference_geo": "", "input_tokens": 55058, "iterations": [], "output_tokens": 194, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}}
-- claude turn 2 cache read: {'model_usage': 73728, 'server_reused_delta': 57344.0, 'usage': 20480}
-- claude turn seconds: {"turn1": 231.2, "turn2": 335.1, "turn3": 278.0}
-- images_rejected_total delta in claude turn 3: 1.0; /api/ps size before and after: [67390976868, 67390976868]
+- claude usage per turn (last API call of each invocation): {"turn1": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 16384, "inference_geo": "", "input_tokens": 40648, "iterations": [], "output_tokens": 160, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}, "turn2": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "inference_geo": "", "input_tokens": 38993, "iterations": [], "output_tokens": 158, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}, "turn3": {"cache_creation": {"ephemeral_1h_input_tokens": 0, "ephemeral_5m_input_tokens": 0}, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "inference_geo": "", "input_tokens": 55577, "iterations": [], "output_tokens": 191, "output_tokens_details": {"thinking_tokens": 0}, "server_tool_use": {"web_fetch_requests": 0, "web_search_requests": 0}, "service_tier": "standard", "speed": "standard"}}
+- claude turn 2 cache read: {'model_usage': 49152, 'server_reused_delta': 16384.0, 'usage': 0}
+- claude turn seconds: {"turn1": 245.0, "turn2": 307.2, "turn3": 288.4}
+- images_rejected_total delta in claude turn 3: 1.0; /api/ps size before and after: [65243493220, 65243493220]
 - webui: turn 1 prompt tokens 4675, turn 2 cached_tokens 4096
 - safety: claude ran with --permission-mode acceptEdits --allowedTools Read,Write,Edit --disallowedTools Bash and a CLAUDE_CONFIG_DIR under the output directory; codex with -s workspace-write, approval_policy never and a CODEX_HOME under the output directory; the throwaway projects live under the output directory
-- server_tree_sha256: 31bc7b2391b28fc105d59d8bd2d2d282b6090408c9fa79243910be3734ce958f (sha256 over `<path>\0<file sha256>\n` of slotstream_spark/server/**/*.py and slotstream_spark/front.py, sorted; tools/webui_sequence.py tree_sha256)
+- server_tree_sha256: e39c26a1c5e27f6a7871b3d96ceedbcd3f5cde6759d047c2329aadbb19141da8 (sha256 over `<path>\0<file sha256>\n` of slotstream_spark/server/**/*.py and slotstream_spark/front.py, sorted; tools/webui_sequence.py tree_sha256)
 Verdict: PASS — claude pass, codex pass, webui pass, host clean

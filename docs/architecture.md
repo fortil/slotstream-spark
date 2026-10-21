@@ -34,7 +34,7 @@ The ledger in `slotstream_spark/memory/ledger.py` counts every term as an intege
 | Staging for the sweep | host memory the GPU reads, groups of 32 records | 88,473,600 B per group, 4 groups charged | `ledger.py` |
 | Staging, read scratch and row caches | host | 556,947,200 B in total (4 groups plus 203,052,800 B) | `ledger.py` `SCRATCH_ROWS` |
 | Read scratch of the safe path | anonymous host memory, 4096-aligned, never mapped by the GPU | one record per lane, 12 lanes = 33,177,600 B | this page, inside the term above |
-| KV cache and indexer keys | `cudaMalloc` | 27,648 B per token (905,969,664 B at a 32,768-token window) | `ledger.py` `KV_PER_TOKEN` |
+| KV cache and indexer keys | `cudaMalloc` | 27,648 B per token of the served window (905,969,664 B at the default 32,768 tokens, 3,623,878,656 B at 131,072) | `ledger.py` `KV_PER_TOKEN` |
 | GDN state and conv state | `cudaMalloc` | 115,642,368 B per conversation, of which 113,246,208 B is the recurrent state | `ledger.py` `GDN_STATE` |
 | MTP head | `cudaMalloc` | 1,470,946,816 B, resident in D2 and D5 | `ledger.py` `MTP` |
 | Verify record ring (MTP resident) | `cudaMalloc` | three copies of the GDN and conv state | `ledger.py` `MTP_RECORD` |
@@ -46,7 +46,7 @@ The ledger in `slotstream_spark/memory/ledger.py` counts every term as an intege
 
 The rule behind the table: everything large is reserved at start with the size the planner fixes. Nothing grows while serving. The pool grows and shrinks only between requests and only by whole chunks.
 
-Per mode, the ledger adds a prefix-cache term (500,000,000 B in D1, 1,000,000,000 B in D2 and D5) and the prefill pass at the mode's token limit (1,024, 2,048 and 4,096 tokens). With the measured runtime term, `Ledger(mode).fixed_bytes()` returns 9,886,822,500 B for D1, 13,188,969,316 B for D2 and 15,851,369,316 B for D5 (computed from the code on the date of this page, no record). The constants in `config/modes.py` (8,821,658,084 B, 12,123,804,900 B and 14,786,204,900 B) are the design values, which assumed a 1,750,000,000 B runtime. The two sets differ by 1,065,164,416 B in D5. That is why the design ceiling for D5 is 49 chunks and the D5 campaign ledger counts 48 chunks (ledger 67,390,976,868 B in [f9-campaign-d5.md](../db/records/measurements/f9-campaign-d5.md)).
+Per mode, the ledger adds a prefix-cache term (500,000,000 B in D1, 1,000,000,000 B in D2 and D5, at the default window; above it the term scales with the window and a snapshot term is added, see [memory-modes](memory-modes.md), "Context window") and the prefill pass at the mode's token limit (1,024, 2,048 and 4,096 tokens). With the measured runtime term, `Ledger(mode).fixed_bytes()` returns 9,886,822,500 B for D1, 13,188,969,316 B for D2 and 15,851,369,316 B for D5 (computed from the code on the date of this page, no record). The constants in `config/modes.py` (8,821,658,084 B, 12,123,804,900 B and 14,786,204,900 B) are the design values, which assumed a 1,750,000,000 B runtime. The two sets differ by 1,065,164,416 B in D5. That is why the design ceiling for D5 is 49 chunks and the D5 campaign ledger counts 48 chunks (ledger 67,390,976,868 B in [f9-campaign-d5.md](../db/records/measurements/f9-campaign-d5.md)).
 
 How a pool of N chunks is spent: a chunk holds 388 slots, so D5 at 48 chunks holds 18,624 slots and at 49 chunks 19,012 slots, which is about 388 experts per layer out of 512 for 48 layers. The pool is a global cache keyed by (layer, expert), not a per-layer table.
 
@@ -198,7 +198,7 @@ If the cap is below the floor (fixed bytes plus 2 chunks, 776 slots), the engine
 
 ## Prefix cache
 
-The engine keeps recent prompt states in memory (budget per mode in the ledger above) and, optionally, on disk under `prefix.dir` with a quota of 20,000,000,000 B (`platform.toml`). The in-memory cache is dropped before the pool shrinks, so retained states never outlive the memory they were budgeted from (`memory/governor.py`, `apply_shrink`). The follow-up TTFT in D5 was a median 1.213 s ([f5-prefill.md](../db/records/measurements/f5-prefill.md), limit 12 s).
+The engine keeps recent prompt states in memory (budget per mode in the ledger above; at a window above the default, the window itself in tokens) and, optionally, on disk under `prefix.dir` with a quota of 20,000,000,000 B (`platform.toml`). The in-memory cache is dropped before the pool shrinks, so retained states never outlive the memory they were budgeted from (`memory/governor.py`, `apply_shrink`). The follow-up TTFT in D5 was a median 1.213 s ([f5-prefill.md](../db/records/measurements/f5-prefill.md), limit 12 s).
 
 ## Server behavior
 

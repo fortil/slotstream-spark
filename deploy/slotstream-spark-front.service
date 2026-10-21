@@ -7,6 +7,8 @@ After=slotstream-spark.socket
 Type=simple
 # Optional: SLOTSTREAM_API_KEY, SLOTSTREAM_FRONT_WAIT_S, SLOTSTREAM_RUNNING_URL (KEY=value lines, mode 600).
 EnvironmentFile=-%h/slotstream-spark/front.env
+# Shared with the engine: SLOTSTREAM_CONTEXT_WINDOW (the start floor follows the window the engine will serve).
+EnvironmentFile=-%h/slotstream-spark/serve.env
 ExecStart=%h/slotstream-spark/src/tools/spark/py.sh -m slotstream_spark.front
 OOMScoreAdjust=1000
 KillMode=control-group

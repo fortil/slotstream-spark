@@ -10,13 +10,16 @@
   decide.py f9-quality (--latest f9-engine | CAPTURE_DIR) (--oracle-latest f9-oracle | --oracle DIR) [--write]
   decide.py f9-campaign (--latest f9-engine | CAPTURE_DIR) [--write]
   decide.py f9-diff (--latest f9-ref | CAPTURE_DIR) [--engine-latest f9-engine | --engine DIR] [--oracle-latest f9-oracle | --oracle DIR] [--write]
+  decide.py w131k-campaign (--latest w131k-engine | CAPTURE_DIR) [--write]
+  decide.py w131k-envelope (--latest w131k-engine | CAPTURE_DIR) [--write]
 
 Exit 0 = the gate passed, 1 = it failed (a `F5 gate failed:` or `DECISION:` line says what), 3 = unreadable or
 inconsistent input (missing samples, a recorded peak that the samples do not reproduce, a failed child).
 Medians come from bench/stats.py (`true_median`), the yardstick through tools/yardstick.py, the peak through
 slotstream_spark/memory/footprint.py recomputed from the capture's own samples, the envelope from the ledger.
 The bars are the plan's own (section 2.2): cold 8K TTFT median <= 30 s (target 15), follow-up median <= 12 s
-(target 8), peak <= Ledger("D5").expected_peak_bytes(chunks).
+(target 8), peak <= Ledger("D5", window=W).expected_peak_bytes(chunks) with W the window the capture ran at (its
+`window` field; the default when absent).
 
 F6 (plan steps 77-78) judges the captures of bench/f6_ab.sh (bench/ab.py result.json, one row per pair). Exit codes: 0 decided
 (adopted or kept off; with --write the record and the default in the config are written), 1 the A/B cannot decide or the
@@ -73,7 +76,7 @@ def recompute_peaks(res):
     """-> list of (child, once_bytes, nonpool_bytes, drop_bytes, gate_bytes, ledger_bytes, chunks); BadInput when a
     child has no samples or its recorded peak is not what the samples give."""
     from slotstream_spark.memory import footprint as fp
-    from slotstream_spark.memory.ledger import Ledger
+    from slotstream_spark.memory.ledger import DEFAULT_WINDOW, Ledger
     out = []
     for name, c in sorted(res["children"].items()):
         if not c.get("samples") or not c.get("flags") or "peak" not in c:
@@ -87,7 +90,8 @@ def recompute_peaks(res):
         drop = int(c["memavailable_drop_bytes"])
         chunks = int(c["chunks"])
         out.append((name, pk.once_bytes, pk.nonpool_bytes, drop, max(pk.once_bytes, drop),
-                    Ledger("D5").expected_peak_bytes(chunks), chunks))
+                    Ledger("D5", window=int(c.get("window") or res.get("window") or DEFAULT_WINDOW)).expected_peak_bytes(chunks),
+                    chunks))
     return out
 
 
@@ -1045,7 +1049,7 @@ def cell_peak(cell, mode):
     """Recomputes the peak of a cell from its stored samples; BadInput when it differs from the recorded one.
     -> (once_bytes, nonpool_bytes, drop_bytes, ledger_bytes, chunks)."""
     from slotstream_spark.memory import footprint as fp
-    from slotstream_spark.memory.ledger import Ledger
+    from slotstream_spark.memory.ledger import DEFAULT_WINDOW, Ledger
     if not cell.get("footprint_samples") or not cell.get("flags") or "peak" not in cell:
         raise BadInput(f"cell {cell.get('cell')}: no samples/flags/peak")
     pk = fp.peak([fp.sample_from_dict(d) for d in cell["footprint_samples"]], fp.flags_from_dict(cell["flags"]))
@@ -1054,7 +1058,9 @@ def cell_peak(cell, mode):
         raise BadInput(f"cell {cell['cell']}: recorded peak once {rec.get('once_bytes')} / nonpool {rec.get('nonpool_bytes')} "
                        f"differs from the samples' {pk.once_bytes} / {pk.nonpool_bytes}")
     chunks = int(cell["chunks"])
-    return pk.once_bytes, pk.nonpool_bytes, int(cell["memavailable_drop_bytes"]), Ledger(cell["mode"]).expected_peak_bytes(chunks), chunks
+    window = int(cell.get("window") or DEFAULT_WINDOW)
+    return (pk.once_bytes, pk.nonpool_bytes, int(cell["memavailable_drop_bytes"]),
+            Ledger(cell["mode"], window=window).expected_peak_bytes(chunks), chunks)
 
 
 def f9_d5(cells, yard, stopgo):
@@ -1183,6 +1189,183 @@ def cmd_f9_campaign(a):
         print(f"wrote {F9_D5}, {F9_D1}")
     print("f9-campaign: PASS" if code == 0 else "f9-campaign: FAIL")
     return code
+
+
+# ----------------------------------------------------------------------------------------- context window 131072
+W131K_D5 = "db/records/measurements/w131k-campaign-d5.md"
+W131K_ENVELOPE = "db/records/measurements/w131k-envelope.md"
+W131K_WINDOW = 131072
+W131K_COLD_TOKENS = 78000
+W131K_REUSE_MIN = 70_000                # the 78K follow-up must resume at least this many tokens (the snapshot sits near 76,800)
+W131K_CELLS = ("decode-8k", "ttft-cold-8k", "ttft-cold-78k")
+W131K_COMMAND = ("tools/spark/jobs.sh start w131k-engine --heavy w131k-engine auto 10800 -- bash bench/campaign/w131k_engine_job.sh "
+                 "(bench/campaign/run_campaign.py --mode D5 --samples 5 --window 131072 --cells decode-8k,ttft-cold-8k,ttft-cold-78k)")
+
+
+def w131k_d5(cells):
+    """The D5 campaign at a 131,072-token window: the f9 bars for decode, cold 8K and its follow-up, the same follow-up
+    bar for the 78K conversation plus a reuse floor, and every cell's peak against the ledger at the window.
+    -> (rows, info, decisions, code)."""
+    for n in W131K_CELLS:
+        if n not in cells:
+            raise BadInput(f"the capture has no D5 cell {n}")
+        if not cells[n].get("ok"):
+            raise BadInput(f"D5 cell {n} did not finish ok: {cells[n].get('failures')}")
+    rows, info, decisions, code = [], [], [], 0
+    windows = {n: int(cells[n].get("window") or 0) for n in W131K_CELLS}
+    same = len(set(windows.values())) == 1
+    rows.append(("window of every cell", str(next(iter(windows.values()))) if same else ", ".join(f"{n} {w}" for n, w in windows.items()),
+                 str(W131K_WINDOW), all(w == W131K_WINDOW for w in windows.values())))
+    bad = [f"{n} sample {s['sample']}" for n in W131K_CELLS[1:] for s in cells[n]["samples"] if s["cold"]["reused_tokens"] > 0]
+    if bad:
+        decisions.append(f"W131K campaign gate failed: cold sample(s) {', '.join(bad)} reused tokens from a prefix (invalid), needs a decision")
+        rows.append(("cold samples with reused_tokens == 0", f"{len(bad)} violations", "0", False))
+        return rows, info, decisions, 1
+    rows.append(("cold samples with reused_tokens == 0", "all", "all", True))
+    dec, cold8, cold78 = cells["decode-8k"], cells["ttft-cold-8k"], cells["ttft-cold-78k"]
+    for s in cold8["samples"]:
+        if s["cold"]["prompt_tokens"] != 8192:
+            raise BadInput(f"cold 8K sample {s['sample']} has {s['cold']['prompt_tokens']} prompt tokens")
+    if not all("followup" in s for s in cold8["samples"] + cold78["samples"]):
+        raise BadInput("a follow-up is missing from the 8K or the 78K cell")
+    tps = [s["decode_tps"] for s in dec["samples"]]
+    dmed = true_median(tps)
+    rows.append(("D5 decode median (tok/s), decode-8k cell at the window", round(dmed, 3), f">= {F9_DECODE_BAR:g}", dmed >= F9_DECODE_BAR))
+    t8 = [s["cold"]["ttft_s"] for s in cold8["samples"]]
+    t8m = true_median(t8)
+    rows.append(("cold 8K TTFT median (s)", round(t8m, 3), f"<= {COLD_BAR_S:g}", t8m <= COLD_BAR_S))
+    f8m = true_median([s["followup"]["ttft_s"] for s in cold8["samples"]])
+    rows.append(("follow-up TTFT median (s), 8K", round(f8m, 3), f"<= {FOLLOWUP_BAR_S:g}", f8m <= FOLLOWUP_BAR_S))
+    f78m = true_median([s["followup"]["ttft_s"] for s in cold78["samples"]])
+    rows.append(("follow-up TTFT median (s), 78K", round(f78m, 3), f"<= {FOLLOWUP_BAR_S:g}", f78m <= FOLLOWUP_BAR_S))
+    reuse_min = min(int(s["followup"]["reused_tokens"]) for s in cold78["samples"])
+    rows.append(("follow-up reused tokens, 78K, least sample", reuse_min, f">= {W131K_REUSE_MIN}", reuse_min >= W131K_REUSE_MIN))
+    ptoks = int(cold78.get("prompt_tokens") or cold78["tokens"])
+    rows.append(("cold 78K prompt tokens", ptoks, f">= {W131K_COLD_TOKENS - 256} (at most {W131K_COLD_TOKENS}, cut exactly)",
+                 W131K_COLD_TOKENS - 256 <= ptoks <= W131K_COLD_TOKENS))
+    worst = None
+    peaks = {}
+    for n in W131K_CELLS:
+        once, nonpool, drop, led, chunks = cell_peak(cells[n], "D5")
+        peaks[n] = (once, nonpool, drop, led, chunks)
+        m = led - max(once, drop)
+        if worst is None or m < worst[1]:
+            worst = (n, m, max(once, drop), led, chunks)
+    rows.append((f"peak, max(once_bytes, MemAvailable drop), worst cell {worst[0]} (B)", worst[2],
+                 f"<= {worst[3]} (ledger at {W131K_WINDOW} tokens, {worst[4]} chunks)", worst[1] >= 0))
+    info.append("decode-8k samples (tok/s): " + ", ".join(f"{x:.2f}" for x in tps) + f" (MTP policy {dec['samples'][0]['mtp_policy']}, "
+                f"pool {dec['samples'][0]['pool_prefill'] and 'pre-filled' or 'cold'}, {peaks['decode-8k'][4]} chunks)")
+    info.append("cold 8K TTFT samples (s): " + ", ".join(f"{x:.2f}" for x in t8))
+    info.append("follow-up 8K: " + ", ".join(f"{s['followup']['ttft_s']:.2f} s (reused {s['followup']['reused_tokens']}, new "
+                                             f"{s['followup']['new_tokens']})" for s in cold8["samples"]))
+    m78 = cold78["medians"]
+    info.append(f"ttft-cold-78k: {ptoks} tokens, TTFT median {m78['ttft_s']:.2f} s, prefill {m78['prefill_tps']:.1f} tok/s "
+                f"(published, not gated)")
+    info.append("cold 78K TTFT samples (s): " + ", ".join(f"{s['cold']['ttft_s']:.2f}" for s in cold78["samples"]))
+    info.append("follow-up 78K: " + ", ".join(f"{s['followup']['ttft_s']:.2f} s (reused {s['followup']['reused_tokens']}, new "
+                                              f"{s['followup']['new_tokens']})" for s in cold78["samples"]))
+    for n in W131K_CELLS:
+        once, nonpool, drop, led, chunks = peaks[n]
+        info.append(f"peak {n}: once {once:,} B, nonpool {nonpool:,} B, MemAvailable drop {drop:,} B, ledger {led:,} B "
+                    f"({chunks} chunks at a {W131K_WINDOW}-token window)")
+    for name, v, lim, ok in rows:
+        if not ok:
+            decisions.append(f"W131K campaign gate failed: {name} {_fmt(v)} vs {lim} (absolute bar), needs a decision")
+            code = 1
+    return rows, info, decisions, code
+
+
+def write_w131k_campaign(capture, rows, info, decisions, code):
+    lines = [f"# w131k-campaign-d5: engine D5 campaign at a 131,072-token window (N=5)", f"Date: {date.today().isoformat()}",
+             f"Capture: {capture}", f"Command: {W131K_COMMAND}", "", "| gate | value | limit | ok |", "|---|---|---|---|"]
+    lines += [f"| {n} | {_fmt(v)} | {lim} | {'yes' if o else 'NO'} |" for n, v, lim, o in rows]
+    lines += [""] + [f"- {i}" for i in info] + [""] + decisions
+    if code == 0:
+        lines.append("Verdict: PASS — decode, cold 8K, both follow-ups, the 78K reuse floor and every peak within the bars at a "
+                     "131,072-token window")
+    else:
+        lines.append("Verdict: FAIL — " + "; ".join(d.split(", needs a decision")[0].split(" — ")[0] for d in decisions))
+    return "\n".join(lines) + "\n"
+
+
+def cmd_w131k_campaign(a):
+    d = db_check.latest(a.latest) if a.latest else Path(a.capture)
+    if d is None or not Path(d).is_dir():
+        print(f"no capture for {a.latest or a.capture}", file=sys.stderr)
+        return 3
+    try:
+        rows, info, decisions, code = w131k_d5(load_cells(d, "D5"))
+    except (BadInput, KeyError, ValueError, OSError) as e:
+        print(f"decide w131k-campaign: unreadable input: {e}", file=sys.stderr)
+        return 3
+    for n, v, lim, o in rows:
+        print(f"{'ok  ' if o else 'FAIL'} {n}: {_fmt(v)} (limit {lim})")
+    for i in info:
+        print(f"  {i}")
+    for dl in decisions:
+        print(dl)
+    if a.write:
+        Path(ROOT / W131K_D5).parent.mkdir(parents=True, exist_ok=True)
+        (ROOT / W131K_D5).write_text(write_w131k_campaign(capture_rel(d), rows, info, decisions, code))
+        print(f"wrote {W131K_D5}")
+    print("w131k-campaign: PASS" if code == 0 else "w131k-campaign: FAIL")
+    return code
+
+
+def w131k_envelope(res, stored=None):
+    """INFO: the prefill envelope cells of a grid beyond the stored one. -> (rows, info). Nothing is gated: the stored
+    envelope (`qk_product`, the pass schedule, the disk-tier identity) is never rewritten by this path."""
+    cells = res.get("cells") or []
+    if not cells:
+        raise BadInput("the envelope result has no cells")
+    budget, wd = int(res["budget_bytes"]), float(res["watchdog_ms"])
+    rows = []
+    for c in sorted(cells, key=lambda c: (int(c["context"]), int(c["pass"]))):
+        name = f"pass {c['pass']} x context {c['context']} (product {int(c['product']):,})"
+        lim = f"transient <= {budget:,} B and attention <= {wd:g} ms"
+        if c.get("error"):
+            rows.append((name, "attention out of device memory", lim, False))
+        else:
+            rows.append((name, f"transient {int(c['transient_bytes']):,} B, attention {float(c['attn_ms']):.1f} ms", lim, bool(c["fits"])))
+    info = [f"largest product that fits on this grid: {int(res['qk_product']):,}",
+            f"contexts {list(res.get('contexts', []))}, passes {list(res.get('passes', []))}",
+            f"longest launch {float(res['launch_ms_max']):.1f} ms, all launches within the watchdog: {bool(res['all_launches_within_watchdog'])}"]
+    if stored:
+        info.append(f"stored envelope qk_product {int(stored['qk_product']):,} (f5-prefill-envelope.json, not rewritten)")
+    return rows, info
+
+
+def write_w131k_envelope(capture, rows, info):
+    lines = ["# w131k-envelope: prefill transient and launch time at 65,536 and 131,072 tokens", f"Date: {date.today().isoformat()}",
+             f"Capture: {capture}", "Command: tools/prefill_envelope.py --contexts 65536,131072 (phase `envelope` of bench/campaign/w131k_engine_job.sh)",
+             "", "| cell | value | fits when | fits |", "|---|---|---|---|"]
+    lines += [f"| {n} | {v} | {lim} | {'yes' if o else 'no'} |" for n, v, lim, o in rows]
+    lines += [""] + [f"- {i}" for i in info] + [""]
+    lines.append("Verdict: INFO — grid beyond 32,768 tokens recorded; the stored envelope was not rewritten")
+    return "\n".join(lines) + "\n"
+
+
+def cmd_w131k_envelope(a):
+    d = db_check.latest(a.latest) if a.latest else Path(a.capture)
+    if d is None or not Path(d).is_dir():
+        print(f"no capture for {a.latest or a.capture}", file=sys.stderr)
+        return 3
+    stored_path = ROOT / "db" / "records" / "measurements" / "f5-prefill-envelope.json"
+    try:
+        res = _json_file(Path(d) / "envelope" / "result.json")
+        stored = _json_file(stored_path) if stored_path.is_file() else None
+        rows, info = w131k_envelope(res, stored)
+    except (BadInput, KeyError, ValueError, OSError) as e:
+        print(f"decide w131k-envelope: unreadable input: {e}", file=sys.stderr)
+        return 3
+    for n, v, lim, o in rows:
+        print(f"{'fits' if o else 'no  '} {n}: {v} ({lim})")
+    for i in info:
+        print(f"  {i}")
+    if a.write:
+        (ROOT / W131K_ENVELOPE).write_text(write_w131k_envelope(capture_rel(d), rows, info))
+        print(f"wrote {W131K_ENVELOPE}")
+    return 0
 
 
 def f9_diff(ref, engine_ppl, oracle, c, exceptions):
@@ -1355,7 +1538,7 @@ def main(argv=None):
     g.add_argument("--soak-latest")
     g.add_argument("--soak")
     q.add_argument("--write", action="store_true")
-    for name in ("f9-quality", "f9-campaign"):
+    for name in ("f9-quality", "f9-campaign", "w131k-campaign", "w131k-envelope"):
         q = sub.add_parser(name)
         g = q.add_mutually_exclusive_group(required=True)
         g.add_argument("--latest")
@@ -1380,7 +1563,7 @@ def main(argv=None):
     return {"f5-prefill": cmd_f5, "f6-lookahead": cmd_f6_lookahead, "f6-mtp": cmd_f6_mtp,
             "f6-target": cmd_f6_target, "f8-entry": cmd_f8_entry,
             "f8-token-graph": cmd_f8_token_graph, "f9-quality": cmd_f9_quality, "f9-campaign": cmd_f9_campaign,
-            "f9-diff": cmd_f9_diff}[a.cmd](a)
+            "f9-diff": cmd_f9_diff, "w131k-campaign": cmd_w131k_campaign, "w131k-envelope": cmd_w131k_envelope}[a.cmd](a)
 
 
 if __name__ == "__main__":

@@ -76,6 +76,9 @@ def test_units():
     assert "-m slotstream_spark.front" in front_u and "OOMScoreAdjust=1000" in front_u
     assert "-m slotstream_spark.cli serve" in eng and "OOMScoreAdjust=1000" in eng
     assert "SLOTSTREAM_MODE=D5" in eng and "SLOTSTREAM_TAKE_LOCK=1" in eng
+    assert "EnvironmentFile=-%h/slotstream-spark/serve.env" in eng       # the context window, shared with the front
+    assert "EnvironmentFile=-%h/slotstream-spark/serve.env" in front_u
+    assert eng.index("Environment=SLOTSTREAM_MODE=D5") < eng.index("EnvironmentFile=")
     assert "KillMode=control-group" in eng and "TimeoutStopSec=15" in eng
     assert "OnCalendar=*-*-* 04:00:00" in text["slotstream-spark-start.timer"]
     assert "OnCalendar=*-*-* 23:59:00" in text["slotstream-spark-stop.timer"]
@@ -173,3 +176,26 @@ def test_bearer_not_required_on_loopback(monkeypatch):
         return data
 
     assert asyncio.run(scenario()).endswith(b"ok")
+
+
+def test_decide_floor_follows_the_context_window(monkeypatch):
+    seen = []
+    monkeypatch.setattr(front, "RUNNING_URL", "")
+    monkeypatch.setattr(front, "_engine_ready", lambda: False)
+    monkeypatch.setattr(front, "_engine_active", lambda: False)
+    monkeypatch.setattr(front, "_now_min", lambda: NOON)
+    monkeypatch.setattr(front, "_no_windows", lambda: False)
+    monkeypatch.setattr(front.modes, "dynamic_cap_mib", lambda m, avail: 60000)
+    monkeypatch.setattr(front.modes, "meminfo_mib", lambda k, *a: 70000)
+    real = front.policy
+    monkeypatch.setattr(front, "policy", lambda *a, **k: (seen.append(a[5]), real(*a, **k))[1])
+    f = front.Front(cfg=CFG, dev_run_fn=lambda: False)
+    monkeypatch.delenv("SLOTSTREAM_CONTEXT_WINDOW", raising=False)
+    assert f.decide()[0] == front.START
+    monkeypatch.setenv("SLOTSTREAM_CONTEXT_WINDOW", "131072")
+    assert f.decide()[0] == front.START
+    assert seen == [17_166, 26_148]                                     # the floor the engine will enforce
+    monkeypatch.setenv("SLOTSTREAM_CONTEXT_WINDOW", "131000")
+    assert f.decide() == (front.REFUSE, "context window: context window 131000 is not a multiple of 64")
+    monkeypatch.setattr(front, "_engine_ready", lambda: True)
+    assert f.decide()[0] == front.PROXY                                 # a running engine is proxied whatever the environment says

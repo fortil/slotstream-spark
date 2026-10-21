@@ -4,8 +4,10 @@ import pytest
 
 from slotstream_spark import config
 from slotstream_spark.config import modes
+from slotstream_spark.engine import prefill_schedule as ps
+from slotstream_spark.engine import prefix_cache as pc
 from slotstream_spark.memory import ledger
-from slotstream_spark.memory.ledger import Ledger
+from slotstream_spark.memory.ledger import DEFAULT_WINDOW, MAX_WINDOW, MIN_WINDOW, Ledger, context_window
 
 DESIGN_RUNTIME = 1_750_000_000          # the design's runtime figure; only used to reproduce modes.py
 
@@ -78,3 +80,49 @@ def test_staging_term_is_groups_times_32_records(name):
 def test_unknown_mode():
     with pytest.raises(ValueError):
         Ledger("D9")
+
+
+# ---- context window -------------------------------------------------------------------------------------------
+def test_window_constants_agree_with_the_engine():
+    assert ledger.KV_PER_TOKEN == pc.BYTES_PER_TOKEN
+    assert ledger.PREFIX_ENTRIES == pc.MAX_ENTRIES and ledger.PREFIX_ENTRY_STATE == pc.FIXED_BYTES_PER_ENTRY
+    assert DEFAULT_WINDOW == 32768 and MAX_WINDOW == ps.MODEL_LIMIT and MIN_WINDOW % 64 == 0 and MIN_WINDOW < DEFAULT_WINDOW
+
+
+def test_default_window_keeps_the_design_prefix_and_no_snapshot_term():
+    led = Ledger("D5")
+    assert led.window == DEFAULT_WINDOW and not led.prefix_scaled and led.snapshot == 0
+    assert "snapshot" not in led.terms() and led.prefix_cache_tokens() == 36_168
+    assert Ledger("D1").prefix_cache_tokens() == 500_000_000 // 27_648
+    assert Ledger("D5", window=DEFAULT_WINDOW).fixed_bytes() == Ledger("D5").fixed_bytes()
+
+
+def test_scaled_window_terms_at_131072():
+    led = Ledger("D5", window=131072)
+    t = led.terms()
+    assert led.prefix_scaled and t["kv"] == 27_648 * 131072 == 3_623_878_656
+    assert t["prefix"] == 27_648 * 131072 + 4 * 113_246_208 == 4_076_863_488
+    assert t["snapshot"] == 3_623_878_656 and led.prefix_cache_tokens() == 131072
+    assert led.fixed_bytes() == 25_270_020_452
+    assert led.fixed_bytes() - Ledger("D5").fixed_bytes() == 9_418_651_136
+    assert all(type(v) is int for v in t.values())
+    assert led.expected_peak_bytes(40) == 25_270_020_452 + 40 * (1 << 30)
+    small = Ledger("D5", window=65536)
+    assert small.prefix_scaled and small.terms()["snapshot"] == 27_648 * 65536 and small.prefix_cache_tokens() == 65536
+
+
+def test_context_window_resolution(monkeypatch):
+    monkeypatch.delenv("SLOTSTREAM_CONTEXT_WINDOW", raising=False)
+    assert context_window() == DEFAULT_WINDOW
+    monkeypatch.setenv("SLOTSTREAM_CONTEXT_WINDOW", "131072")
+    assert context_window() == 131072
+    assert context_window(65536) == 65536                                  # the flag wins over the environment
+    assert context_window(None, {}) == DEFAULT_WINDOW
+    assert context_window(None, {"SLOTSTREAM_CONTEXT_WINDOW": ""}) == DEFAULT_WINDOW
+    assert context_window(" 131072 ") == 131072 and context_window(MAX_WINDOW) == MAX_WINDOW
+
+
+@pytest.mark.parametrize("bad", ["abc", "12.5", "4096", "262208", "131000", "-1", "0"])
+def test_context_window_rejects(bad):
+    with pytest.raises(ValueError):
+        context_window(bad)

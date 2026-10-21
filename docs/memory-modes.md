@@ -13,14 +13,14 @@ Ceilings and needs come from `slotstream_spark/config/__init__.py` (`MODES`) and
 | D5 | 65,126 | 16,896 | 14,786,204,900 | 49 | resident |
 
 - Need is what the other workloads on the host must still be able to load while the engine runs. It is given with the margin their launcher already includes, and it is the reason the cap follows what is resident at the moment instead of being a fixed number.
-- The fixed bytes are the ledger at the ceiling of each mode (`config/modes.py`). They assume a 1,750,000,000 B runtime term. With the measured runtime term of 2,638,217,216 B ([m0prime.md](../db/records/measurements/m0prime.md), `platform.toml` `measured.runtime_footprint_mib`), `Ledger(mode).fixed_bytes()` gives 9,886,822,500 B for D1, 13,188,969,316 B for D2 and 15,851,369,316 B for D5 (computed from the code, no record). The governor uses the ledger value.
+- The fixed bytes are the ledger at the ceiling of each mode (`config/modes.py`). They assume a 1,750,000,000 B runtime term and the default 32,768-token context window. With the measured runtime term of 2,638,217,216 B ([m0prime.md](../db/records/measurements/m0prime.md), `platform.toml` `measured.runtime_footprint_mib`), `Ledger(mode).fixed_bytes()` gives 9,886,822,500 B for D1, 13,188,969,316 B for D2 and 15,851,369,316 B for D5 (computed from the code, no record). The governor uses the ledger value. A larger window raises every figure, see "Context window" below.
 - MTP by mode is in `config/policy.toml`: D1 and D2 are `off` because they were not measured, D5 is `resident` ([f6-mtp-d5.md](../db/records/decisions/f6-mtp-d5.md)).
 - The default is D5 (`memory.mode_default`), a user decision recorded in [memory-mode.md](../db/records/decisions/memory-mode.md). The reversal condition in that record: if the host's model router is used during the day (any non-empty `/running`), or a measured load transient exceeds 2,527 MiB, D1 or D2 apply.
 - Mode `X` (all other workloads stopped by hand) is refused by the guard. No window of that kind is authorized.
 
 ### Chunks and slots
 
-A chunk is 1 GiB (`CHUNK_BYTES`) and holds 388 slots of 2,764,800 B, so 11 chunks are 4,268 slots, 14 chunks are 5,432 slots and 49 chunks are 19,012 slots. The floor is 2 chunks (776 slots): the fixed bytes plus 2 pool chunks. Below the floor the engine does not start or it exits (`governor.floor_mib`: 11,477 MiB in D1, 14,626 MiB in D2 and 17,166 MiB in D5 with the measured ledger).
+A chunk is 1 GiB (`CHUNK_BYTES`) and holds 388 slots of 2,764,800 B, so 11 chunks are 4,268 slots, 14 chunks are 5,432 slots and 49 chunks are 19,012 slots. The floor is 2 chunks (776 slots): the fixed bytes plus 2 pool chunks. Below the floor the engine does not start or it exits (`governor.floor_mib`: 11,477 MiB in D1, 14,626 MiB in D2 and 17,166 MiB in D5 with the measured ledger at the default window).
 
 ### Cap formula
 
@@ -42,6 +42,23 @@ Worked values, computed from the code with `MemAvailable` = 82,000 MiB, own foot
 | D5 | 64,592 | 48 |
 
 The guard uses a simpler expression for its `FOOTPRINT auto`: `min(ceiling, MemAvailable - need) - 256` MiB, and refuses a result under 16,384 MiB. `python -m slotstream_spark.config.modes footprint|cap|chunks MODE [AVAIL_MIB]` prints the same arithmetic from `config/modes.py`, which uses the design fixed bytes.
+
+### Context window
+
+The ledger's `kv` term is 27,648 B per token of the served window (`SLOTSTREAM_CONTEXT_WINDOW` or `serve --context-window`, default 32,768, a multiple of 64 up to the model's 262,144). Above the default the prefix cache scales with the window too: the `prefix` term becomes 27,648 B per token of the window plus 4 x 113,246,208 B (the GDN state of the four entries the cache may retain), and a `snapshot` term of 27,648 B per token of the window pays for the copy that exists while the cache decides whether to keep a state. At the default window nothing changes. In D5:
+
+| Term | 32,768 tokens | 131,072 tokens |
+|---|---|---|
+| kv | 905,969,664 B | 3,623,878,656 B |
+| prefix | 1,000,000,000 B | 4,076,863,488 B |
+| snapshot | none | 3,623,878,656 B |
+| fixed bytes, measured runtime | 15,851,369,316 B | 25,270,020,452 B |
+| floor (2 chunks) | 17,166 MiB | 26,148 MiB |
+| chunks at the ceiling | 48 | 40 |
+| chunks at 82,000 MiB available | 48 | 39 |
+| prefix cache budget | 36,168 tokens | 131,072 tokens |
+
+Computed from the code, no record. With the scaled cache the engine no longer charges the request being served against the cache budget (its KV is already in `kv`): a prompt reserves its own length, a hit never evicts the entry it hands out, and the checkpoint of a whole prompt does not evict the pass-boundary snapshot of its own conversation. So one 78,000-token conversation keeps its snapshot (about 76,800 tokens, the last pass boundary) between turns, prompts of up to about 53,000 tokens fit beside it, and a second conversation of that size evicts it. The front computes its start floor from the same window, which is why both units load `serve.env` (RUNBOOK, "Context window"). The engine also asks the cache before copying a state and skips copies the cache would refuse.
 
 ## Governor rules
 

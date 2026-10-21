@@ -37,6 +37,15 @@ import impact_check as ic  # noqa: E402
 NA = "not_applicable: production paused by the user"
 PSI_FAMILIES = ("asr", "embedding", "postgres", "qdrant")
 DEFAULT_RECORD = "db/records/measurements/f9-impact.md"
+
+
+def record_id(label):
+    """`f9-engine` -> `f9-impact`, `w131k-engine` -> `w131k-impact`: one impact record per job label."""
+    return (label[:-len("-engine")] if label.endswith("-engine") else label) + "-impact"
+
+
+def record_path(label):
+    return f"db/records/measurements/{record_id(label)}.md"
 QUIET_START_H, QUIET_END_H = 0, 4
 DEFAULT_EXPECTED = None
 
@@ -164,7 +173,7 @@ def detail(item):
 
 
 def render(res, capture_rel, label):
-    lines = ["# f9-impact: production impact over the f9-engine job window", f"Date: {date.today().isoformat()}",
+    lines = [f"# {record_id(label)}: production impact over the {label} job window", f"Date: {date.today().isoformat()}",
              f"Capture: {capture_rel}",
              f"Command: .venv/bin/python tools/impact_report.py --label {label} --write", "",
              "| criterion | status | detail |", "|---|---|---|"]
@@ -214,7 +223,7 @@ def main(argv=None):
     for k, i in res["items"].items():
         print(f"{i['status']:14s} {k} {detail(i)}")
     if a.write is not None:
-        dest = Path(a.write or DEFAULT_RECORD)
+        dest = Path(a.write or record_path(a.label))
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(render(res, capture_rel(cap), a.label))
         print(f"wrote {dest}")

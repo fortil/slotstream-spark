@@ -15,3 +15,9 @@ def _kernel_plan_gate(request):
     if plan != "A":
         pytest.fail(f"DECISION: platform.toml kernels.plan={plan}; Part B assumes Triton plan A "
                     "(see docs/architecture.md); ask the user", pytrace=False)
+
+
+@pytest.fixture(autouse=True)
+def _default_context_window(monkeypatch):
+    """Tests run at the default window unless they set SLOTSTREAM_CONTEXT_WINDOW themselves."""
+    monkeypatch.delenv("SLOTSTREAM_CONTEXT_WINDOW", raising=False)

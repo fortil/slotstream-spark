@@ -104,3 +104,13 @@ def test_served_context_covers_the_admission_window_and_serve_uses_it():
     ctx = cli.served_ctx(PLAN)
     assert ctx >= PLAN.window and ctx % 64 == 0 and ctx - PLAN.window < 64
     assert "build_engine(a, a.pool_slots, served_ctx(plan))" in inspect.getsource(cli.cmd_serve)
+
+
+def test_planned_chunks_and_served_context_follow_the_window(monkeypatch):
+    from slotstream_spark import cli
+    monkeypatch.delenv("SLOTSTREAM_MAX_CHUNKS", raising=False)
+    assert cli.planned_chunks("D5", 65126, 131072) == 40 == planner.plan("D5", 65126 << 20, window=131072).chunks
+    assert cli.planned_chunks("D5", 65126) == planner.plan("D5", 65126 << 20).chunks == 48
+    p = planner.plan("D5", 65126 << 20, window=131072)
+    assert cli.served_ctx(p) == 131072 and p.window == 131072
+    assert cli.planned_chunks("D5", 1000, 131072) == 2                  # still floored at the governor floor
