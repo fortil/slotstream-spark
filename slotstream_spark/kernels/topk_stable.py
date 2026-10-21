@@ -18,7 +18,11 @@ import triton.language as tl
 
 from .gemv_affine import _note
 
-MAX_N = 16384
+# Rows up to 65,536 columns: the indexer compresses 4 positions into one block, so this covers the model's 262,144
+# positions. One program per row holds the whole row; at 32,768 columns and above it runs with 32 warps. Measured on
+# the GB10 with 256 rows and k = 512 (tools/probes/topk_wide.py, 2026-10-21): 0.13 ms at 16,384 columns, 1.3 ms at
+# 32,768, 5.6 ms at 65,536, 65,536 B of shared memory, every row equal to the CPU reference.
+MAX_N = 65536
 
 
 @triton.jit
@@ -80,7 +84,7 @@ def _topk_stable(scores_ptr, nvalid_ptr, idx_ptr, val_ptr, N, K,
 
 def topk_stable(scores: torch.Tensor, k: int, n_valid: torch.Tensor | None = None,
                 out_idx: torch.Tensor | None = None, out_val: torch.Tensor | None = None):
-    """scores f32 [R, N] (N <= 16384) -> (out_idx int32 [R, k], out_val f32 [R, k] or None).
+    """scores f32 [R, N] (N <= MAX_N) -> (out_idx int32 [R, k], out_val f32 [R, k] or None).
 
     `out_val` is filled only when a tensor is passed. `n_valid` (int32 [R], device) is read inside
     the kernel, so the call is CUDA-graph capturable."""
@@ -103,6 +107,7 @@ def topk_stable(scores: torch.Tensor, k: int, n_valid: torch.Tensor | None = Non
         scores, n_valid if n_valid is not None else scores, out_idx,
         out_val if out_val is not None else scores, n, k,
         HAS_NV=n_valid is not None, HAS_VAL=out_val is not None, SORT_BY_VALUE=k <= 16,
-        NP=np_, KP=max(triton.next_power_of_2(k), 16), num_warps=16 if np_ >= 8192 else 8)
+        NP=np_, KP=max(triton.next_power_of_2(k), 16),
+        num_warps=32 if np_ >= 32768 else (16 if np_ >= 8192 else 8))   # 32 elements per thread from 16,384 up
     _note("topk_stable", h)
     return out_idx, out_val
