@@ -7,6 +7,10 @@ shape of the dialect the request spoke; when the rule refuses it answers 503 and
 they arrive (no buffering, TCP_NODELAY), so SSE pings reach the client at the engine's own pace. Exits after 5
 minutes with no engine and no connections.
 
+Only a request that can generate starts the engine. A GET (a health or model-list probe) never does: while the engine is
+stopped, loading or refused it gets an immediate 503 whose `code` says which (`engine_stopped`, `loading`,
+`not_allowed`), so a poller can read the state without waking the engine or being held open.
+
 Optional extras, all off unless configured:
 - `SLOTSTREAM_EXTRA_BIND`: a second listening address (a socket-unit drop-in adds it; run by hand the front binds it
   itself). Meant for containers on the same host. The engine port never leaves loopback.
@@ -143,6 +147,7 @@ def _start_engine():
 
 
 MESSAGES = {"loading": "the engine is loading; retry shortly", "not_allowed": "the engine may not start now",
+            "engine_stopped": "the engine is stopped; a generation request starts it",
             "unauthorized": "missing or wrong bearer key"}
 
 
@@ -155,6 +160,11 @@ def error_body(path, code, message):
     if path.startswith("/api/"):
         return {"error": message}
     return {"error": {"message": message, "type": "server_error", "code": code}}
+
+
+def request_method(head):
+    """The method of the request line, upper case (`b""` head: empty string)."""
+    return head.split(b" ", 1)[0].decode("latin-1").upper() if head else ""
 
 
 def request_path(head):
@@ -230,19 +240,25 @@ class Front:
             if action == PROXY:
                 await self._proxy(reader, writer, prefix)
                 return
+            if not prefix:
+                try:
+                    prefix = await asyncio.wait_for(reader.readuntil(b"\r\n\r\n"), 2)
+                except Exception:
+                    prefix = b""
+            probe = request_method(prefix) == "GET"
+            if probe and action in (START, LOADING):
+                # a probe reads the state; it never starts the engine and is never held while it loads
+                writer.write(_answer("503 Service Unavailable", "engine_stopped" if action == START else "loading",
+                                     retry=action == LOADING, path=request_path(prefix)))
+                await writer.drain()
+                return
             if action in (START, LOADING) and self.wait_s > 0:
                 if action == START:
                     await asyncio.get_running_loop().run_in_executor(None, _start_engine)
                 if await self._wait_ready(self.wait_s):
                     await self._proxy(reader, writer, prefix)
                     return
-            head = prefix
-            if not head:
-                try:
-                    head = await asyncio.wait_for(reader.readuntil(b"\r\n\r\n"), 2)
-                except Exception:
-                    pass
-            path = request_path(head)
+            path = request_path(prefix)
             if action == START:
                 if self.wait_s <= 0:
                     await asyncio.get_running_loop().run_in_executor(None, _start_engine)
@@ -250,7 +266,8 @@ class Front:
             elif action == LOADING:
                 writer.write(_answer("503 Service Unavailable", "loading", retry=True, path=path))
             else:
-                print(f"refused: {reason}", file=sys.stderr, flush=True)
+                if not probe:                        # a poller asks every second; only real requests are logged
+                    print(f"refused: {reason}", file=sys.stderr, flush=True)
                 writer.write(_answer("503 Service Unavailable", "not_allowed", path=path,
                                      message=DEV_RUN if reason == DEV_RUN else None))
             await writer.drain()

@@ -229,3 +229,59 @@ def test_front_wait_refusal_is_immediate():
     head, body = ask(fr, "/v1/chat/completions")
     assert head.startswith("HTTP/1.1 503") and "Retry-After" not in head
     assert time.monotonic() - t0 < 1
+
+
+# ---- probes -------------------------------------------------------------------------------------------------
+def probe(fr, method="GET", path="/v1/models"):
+    async def scenario():
+        srv, addr = await front_server(fr)
+        r, w = await asyncio.open_connection(*addr)
+        w.write(f"{method} {path} HTTP/1.1\r\nHost: x\r\n\r\n".encode())
+        await w.drain()
+        data = await asyncio.wait_for(r.read(), 5)
+        srv.close()
+        return data
+
+    head, body = asyncio.run(scenario()).split(b"\r\n\r\n", 1)
+    return head.decode(), json.loads(body)
+
+
+def test_a_get_never_starts_the_engine_and_is_not_held(monkeypatch):
+    started = []
+    monkeypatch.setattr(front, "_start_engine", lambda: started.append(1))
+    fr = front.Front(engine_addr=("127.0.0.1", 1), dev_run_fn=lambda: False, wait_s=240, ready_fn=lambda: False)
+    fr.decide = lambda: (front.START, "ok")
+    t0 = time.monotonic()
+    head, body = probe(fr)
+    assert head.startswith("HTTP/1.1 503") and "Retry-After" not in head
+    assert body["error"]["code"] == "engine_stopped"
+    assert started == [] and time.monotonic() - t0 < 1
+
+
+def test_a_get_while_loading_answers_loading_at_once():
+    fr = front.Front(engine_addr=("127.0.0.1", 1), dev_run_fn=lambda: False, wait_s=240, ready_fn=lambda: False)
+    fr.decide = lambda: (front.LOADING, "engine loading")
+    t0 = time.monotonic()
+    head, body = probe(fr)
+    assert "Retry-After: 10" in head and body["error"]["code"] == "loading"
+    assert time.monotonic() - t0 < 1
+
+
+def test_a_get_the_rule_refuses_says_not_allowed_and_is_not_logged(capsys):
+    fr = front.Front(engine_addr=("127.0.0.1", 1), dev_run_fn=lambda: False, wait_s=240, ready_fn=lambda: False)
+    fr.decide = lambda: (front.REFUSE, "running not empty")
+    head, body = probe(fr)
+    assert head.startswith("HTTP/1.1 503") and body["error"]["code"] == "not_allowed"
+    assert "refused" not in capsys.readouterr().err
+    ask(fr, "/v1/chat/completions")                                  # a real request is still logged
+    assert "refused: running not empty" in capsys.readouterr().err
+
+
+def test_a_post_still_starts_the_engine_and_waits(monkeypatch):
+    started = []
+    monkeypatch.setattr(front, "_start_engine", lambda: started.append(1))
+    fr = front.Front(engine_addr=("127.0.0.1", 1), dev_run_fn=lambda: False, wait_s=0.3, ready_fn=lambda: False)
+    monkeypatch.setattr(front, "WAIT_POLL_S", 0.05)
+    fr.decide = lambda: (front.START, "ok")
+    head, body = ask(fr, "/v1/chat/completions")
+    assert started == [1] and body["error"]["code"] == "loading"
