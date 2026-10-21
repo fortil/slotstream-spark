@@ -25,7 +25,7 @@ quiet-window criteria were recorded as not applicable.
 - Memory during the f9 job: no oom-kill, MemAvailable >= 8 GiB, with a minimum of 59853 MiB.
 - Lookahead stays off (paired median 0.8761). The MTP head stays resident (paired median 1.1609). The token graph stays
   off (paired median 0.9914, bar 1.05, 6 clean pairs).
-- D5 pool: 48 chunks of 1 GiB. Cold 2K TTFT 6.80 s. D1 decode 9.37 tok/s (informative, median of 3).
+- D5 pool: 48 chunks of 1 GiB at the default 32,768-token window. Cold 2K TTFT 6.80 s. D1 decode 9.37 tok/s (informative, median of 3).
 - Reference repack: exact except the 7 named exceptions, with `ple_conv1d` written as F32 and the 194 hyper-connection
   matrices stored as BF16 in the llama.cpp reference. Engine against llama.cpp on the same windows:
   engine 4.7216, llama.cpp 4.7239.
@@ -39,8 +39,24 @@ quiet-window criteria were recorded as not applicable.
 - `D2`: the middle envelope (14 chunks at most).
 - `D5`: the default (49 chunks at most); the figures in README.md were measured in D5.
 
-The front reads `SLOTSTREAM_MODE` when it starts the engine. `python -m slotstream_spark.cli doctor` prints, for each
-mode, the memory cap, the design chunks and the planned chunks for the memory free at that moment.
+The engine unit sets `SLOTSTREAM_MODE=D5`; the front reads the same variable from its own environment for the start
+floor. `python -m slotstream_spark.cli doctor` prints the context window and, for each mode, the memory cap, the design
+chunks and the planned chunks for the memory free at that moment.
+
+### Context window
+
+The engine serves 32,768 tokens of context by default. `SLOTSTREAM_CONTEXT_WINDOW` (or `--context-window` on `serve`)
+sets another window: a multiple of 64 between 8,192 and 262,144, the model's limit. Production uses 131,072 for the
+desktop app's long prompts, set in `~/slotstream-spark/serve.env` (one `KEY=value` line, mode 600). Both the engine unit
+and the front unit load that file: the front's start floor follows the window the engine will serve. Never put
+`SLOTSTREAM_MODE` in it, an environment file overrides the unit's own line.
+
+Above the default window the ledger charges the KV cache at the window and sizes the in-memory prefix cache in tokens
+of the window, so a long conversation keeps its state between turns. In D5 at 131,072 tokens the fixed bytes are
+25,270,020,452 B, the floor 26,148 MiB and the pool 40 chunks at the ceiling (39 with 82,000 MiB available), calculated
+from the code and not yet recorded; the formula is in [memory-modes](docs/memory-modes.md). The acceptance script, the
+campaign and the drills start the engine without systemd, so they take the variable on their command line. Windows above
+131,072 are accepted by the code and not measured.
 
 Two switches have a recorded decision: `SLOTSTREAM_MTP=off|resident` (default resident, `db/records/decisions/f6-mtp-d5.md`)
 and `SLOTSTREAM_LOOKAHEAD=off` (default off, `db/records/decisions/f6-lookahead-d5.md`). The token graph stays off
@@ -149,11 +165,16 @@ Every figure, its conditions and its record are listed in [docs/measurements.md]
 - CUDA context loss: the engine process exits; the front starts a new one on the next request. If it repeats, stop the
   service and read `journalctl -k`.
 - Client timeouts on a cold prompt: a cold 8K prompt takes about 22 s and a 32K one about 77 s, so clients need
-  a read timeout above 120 s. A follow-up on the same prefix takes about 1 s.
+  a read timeout above 120 s. A follow-up on the same prefix takes about 1 s. A cold prompt near the 131,072-token
+  window takes minutes (not measured yet): give those clients a read timeout of 600 s.
 - Memory pressure from production: the front starts the engine only when the governor rule allows it, and answers 503
   with Retry-After otherwise.
 
 ## Rollback
+
+To go back to the default context window only: remove `~/slotstream-spark/serve.env`, stop `slotstream-spark.service`
+and restart `slotstream-spark-front.service`. The next start serves 32,768 tokens again; the prefix cache on disk is
+kept, and the states it holds are reused where they still fit.
 
 Disable the entry point and stop the chain:
 

@@ -2,6 +2,7 @@
 """The F9 measurement campaign of one memory mode (plan step 93; judged by `tools/decide.py f9-campaign`, step 95).
 
   run_campaign.py --mode D5 --samples 5 [--cap DIR] [--cells decode-8k,ttft-cold-2k,ttft-cold-8k,ttft-cold-32k]
+  run_campaign.py --mode D5 --samples 5 --window 131072 --cells decode-8k,ttft-cold-8k,ttft-cold-78k   (the context-window campaign)
 
 Runs inside the f9-engine job (the guard holds the model lock; CAP is the job capture). Every cell writes
 `$CAP/<mode>-<cell>/result.json`:
@@ -15,6 +16,12 @@ Runs inside the f9-engine job (the guard holds the model lock; CAP is the job ca
                   must be 0 for a cold sample). The 8K cell sends the follow-up turn on the same server right after.
                   The 32K cell sends the longest prompt of at most 32,000 tokens that the text can be cut to exactly (31,990 tokens;
                   the served window is 32,768 tokens and must hold the reply, so a 32,768-token prompt is not admissible).
+  ttft-cold-78k   as the 8K cell (cold request, then the follow-up turn on the same server) with a prompt of at most 78,000
+                  tokens cut from bench/prompts/ttft_long.json (`--prompts-long`); needs `--window` of at least 131072.
+
+`--window W` starts every server (and the decode child) with SLOTSTREAM_CONTEXT_WINDOW=W, so the pool is planned and the
+prefix cache sized at that window; every cell records `window` and `tools/decide.py` judges its peak against the ledger
+at that window. Without it the servers run at the default window.
 
 Per cell: `snapshot` (eligibility.collect), the footprint `samples` and count-once `flags` that the peak is recomputed from
 (`footprint.peak`), `chunks`, `memavailable_drop_bytes`, and the engine counters that exist (pool stats, reader bytes and jobs
@@ -38,7 +45,10 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 
 PORT = 18437
-COLD_TOKENS = {"2k": 2048, "8k": 8192, "32k": 32000}
+COLD_TOKENS = {"2k": 2048, "8k": 8192, "32k": 32000, "78k": 78000}
+EXACT_CELLS = ("2k", "8k")                      # cells whose prompt must have exactly COLD_TOKENS tokens; the others are "at most"
+FOLLOWUP_CELLS = ("8k", "78k")
+PROMPTS_LONG = ROOT / "bench" / "prompts" / "ttft_long.json"
 DECODE_WARMUP, DECODE_TOKENS = 128, 512
 MAX_KEPT_SAMPLES = 160
 SERVER_UP_S = 900
@@ -192,16 +202,21 @@ def metrics(port):
 
 # ------------------------------------------------------------------------------------------------ server
 class Server:
-    def __init__(self, mode, port, cell_dir, prefix_dir):
+    def __init__(self, mode, port, cell_dir, prefix_dir, window=None):
         self.mode, self.port, self.cell_dir, self.prefix_dir = mode, port, Path(cell_dir), Path(prefix_dir)
+        self.window = window
         self.proc = None
         self.log = None
 
     def start(self):
         env = dict(os.environ, SLOTSTREAM_PREFIX_DIR=str(self.prefix_dir), CAP=str(self.cell_dir), SLOTSTREAM_MODE=self.mode)
+        extra = []
+        if self.window:
+            env["SLOTSTREAM_CONTEXT_WINDOW"] = str(self.window)
+            extra = ["--context-window", str(self.window)]
         self.log = open(self.cell_dir / "serve.log", "ab")
         self.proc = subprocess.Popen([str(ROOT / "tools" / "spark" / "py.sh"), "-m", "slotstream_spark.cli", "serve",
-                                      "--mode", self.mode, "--port", str(self.port)], cwd=str(ROOT), env=env,
+                                      "--mode", self.mode, "--port", str(self.port)] + extra, cwd=str(ROOT), env=env,
                                      stdout=self.log, stderr=subprocess.STDOUT, start_new_session=True)
         t0 = time.time()
         while time.time() - t0 < SERVER_UP_S:
@@ -277,20 +292,22 @@ def cut_at_most(tok, text_ids, n, floor=256):
     raise RuntimeError(f"no prompt of {n - floor + 1}..{n} tokens can be cut: {last}")
 
 
-def ttft_sample(mode, cdir, tokens, with_followup, k):
-    """One fresh server, one cold request (and the follow-up on the 8K cell). -> sample dict (raises on a server failure)."""
+def ttft_sample(mode, cdir, tokens, with_followup, k, window=None, prompts_path=None):
+    """One fresh server, one cold request (and the follow-up on the 8K and 78K cells). -> sample dict (raises on a server
+    failure)."""
     from bench import ttft
     from slotstream_spark.engine.tokenizer import Tokenizer
     tok = Tokenizer.from_checkpoint(os.environ["SLOTSTREAM_MODEL"])
-    prompts = ttft.load_prompts()
+    prompts = ttft.load_prompts(prompts_path)
     ids, body = cut_at_most(tok, tok.encode(prompts["text"]), tokens)
     sdir = cdir / f"sample{k}"
     sdir.mkdir(parents=True, exist_ok=True)
     prefix_dir = Path(tempfile.mkdtemp(prefix="f9-prefix-", dir=os.environ.get("SLOTSTREAM_R") and str(Path(os.environ["SLOTSTREAM_R"]) / "tmp")))
     assert not any(prefix_dir.iterdir())                                 # a cold sample starts from an empty prefix directory
     avail = AvailSampler().start()
-    srv = Server(mode, PORT, sdir, prefix_dir)
-    out = {"sample": k, "prompt_tokens_expected": len(ids), "prompt_sha256": ttft.ids_sha256(ids)}
+    srv = Server(mode, PORT, sdir, prefix_dir, window)
+    out = {"sample": k, "prompt_tokens_expected": len(ids), "prompt_sha256": ttft.ids_sha256(ids), "window": window,
+           "prompts_sha256": prompts["text_sha256"]}
     try:
         health = srv.start()
         out["chunks"] = int(health["chunks"])
@@ -322,16 +339,18 @@ def shutil_rmtree(p):
     shutil.rmtree(p, ignore_errors=True)
 
 
-def run_ttft_cell(cap, mode, name, samples, est_s):
-    tokens = COLD_TOKENS[name.rsplit("-", 1)[1]]
+def run_ttft_cell(cap, mode, name, samples, est_s, window=None, prompts_path=None):
+    kind = name.rsplit("-", 1)[1]
+    tokens = COLD_TOKENS[kind]
     cdir = cell_dir(cap, mode, name)
-    with_follow = name.endswith("8k")
+    with_follow = kind in FOLLOWUP_CELLS
     rows, failures, mem_samples, flags, chunks = [], [], [], {}, 0
     drop = 0
     snap, eligible, why = snapshot(est_s, mode)
     for k in range(samples):
+        extra = {k2: v for k2, v in (("window", window), ("prompts_path", prompts_path)) if v is not None}
         try:
-            s = ttft_sample(mode, cdir, tokens, with_follow, k)
+            s = ttft_sample(mode, cdir, tokens, with_follow, k, **extra)
         except Exception as e:                                           # noqa: BLE001
             failures.append(f"sample {k}: {type(e).__name__}: {e}")
             print(f"{mode} {name} sample {k} FAILED: {e}", flush=True)
@@ -340,7 +359,7 @@ def run_ttft_cell(cap, mode, name, samples, est_s):
             failures.append(f"sample {k}: cold sample reused {s['cold']['reused_tokens']} tokens")
         if s["cold"]["prompt_tokens"] != s["prompt_tokens_expected"]:
             failures.append(f"sample {k}: the server counted {s['cold']['prompt_tokens']} prompt tokens, not {s['prompt_tokens_expected']}")
-        if not name.endswith("32k") and s["prompt_tokens_expected"] != tokens:
+        if kind in EXACT_CELLS and s["prompt_tokens_expected"] != tokens:
             failures.append(f"sample {k}: the prompt has {s['prompt_tokens_expected']} tokens, not {tokens}")
         rows.append(s)
         chunks = max(chunks, s["chunks"])
@@ -356,7 +375,7 @@ def run_ttft_cell(cap, mode, name, samples, est_s):
               f"({s['cold']['prefill_tps']:.1f} tok/s), reused {s['cold']['reused_tokens']}"
               + (f", follow-up {s['followup']['ttft_s']:.2f} s (reused {s['followup']['reused_tokens']})" if with_follow and 'followup' in s else ""),
               flush=True)
-    doc = {"cell": name, "mode": mode, "kind": "ttft-cold", "tokens": tokens,
+    doc = {"cell": name, "mode": mode, "kind": "ttft-cold", "tokens": tokens, "window": window,
            "prompt_tokens": rows[0]["prompt_tokens_expected"] if rows else None, "samples_requested": samples,
            "samples": rows, "failures": failures, "snapshot": snap, "eligible": eligible, "ineligible_reasons": why,
            "chunks": chunks, "memavailable_drop_bytes": drop, "footprint_samples": mem_samples, "flags": flags,
@@ -373,8 +392,9 @@ def run_ttft_cell(cap, mode, name, samples, est_s):
     return doc["ok"]
 
 
-def run_decode_cell(cap, mode, samples, est_s):
+def run_decode_cell(cap, mode, samples, est_s, window=None):
     cdir = cell_dir(cap, mode, "decode-8k")
+    extra = ["--window", str(window)] if window else []
     rows, failures, mem_samples, flags, chunks, drop = [], [], [], {}, 0, 0
     snap, eligible, why = snapshot(est_s, mode)
     me = str(Path(__file__).resolve())
@@ -383,7 +403,7 @@ def run_decode_cell(cap, mode, samples, est_s):
         out.unlink(missing_ok=True)
         t = time.time()
         rc = subprocess.run([str(ROOT / "tools" / "spark" / "py.sh"), me, "--child", "decode", "--mode", mode, "--pair", str(k),
-                             "--out", str(out)], cwd=str(ROOT)).returncode
+                             "--out", str(out)] + extra, cwd=str(ROOT)).returncode
         d = json.loads(out.read_text()) if out.exists() else {}
         if rc != 0 or not d.get("ok"):
             failures.append(f"prompt {k}: rc {rc} ok {d.get('ok')}")
@@ -398,7 +418,7 @@ def run_decode_cell(cap, mode, samples, est_s):
             s["tag"] = f"p{k}:{s['tag']}"
             mem_samples.append(s)
         print(f"{mode} decode-8k prompt {k}: {d['decode_tps']:.2f} tok/s (mtp {d['mtp_policy']}), prefill {d['prefill_s']} s", flush=True)
-    doc = {"cell": "decode-8k", "mode": mode, "kind": "decode", "samples_requested": samples, "samples": rows,
+    doc = {"cell": "decode-8k", "mode": mode, "kind": "decode", "window": window, "samples_requested": samples, "samples": rows,
            "failures": failures, "snapshot": snap, "eligible": eligible, "ineligible_reasons": why, "chunks": chunks,
            "memavailable_drop_bytes": drop, "footprint_samples": mem_samples, "flags": flags,
            "ok": len(rows) == samples and not failures}
@@ -432,7 +452,7 @@ def child_decode(a):
         raise SystemExit("run_campaign: lookahead is on; the F9 campaign runs with it off (db/records/decisions/f6-lookahead-d5.md)")
     mtp_mode = mtp_mod.policy(a.mode)
     max_ctx = -(-(max(len(ids) + total + 64, f6_arm.WARMUP_CTX + 64)) // 64) * 64
-    eng = ttft.bring_up(a.mode, max_ctx, prefill=True)
+    eng = ttft.bring_up(a.mode, max_ctx, prefill=True, window=a.window)
     model, pool, cfg = eng["model"], eng["pool"], eng["cfg"]
     meter = eng["meter"]
     model.st.ensure_act(torch.bfloat16)
@@ -466,7 +486,7 @@ def child_decode(a):
     out = {"prompt_index": a.pair, "prompt_id": req["id"], "prompt_sha256": req["prompt_sha256"], "prompt_tokens": len(ids),
            "decode_tps": tps, "tokens_sha256": f6_arm.ids_sha256(res["tokens"]), "n_tokens": len(res["tokens"]),
            "nan": bool(res["nan"]), "prefill_s": round(res["timings"]["prefill_s"], 3), "mtp_policy": mtp_mode,
-           "lookahead_mode": lcfg.mode, "mtp": res["mtp"], "mode": a.mode, "slots": eng["slots"],
+           "lookahead_mode": lcfg.mode, "mtp": res["mtp"], "mode": a.mode, "slots": eng["slots"], "window": a.window,
            "chunks": eng["slots"] // _slots_per_chunk(), "pool_prefill": eng["pool_prefill"],
            "pool": {k: v for k, v in pool.stats().items() if isinstance(v, (int, float))},
            "reader": {"bytes": read_bytes, "jobs": jobs, "records": read_bytes // rec_bytes if rec_bytes else None,
@@ -493,7 +513,8 @@ def _slots_per_chunk():
 
 
 # ------------------------------------------------------------------------------------------------ main
-ALL_CELLS = ("decode-8k", "ttft-cold-2k", "ttft-cold-8k", "ttft-cold-32k")
+ALL_CELLS = ("decode-8k", "ttft-cold-2k", "ttft-cold-8k", "ttft-cold-32k", "ttft-cold-78k")
+DEFAULT_CELLS = ALL_CELLS[:4]                    # the f9 campaign; the 78K cell needs --window and the long prompts
 
 
 def main(argv=None):
@@ -501,11 +522,16 @@ def main(argv=None):
     ap.add_argument("--mode", choices=("D1", "D2", "D5"), required=True)
     ap.add_argument("--samples", type=int, default=5)
     ap.add_argument("--cap", default=os.environ.get("CAP"))
-    ap.add_argument("--cells", default=",".join(ALL_CELLS))
+    ap.add_argument("--cells", default=",".join(DEFAULT_CELLS))
+    ap.add_argument("--window", type=int, default=None, help="context window every server and child runs at (default: the engine's default)")
+    ap.add_argument("--prompts-long", default=str(PROMPTS_LONG), help="frozen text for the 78K cell")
     ap.add_argument("--child", choices=("decode",))
     ap.add_argument("--pair", type=int, default=0)
     ap.add_argument("--out")
     a = ap.parse_args(argv)
+    if a.window is not None:
+        from slotstream_spark.memory.ledger import context_window
+        a.window = context_window(a.window)                      # ValueError for a bad value, before anything starts
     if a.child:
         if not a.out:
             raise SystemExit("--child needs --out")
@@ -516,12 +542,18 @@ def main(argv=None):
     bad = [c for c in cells if c not in ALL_CELLS]
     if bad:
         raise SystemExit(f"unknown cells: {bad}")
+    if "ttft-cold-78k" in cells and (a.window or 0) < 131072:
+        raise SystemExit("ttft-cold-78k needs --window 131072 or more (the served window must hold the prompt and the reply)")
     ok_all = True
     for name in cells:
         t = time.time()
-        print(f"== {a.mode} {name} ({a.samples} samples)", flush=True)
-        est = 1200 * a.samples if name != "ttft-cold-32k" else 1500 * a.samples
-        ok = run_decode_cell(a.cap, a.mode, a.samples, est) if name == "decode-8k" else run_ttft_cell(a.cap, a.mode, name, a.samples, est)
+        print(f"== {a.mode} {name} ({a.samples} samples, window {a.window or 'default'})", flush=True)
+        est = {"ttft-cold-32k": 1500, "ttft-cold-78k": 3000}.get(name, 1200) * a.samples
+        if name == "decode-8k":
+            ok = run_decode_cell(a.cap, a.mode, a.samples, est, a.window)
+        else:
+            ok = run_ttft_cell(a.cap, a.mode, name, a.samples, est, a.window,
+                               a.prompts_long if name == "ttft-cold-78k" else None)
         print(f"== {a.mode} {name}: {'ok' if ok else 'FAILED'} in {time.time() - t:.0f} s", flush=True)
         ok_all = ok_all and ok
     return 0 if ok_all else 1

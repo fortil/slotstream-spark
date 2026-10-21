@@ -87,10 +87,16 @@ def _prefill_cached(model, ids, driver, plan, control, should_continue, cache, k
                 info["persist_error"] = f"{type(e).__name__}: {e}"
                 base = 0
     if restored:
-        snap0 = pc.snapshot_state(st)
-        info["disk_retained"] = cache.store_checkpoint(
-            snap0, ids[:base], snap0.nbytes, prompt_key=None, fresh_equivalent=True, produced_key=key,
-            reserve_tokens=info.get("reserve_tokens"))
+        # Each snapshot below is a device copy of the used pages (about 2 GB at 78K tokens); the cache is asked first and
+        # the copy is skipped when it would be refused anyway.
+        if cache.would_store_checkpoint(ids[:base], fresh_equivalent=True, produced_key=key,
+                                        reserve_tokens=info.get("reserve_tokens")):
+            snap0 = pc.snapshot_state(st)
+            info["disk_retained"] = cache.store_checkpoint(
+                snap0, ids[:base], snap0.nbytes, prompt_key=None, fresh_equivalent=True, produced_key=key,
+                reserve_tokens=info.get("reserve_tokens"))
+        else:
+            info["disk_retained"] = False
     elif isinstance(hit, pc.Hit):
         pc.restore_state(st, hit.state)
         base = hit.reused
@@ -106,23 +112,33 @@ def _prefill_cached(model, ids, driver, plan, control, should_continue, cache, k
             r = driver.run(ids[base:end], st, plan=plan, control=control, should_continue=should_continue, admit=False)
             results.append(r)
             info["snapshot_admitted"] = r.admitted
-            snap = pc.snapshot_state(st)
             info["snapshot_end"] = end
-            info["snapshot_stored"] = cache.store_checkpoint(
-                snap, ids[:end], snap.nbytes, prompt_key=None, fresh_equivalent=True, produced_key=key,
-                reserve_tokens=info.get("reserve_tokens"))
-            if persistent is not None:
-                info["persist_staged"] = persistent.stage(snap, ids[:end], shared=True)
+            want = cache.would_store_checkpoint(ids[:end], fresh_equivalent=True, produced_key=key,
+                                               reserve_tokens=info.get("reserve_tokens"))
+            if want or persistent is not None:                   # the disk tier stages the copy even when memory refuses it
+                snap = pc.snapshot_state(st)
+                info["snapshot_stored"] = cache.store_checkpoint(
+                    snap, ids[:end], snap.nbytes, prompt_key=None, fresh_equivalent=True, produced_key=key,
+                    reserve_tokens=info.get("reserve_tokens")) if want else False
+                if persistent is not None:
+                    info["persist_staged"] = persistent.stage(snap, ids[:end], shared=True)
+            else:
+                info["snapshot_stored"] = False
             base = end
         r = driver.run(ids[base:], st, plan=plan, control=control, should_continue=should_continue, admit=True)
         results.append(r)
         info["admitted"] = r.admitted
         logits = r.last_logits
-        snap = pc.snapshot_state(st)
-        lg = logits.clone()
-        info["prompt_stored"] = cache.store_checkpoint(
-            snap, ids, snap.nbytes, logits=lg, logits_bytes=lg.numel() * lg.element_size(), prompt_key=key,
-            fresh_equivalent=True, produced_key=key, reserve_tokens=info.get("reserve_tokens"))
+        lg_bytes = logits.numel() * logits.element_size()
+        if cache.would_store_checkpoint(ids, logits=True, logits_bytes=lg_bytes, prompt_key=key, fresh_equivalent=True,
+                                        produced_key=key, reserve_tokens=info.get("reserve_tokens")):
+            snap = pc.snapshot_state(st)
+            lg = logits.clone()
+            info["prompt_stored"] = cache.store_checkpoint(
+                snap, ids, snap.nbytes, logits=lg, logits_bytes=lg_bytes, prompt_key=key,
+                fresh_equivalent=True, produced_key=key, reserve_tokens=info.get("reserve_tokens"))
+        else:
+            info["prompt_stored"] = False
     pre = results[-1] if results else None
     if pre is not None:
         pre.passes = [x for r in results for x in r.passes]
@@ -319,8 +335,12 @@ def generate(model, ids, max_tokens=16, greedy=True, params=None, seed=0, eos=No
         graphs.detach()                      # hand the eager path (next prefill) a consistent generation counter
     if prefix_cache is not None and keep_decode_state and out and not nan:
         from . import prefix_cache as pc
-        snap = pc.snapshot_state(model.st)
-        prefix_cache.store(snap, snap.tokens, snap.nbytes, fresh_equivalent=False, key=key, input_tokens=len(ids))
+        if prefix_cache.would_store(model.st.tokens):             # skip the copy of a state the cache would evict at once
+            snap = pc.snapshot_state(model.st)
+            info["decode_end"] = "stored" if prefix_cache.store(snap, snap.tokens, snap.nbytes, fresh_equivalent=False,
+                                                                 key=key, input_tokens=len(ids)) else "refused"
+        else:
+            info["decode_end"] = "skipped"
     return {"tokens": out, "first_logits": first, "nan": nan,
             "timings": {"prefill_s": t_prefill, "decode_s": step_s}, "prefill": pre, "prefix": info, "lookahead": la, "mtp": mtp_info,
             "token_graph": tg_stats}

@@ -22,7 +22,7 @@ The front is started by a systemd socket unit (`deploy/slotstream-spark.socket`,
 | `POST /v1/chat/completions` | OpenAI Chat | streaming and non-streaming, tool calls |
 | `POST /v1/responses` | OpenAI Responses | streaming and non-streaming |
 | `GET`, `DELETE /v1/responses/{id}` | OpenAI Responses | always 404 `stored_state_unsupported`: the server stores no responses |
-| `GET /v1/models` | OpenAI | the served model id, `context_window` and `max_output_tokens` |
+| `GET /v1/models` | OpenAI | the served model id, `context_window` (the window the engine was started with) and `max_output_tokens` |
 | `POST /api/chat`, `POST /api/generate` | Ollama | streaming and non-streaming |
 | `GET /api/tags`, `POST /api/show`, `GET /api/ps`, `GET /api/version` | Ollama | metadata only |
 | `GET /metrics` | Prometheus text | request counters per route and status, queue length, busy flag, engine snapshot |
@@ -46,6 +46,7 @@ Any other path answers 404 in the error shape of the route's dialect, so an SDK 
 | Variable | Meaning | Default |
 |---|---|---|
 | `SLOTSTREAM_MODE` | memory mode `D1`, `D2` or `D5` | `D5` |
+| `SLOTSTREAM_CONTEXT_WINDOW` | served context in tokens, a multiple of 64 from 8,192 to 262,144; `serve --context-window` wins over it; the front reads it too for its start floor ([memory-modes](memory-modes.md), "Context window") | `32768` |
 | `SLOTSTREAM_MODEL` | directory of the checkpoint metadata and shards | set by `tools/spark/env.sh` |
 | `SLOTSTREAM_PACKED` | directory of the packed experts, n-gram table, trunk and MTP head | set by `tools/spark/env.sh` |
 | `SLOTSTREAM_PREFIX_DIR` | persistent prefix tier (`[prefix]` in `platform.toml`, quota 20,000,000,000 B) | `~/slotstream-spark/prefix` |

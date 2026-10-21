@@ -82,7 +82,7 @@ def _tokenizer():
     return Tokenizer.from_checkpoint(_env_dir("SLOTSTREAM_MODEL"))
 
 
-def _slots(a):
+def _slots(a, window=None):
     from slotstream_spark.config import modes
     if a.pool_slots:
         return int(a.pool_slots)
@@ -92,15 +92,17 @@ def _slots(a):
     cap = modes.dynamic_cap_mib(m, modes.meminfo_mib("MemAvailable"))
     if os.environ.get("SLOTSTREAM_FOOTPRINT_MIB"):
         cap = min(cap, int(os.environ["SLOTSTREAM_FOOTPRINT_MIB"]))
-    return planned_chunks(a.mode, cap) * modes.SLOTS_PER_CHUNK
+    return planned_chunks(a.mode, cap, window) * modes.SLOTS_PER_CHUNK
 
 
-def planned_chunks(mode, cap_mib):
-    """Pool chunks from the ledger with the measured runtime (planner.plan), floored at the governor floor and
-    capped by SLOTSTREAM_MAX_CHUNKS (drills only)."""
+def planned_chunks(mode, cap_mib, window=None):
+    """Pool chunks from the ledger with the measured runtime (planner.plan) at the context window (default 32768),
+    floored at the governor floor and capped by SLOTSTREAM_MAX_CHUNKS (drills only)."""
     from slotstream_spark.config import modes
     from slotstream_spark.memory import planner
-    chunks = max(planner.plan(mode, int(cap_mib) << 20).chunks, modes.FLOOR_CHUNKS)
+    from slotstream_spark.memory.ledger import DEFAULT_WINDOW
+    window = DEFAULT_WINDOW if window is None else int(window)
+    chunks = max(planner.plan(mode, int(cap_mib) << 20, window=window).chunks, modes.FLOOR_CHUNKS)
     if os.environ.get("SLOTSTREAM_MAX_CHUNKS"):
         chunks = min(chunks, int(os.environ["SLOTSTREAM_MAX_CHUNKS"]))
     return chunks
@@ -288,6 +290,7 @@ def cmd_doctor(a):
     from slotstream_spark import config
     from slotstream_spark.config import modes
     from slotstream_spark.memory import planner
+    from slotstream_spark.memory.ledger import DEFAULT_WINDOW, ENV_WINDOW, context_window
     problems = []
     cfg = config.load()
     errs = config.validate(cfg)
@@ -295,6 +298,13 @@ def cmd_doctor(a):
     for e in errs:
         print("  " + e)
         problems.append(e)
+    try:
+        window = context_window()
+        print(f"context window: {window} tokens ({ENV_WINDOW if window != DEFAULT_WINDOW else 'default'})")
+    except ValueError as e:
+        window = DEFAULT_WINDOW
+        print(f"context window: INVALID ({e}); the engine would refuse to start")
+        problems.append(str(e))
     print(f"  pool_memory={cfg['memory']['pool_memory']} ngram.row_bytes={cfg['ngram']['row_bytes']} "
           f"kernels.plan={cfg['kernels']['plan']}")
     avail, free = modes.meminfo_mib("MemAvailable"), modes.meminfo_mib("MemFree")
@@ -304,12 +314,12 @@ def cmd_doctor(a):
         cap = modes.dynamic_cap_mib(m, avail)
         ch = modes.chunks_for(m, cap)
         try:
-            pl = planner.plan(name, cap << 20).chunks
+            pl = planner.plan(name, cap << 20, window=window).chunks
         except ValueError as e:
             pl = f"n/a ({e})"
         flag = "" if ch >= modes.FLOOR_CHUNKS else "  (below the floor)"
-        print(f"  {name}: cap {cap} MiB, design chunks {max(ch, 0)}, planned chunks {pl} "
-              f"(ceiling {m.ceiling_chunks}, floor {modes.FLOOR_CHUNKS}){flag}")
+        print(f"  {name}: cap {cap} MiB, design chunks {max(ch, 0)} (at the {DEFAULT_WINDOW}-token design window), "
+              f"planned chunks {pl} at {window} tokens (ceiling {m.ceiling_chunks}, floor {modes.FLOOR_CHUNKS}){flag}")
     print(f"/running: {_running()}")
     model_dir = os.environ.get("SLOTSTREAM_MODEL")
     packed = os.environ.get("SLOTSTREAM_PACKED")
@@ -525,11 +535,16 @@ def cmd_serve(a):
     from slotstream_spark.config import modes
     from slotstream_spark.memory import governor as G
     from slotstream_spark.memory import planner, signals
-    from slotstream_spark.memory.ledger import Ledger
+    from slotstream_spark.memory.ledger import Ledger, context_window
     signals.write_oom_score_adj()
     if os.environ.get("SLOTSTREAM_TAKE_LOCK") == "1":
         take_model_lock()
     mode = a.mode or os.environ.get("SLOTSTREAM_MODE", "D5")
+    try:
+        window = context_window(getattr(a, "context_window", None))
+    except ValueError as e:
+        print(f"serve: {e}", file=sys.stderr)
+        return 2
     packed = _env_dir("SLOTSTREAM_PACKED")
     import slotio
     for n in ("experts.bin", "ngram.bin", "trunk.safetensors"):                       # 1 seal check
@@ -540,16 +555,17 @@ def cmd_serve(a):
     cap = modes.dynamic_cap_mib(m, modes.meminfo_mib("MemAvailable"))
     if os.environ.get("SLOTSTREAM_FOOTPRINT_MIB"):
         cap = min(cap, int(os.environ["SLOTSTREAM_FOOTPRINT_MIB"]))
+    ledger = Ledger(mode, window=window)                                              # the floor follows the window
     gcfg = G.load_config()
     run = signals.fetch_running(RUNNING_URL, 1.0) if RUNNING_URL else ()
-    ok, why = G.may_start(time.localtime().tm_hour * 60 + time.localtime().tm_min, run, cap, G.floor_mib(
-        G.GovInputs(mode, 0, (), 0, 0, 0, 0), gcfg), gcfg, no_windows=paused.no_windows())
+    floor = G.floor_mib(G.GovInputs(mode, 0, (), 0, 0, 0, 0, fixed_bytes=ledger.fixed_bytes()), gcfg)
+    ok, why = G.may_start(time.localtime().tm_hour * 60 + time.localtime().tm_min, run, cap, floor, gcfg,
+                          no_windows=paused.no_windows())
     if not ok:
         print(f"may_start refused: {why}", file=sys.stderr)
         return 75
-    chunks = planned_chunks(mode, cap)                                                # 3 plan
-    plan = planner.plan(mode, cap << 20)
-    ledger = Ledger(mode)                                                             # 4 reserve
+    chunks = planned_chunks(mode, cap, window)                                        # 3 plan
+    plan = planner.plan(mode, cap << 20, window=window)                               # 4 reserve
     a.mode, a.gdn, a.pool_slots, a.pool_epl = mode, "fused", chunks * modes.SLOTS_PER_CHUNK, None
     model, pool, cfg, info = build_engine(a, a.pool_slots, served_ctx(plan))             # 5 trunk (DONTNEED inside)
     max_ctx = served_ctx(plan)
@@ -572,7 +588,9 @@ def cmd_serve(a):
     tokenizer = _tokenizer()
     model_name = Path(os.environ["SLOTSTREAM_MODEL"]).name
     key = pc.CheckpointKey(model_name, json.dumps({"gdn": "fused", "sweep": True}), 4096, False)
-    cache = pc.PrefixCache(max_tokens=ledger.prefix // pc.BYTES_PER_TOKEN)
+    cache = pc.PrefixCache(max_tokens=ledger.prefix_cache_tokens(), charge_active=not ledger.prefix_scaled)
+    print(f"context window {plan.window} tokens: prefix cache {cache.max_tokens} tokens (charge_active {cache.charge_active}), "
+          f"fixed {ledger.fixed_bytes()} B, floor {floor} MiB, {chunks} chunks", file=sys.stderr, flush=True)
     from slotstream_spark.server import app as server_app
     from slotstream_spark.server import engine_adapter, http_limits, template
     generator = engine_adapter.ModelGenerator(
@@ -652,6 +670,8 @@ def main(argv=None):
     sv = sub.add_parser("serve")
     sv.add_argument("--mode", choices=("D1", "D2", "D5"), default=None)
     sv.add_argument("--port", type=int, default=18435)
+    sv.add_argument("--context-window", type=int, default=None,
+                    help="served context in tokens (default SLOTSTREAM_CONTEXT_WINDOW or 32768; multiple of 64)")
     a = ap.parse_args(argv)
     if a.cmd == "run":
         return cmd_run(a)

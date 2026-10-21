@@ -35,6 +35,7 @@ from slotstream_spark.config import modes
 from slotstream_spark.guard import paused
 from slotstream_spark.memory import governor as G
 from slotstream_spark.memory import signals
+from slotstream_spark.memory.ledger import Ledger, context_window
 
 ENGINE = ("127.0.0.1", 18435)
 IDLE_EXIT_S = 300
@@ -204,7 +205,13 @@ class Front:
     def decide(self):
         m = modes.get(os.environ.get("SLOTSTREAM_MODE", "D5"))
         cap = modes.dynamic_cap_mib(m, modes.meminfo_mib("MemAvailable"))
-        floor = G.floor_mib(G.GovInputs(m.name, 0, (), 0, 0, 0, 0), self.cfg)
+        try:                                     # the floor follows the context window the engine will serve
+            fixed = Ledger(m.name, window=context_window()).fixed_bytes()
+        except ValueError as e:
+            if not (_engine_ready() or _engine_active()):
+                return REFUSE, f"context window: {e}"
+            fixed = None                         # a running engine is proxied whatever the environment says now
+        floor = G.floor_mib(G.GovInputs(m.name, 0, (), 0, 0, 0, 0, fixed_bytes=fixed), self.cfg)
         running = signals.fetch_running(RUNNING_URL, 1.0) if RUNNING_URL else ()
         return policy(_engine_ready(), _engine_active(), _now_min(), running, cap, floor, self.cfg,
                       dev_run=self.dev_run_fn(), no_windows=_no_windows())

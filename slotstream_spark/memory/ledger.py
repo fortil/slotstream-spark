@@ -8,6 +8,8 @@ each byte counted once, that a measured `footprint.peak(...).once_bytes` is comp
 M0' measurement from platform.toml (`measured.runtime_footprint_mib`) unless the caller passes `measured`; the
 design's 1,750,000,000 B is not a default.
 """
+import os
+
 from slotstream_spark import config
 from slotstream_spark.config import modes
 
@@ -25,6 +27,12 @@ MTP = 1_470_946_816
 MTP_RECORD = 3 * (113_246_208 + 36 * 3 * 10240 * 2 + 9 * 10240 * 2)
 MARGIN = 1_000_000_000
 CHUNK_BYTES = modes.CHUNK_BYTES
+DEFAULT_WINDOW = 32768                      # the served context window unless SLOTSTREAM_CONTEXT_WINDOW or --context-window says otherwise
+MIN_WINDOW = 8192
+MAX_WINDOW = 262_144                        # the model's limit (prefill_schedule.MODEL_LIMIT); measured up to 131072
+ENV_WINDOW = "SLOTSTREAM_CONTEXT_WINDOW"
+PREFIX_ENTRIES = 4                          # engine.prefix_cache.MAX_ENTRIES
+PREFIX_ENTRY_STATE = 113_246_208            # engine.prefix_cache.FIXED_BYTES_PER_ENTRY: the GDN state one retained entry owns
 
 # mode -> (prefix cache bytes, pass tokens at the mode's ceiling, MTP bytes)
 _MODE_TERMS = {
@@ -32,6 +40,26 @@ _MODE_TERMS = {
     "D2": (1_000_000_000, 2048, MTP),
     "D5": (1_000_000_000, 4096, MTP),
 }
+
+
+def context_window(flag=None, env=None):
+    """The context window: `flag` (a --context-window value) over SLOTSTREAM_CONTEXT_WINDOW over DEFAULT_WINDOW.
+
+    ValueError for a value that is not an integer, outside MIN_WINDOW..MAX_WINDOW or not a multiple of 64 (serve rounds
+    the engine context up to 64, so a multiple keeps the admission window, the plan and the KV cache equal)."""
+    env = os.environ if env is None else env
+    raw = flag if flag is not None else env.get(ENV_WINDOW)
+    if raw is None or raw == "":
+        return DEFAULT_WINDOW
+    try:
+        w = int(raw)
+    except (TypeError, ValueError):
+        raise ValueError(f"context window {raw!r} is not an integer") from None
+    if w < MIN_WINDOW or w > MAX_WINDOW:
+        raise ValueError(f"context window {w} is outside {MIN_WINDOW}..{MAX_WINDOW}")
+    if w % 64:
+        raise ValueError(f"context window {w} is not a multiple of 64")
+    return w
 
 
 def runtime_bytes(measured=None):
@@ -60,6 +88,14 @@ class Ledger:
         self.runtime = runtime_bytes(measured)
         self.trunk = TRUNK
         self.kv = KV_PER_TOKEN * self.window
+        # Above the default window the prefix cache is sized in tokens of the window: the prefix term holds one window of
+        # retained snapshots plus their GDN states, and `snapshot` one more window of KV for the clone that exists while a
+        # store decides. At the default window both stay as designed (the fixed per-mode prefix bytes, no snapshot term).
+        self.prefix_scaled = self.window > DEFAULT_WINDOW
+        self.snapshot = 0
+        if self.prefix_scaled:
+            self.prefix = KV_PER_TOKEN * self.window + PREFIX_ENTRIES * PREFIX_ENTRY_STATE
+            self.snapshot = KV_PER_TOKEN * self.window
         self.gdn = GDN_STATE
         self.pass_bytes = PASS_PER_TOKEN * self.pass_tokens
         self.read_scope = READ_SCOPE
@@ -73,10 +109,17 @@ class Ledger:
                 "sidecar": self.sidecar, "mtp": self.mtp, "margin": self.margin}
         if self.mtp_record:
             t["mtp_record"] = self.mtp_record
+        if self.snapshot:
+            t["snapshot"] = self.snapshot
         return t
 
     def fixed_bytes(self):
         return sum(self.terms().values())
+
+    def prefix_cache_tokens(self):
+        """Token budget of the in-memory prefix cache: the window itself when the prefix term scales with it, else the
+        mode's fixed prefix bytes in KV_PER_TOKEN units (36,168 in D5)."""
+        return self.window if self.prefix_scaled else self.prefix // KV_PER_TOKEN
 
     def pool_bytes(self, chunks):
         return int(chunks) * CHUNK_BYTES

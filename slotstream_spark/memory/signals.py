@@ -170,7 +170,7 @@ class Signals:
             calm_s=int(calm), busy_at_floor_s=int(now - self._busy_floor_since) if self._busy_floor_since is not None else 0,
             a_stable_s=int(now - self._stable_since) if self._stable_since is not None else 0,
             a_since_s=int(now - self._a_since) if self._a_since is not None else 0,
-            prev_chunks=self._prev_chunks, no_windows=self.no_windows())
+            prev_chunks=self._prev_chunks, fixed_bytes=self.ledger.fixed_bytes(), no_windows=self.no_windows())
 
     # --- one tick -----------------------------------------------------------------------------------------
     def poll(self, now):

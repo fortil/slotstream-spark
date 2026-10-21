@@ -183,6 +183,7 @@ The model code is PyTorch with Triton kernels instead of Swift on MLX. slotstrea
 
 - Text only. The vision tower is not loaded.
 - One generation at a time, with a queue of 4.
+- Context window 32,768 tokens by default. `SLOTSTREAM_CONTEXT_WINDOW=131072` raises it to 131,072, where one 78K conversation is kept in the prefix cache at a time; the figures above were measured at the default window.
 - One checkpoint, one machine, no authentication: loopback only, reach it through an ssh tunnel.
 - The only comparison with llama.cpp is the one above.
 - Not a product: no releases, no wheels, no support promise.

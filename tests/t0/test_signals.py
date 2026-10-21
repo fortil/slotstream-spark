@@ -193,3 +193,14 @@ def test_footprint_from_jsonl(tmp_path):
     p.write_text("\n".join(json.dumps(x) for x in lines) + "\n")
     with pytest.raises(ValueError):
         fp.from_jsonl(p)
+
+
+def test_inputs_carry_the_ledgers_fixed_bytes_so_the_floor_follows_the_window():
+    sig, _eng, _st, _log = make(())
+    assert sig.inputs(0.0).fixed_bytes == LEDGER.fixed_bytes()
+    big = Ledger("D5", {"runtime_bytes": 2_637_857_704}, window=131072)
+    sig2 = S.Signals(mode="D5", cfg=CFG, ledger=big, engine=FakeEngine(), get_running=lambda: (),
+                     read_mem=lambda: (70000, 70000), log=io.StringIO(), minutes_now=lambda: 12 * 60, write_oom=False)
+    gi = sig2.inputs(0.0)
+    assert gi.fixed_bytes == big.fixed_bytes()
+    assert G.floor_mib(gi, CFG) == 26_148 > G.floor_mib(sig.inputs(0.0), CFG) == 17_165   # this ledger's runtime is 359,512 B under the platform's

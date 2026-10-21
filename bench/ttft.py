@@ -2,7 +2,8 @@
 """Prefill and TTFT in D5 (plan step 72).
 
   python bench/ttft.py --build-prompts [--out bench/prompts/ttft.json]   Mac, once: freeze the text spans
-  python bench/ttft.py --mode D5 --samples 5 [--out FILE]                Spark (through capture.sh)
+  python bench/ttft.py --build-prompts --long                            Mac, once: the longer text for 78,000-token prompts
+  python bench/ttft.py --mode D5 --samples 5 [--out FILE] [--window W]   Spark (through capture.sh)
 
 The run process starts one fresh child process per measurement (`--child KIND`), each after the normal warm start
 (engine up, kernels compiled by an unrelated warm-up prompt, then the pool emptied again, so the timed request meets
@@ -18,6 +19,10 @@ warm-up, after each request, at the end, plus one per second from a sampler thre
 
 Prompts: frozen text spans of blobs the corpus train split cites (bench/prompts/ttft.json), cut at run time so the
 rendered chat prompt has exactly N tokens; every prompt is a prefix of the same text and runs in its own process.
+bench/prompts/ttft_long.json is the same construction with more text, for the 78,000-token campaign cell.
+
+`--window W` plans the pool and sizes the prefix cache at a context window other than the default (the ledger's
+`context_window`); the children record it and `tools/decide.py` judges their peaks against the ledger at that window.
 """
 import argparse
 import array
@@ -32,10 +37,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROMPTS = ROOT / "bench" / "prompts" / "ttft.json"
+PROMPTS_LONG = ROOT / "bench" / "prompts" / "ttft_long.json"
 CORPUS = ROOT / "third_party" / "slotstream" / "Tools" / "fixtures" / "expert-lookahead" / "corpus.json"
 SOURCES = ROOT / "third_party" / "slotstream"
 SIZES = (2048, 8192, 16384, 32768)
 TEXT_CHARS = 160_000
+LONG_SIZES = (78000,)
+LONG_TEXT_CHARS = 400_000                # about 3.7 characters per token on this text: room for 78,000 tokens and the cut
 WARMUP_CTX = 3072                        # the warm-up prompt (facts, ~2,735 template tokens) must fit every child
 FOLLOWUP = ("Thanks. Now compare the two parts of the material you were given: which one is longer, which one is "
             "more technical, and what would you cut first if it had to fit on one page? Answer in a short list and "
@@ -46,9 +54,9 @@ REPLY = ("The material is a sequence of source files and documents. I looked at 
 
 
 # ------------------------------------------------------------------------------------------------ prompts
-def build_prompts(out):
+def build_prompts(out, text_chars=TEXT_CHARS, sizes=SIZES):
     """Mac: concatenate whole files of the blobs the train split cites (blob sha1 must match), sorted by path, until
-    TEXT_CHARS; write the frozen json."""
+    `text_chars`; write the frozen json."""
     corpus = json.loads(CORPUS.read_text())
     blobs = {}
     for r in corpus["requests"]:
@@ -61,20 +69,21 @@ def build_prompts(out):
     files = [{"path": path, "blob": blobs[path]} for path in sorted(blobs)]
     base = "".join(f"### {f['path']}\n{(SOURCES / f['path']).read_bytes().decode('utf-8')}\n" for f in files)
     parts, size, k = [], 0, 0
-    while size < TEXT_CHARS:                    # the train blobs hold ~100k chars: repeat them, each pass numbered
+    while size < text_chars:                    # the train blobs hold ~100k chars: repeat them, each pass numbered
         parts.append(f"## Pass {k}\n{base}")
         size += len(parts[-1])
         k += 1
-    text = "".join(parts)[:TEXT_CHARS]
+    text = "".join(parts)[:text_chars]
     doc = {"version": 1, "source": "corpus.json train split (blobs whose git sha matches the corpus), whole files sorted "
            "by path, repeated with numbered pass headers up to text_chars", "files": files, "base_chars": len(base), "text_chars": len(text), "text_sha256": hashlib.sha256(text.encode()).hexdigest(),
-           "sizes": list(SIZES), "followup": FOLLOWUP, "reply": REPLY, "text": text}
+           "sizes": list(sizes), "followup": FOLLOWUP, "reply": REPLY, "text": text}
     Path(out).write_text(json.dumps(doc, ensure_ascii=False, indent=0) + "\n")
     print(f"wrote {out}: {len(files)} files, {len(text)} chars, sha256 {doc['text_sha256']}")
     return 0
 
 
-def load_prompts(path=PROMPTS):
+def load_prompts(path=None):
+    path = PROMPTS if path is None else path
     d = json.loads(Path(path).read_text())
     if hashlib.sha256(d["text"].encode()).hexdigest() != d["text_sha256"]:
         raise SystemExit(f"{path}: text does not match its sha256")
@@ -227,10 +236,11 @@ class TimedCache:
         return Timed(*a, **kw)
 
 
-def bring_up(mode, max_ctx, prefill=False):
+def bring_up(mode, max_ctx, prefill=False, window=None):
     """The normal warm start: engine, sweep driver, then an unrelated warm-up prompt and an emptied pool.
 
-    prefill=True fills the pool from the expert frequency table right after the engine is built (no GraphSet exists yet)."""
+    prefill=True fills the pool from the expert frequency table right after the engine is built (no GraphSet exists yet).
+    `window` plans the pool at that context window (default: the ledger's default)."""
     import argparse as ap
     import torch
     from slotstream_spark import cli
@@ -240,7 +250,7 @@ def bring_up(mode, max_ctx, prefill=False):
     from slotstream_spark.model.moe_sweep import SweepMoE
     signals.write_oom_score_adj()
     a = ap.Namespace(mode=mode, pool_slots=None, pool_epl=None, gdn="fused")
-    slots = cli._slots(a)
+    slots = cli._slots(a, window)
     meter = Meter(lambda mt: cli.FootprintFeed.POOL_FLAGS[mt])
     meter.snap("start")
     model, pool, cfg, info = cli.build_engine(a, slots, max_ctx)
@@ -317,7 +327,8 @@ def child_main(a):
     from slotstream_spark.engine import prefix_cache as pc
     from slotstream_spark.engine.prefill import PrefillPlan
     from slotstream_spark.engine.tokenizer import Tokenizer
-    from slotstream_spark.memory.ledger import Ledger
+    from slotstream_spark.memory.ledger import Ledger, context_window
+    window = context_window(a.window)
     prompts = load_prompts()
     tok = Tokenizer.from_checkpoint(os.environ["SLOTSTREAM_MODEL"])
     im_start = tok.encode("<|im_start|>")[0]
@@ -325,17 +336,18 @@ def child_main(a):
     ids, body = build_ids(tok, prompts, n)
     ids2 = followup_ids(tok, body, prompts) if a.child == "cold8k" else None
     longest = max(len(ids), len(ids2 or ()))
-    eng = bring_up(a.mode, -(-(max(longest, WARMUP_CTX) + 64) // 64) * 64)      # the warm-up prompt needs its own room
+    eng = bring_up(a.mode, -(-(max(longest, WARMUP_CTX) + 64) // 64) * 64, window=window)   # the warm-up prompt needs its own room
     res = {"child": a.child, "n": n, "prompt_sha256": ids_sha256(ids), "slots": eng["slots"],
-           "chunks": eng["slots"] // _slots_per_chunk(), "info": eng["info"]}
+           "chunks": eng["slots"] // _slots_per_chunk(), "info": eng["info"], "window": window}
     warm_up(eng)
     key = pc.CheckpointKey(Path(os.environ["SLOTSTREAM_MODEL"]).name, json.dumps({"gdn": "fused", "sweep": True}),
                            4096, False)
-    max_tokens = Ledger(a.mode).prefix // pc.BYTES_PER_TOKEN
+    led = Ledger(a.mode, window=window)
+    max_tokens, charge_active = led.prefix_cache_tokens(), not led.prefix_scaled
     plan = PrefillPlan.from_envelope(eng["env"], prefill_pass=4096, read_scope=8192)
     meter = eng["meter"]
     if a.child == "cold8k":
-        cache = TimedCache(max_tokens=max_tokens)
+        cache = TimedCache(max_tokens=max_tokens, charge_active=charge_active)
         res["cold"] = request(eng, cache, key, ids, plan, pc.snapshot_target(ids, im_start), "cold")
         meter.snap("prefill")
         res["followup_sha256"] = ids_sha256(ids2)
@@ -344,7 +356,7 @@ def child_main(a):
         meter.snap("followup")
         res["prefix_cache"] = cache.stats()
     elif a.child == "once":
-        cache = TimedCache(max_tokens=max_tokens)
+        cache = TimedCache(max_tokens=max_tokens, charge_active=charge_active)
         res["cold"] = request(eng, cache, key, ids, plan, pc.snapshot_target(ids, im_start), "once")
         meter.snap("prefill")
     elif a.child == "scope16k":
@@ -352,7 +364,7 @@ def child_main(a):
         for pass_size in (4096, 1024):
             for scope in (8192, 0):
                 clear_pool(eng)
-                cache = TimedCache(max_tokens=max_tokens)
+                cache = TimedCache(max_tokens=max_tokens, charge_active=charge_active)
                 p = PrefillPlan.from_envelope(eng["env"], prefill_pass=pass_size, read_scope=scope)
                 k = pc.CheckpointKey(key.model_identity, key.optimizations_json, pass_size, False)
                 r = request(eng, cache, k, ids, p, None, f"pass{pass_size}-scope{scope}")
@@ -391,13 +403,15 @@ def run(a):
     jobs = [("cold8k", 8192, f"cold8k-{i}") for i in range(a.samples)]
     jobs += [("once", 2048, "once2k"), ("scope16k", 16384, "scope16k"), ("once", 32768, "once32k")]
     res = {"mode": a.mode, "samples": a.samples, "prompts": meta, "text_sha256": prompts["text_sha256"],
-           "started_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "children": {}, "failures": []}
+           "started_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "children": {}, "failures": [],
+           "window": a.window}
+    extra = ["--window", str(a.window)] if a.window else []
     me = str(Path(__file__).resolve())
     for kind, n, name in jobs:
         out = cap / f"ttft-child-{name}.json"
         out.unlink(missing_ok=True)
         t = time.time()
-        rc = subprocess.run([sys.executable, me, "--child", kind, "--n", str(n), "--mode", a.mode, "--out", str(out)],
+        rc = subprocess.run([sys.executable, me, "--child", kind, "--n", str(n), "--mode", a.mode, "--out", str(out)] + extra,
                             cwd=str(ROOT)).returncode
         entry = json.loads(out.read_text()) if out.exists() else {}
         entry["returncode"] = rc
@@ -424,8 +438,12 @@ def main(argv=None):
     ap.add_argument("--out")
     ap.add_argument("--child", choices=("cold8k", "once", "scope16k"))
     ap.add_argument("--n", type=int, default=8192)
+    ap.add_argument("--window", type=int, default=None, help="context window the pool and the prefix cache are sized for")
+    ap.add_argument("--long", action="store_true", help="with --build-prompts: the longer text (bench/prompts/ttft_long.json)")
     a = ap.parse_args(argv)
     if a.build_prompts:
+        if a.long:
+            return build_prompts(a.out or PROMPTS_LONG, LONG_TEXT_CHARS, LONG_SIZES)
         return build_prompts(a.out or PROMPTS)
     sys.path.insert(0, str(ROOT))
     if a.child:

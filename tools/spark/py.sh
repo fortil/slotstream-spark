@@ -40,5 +40,5 @@ exec docker run --rm --name "slotstream-spark-${SLOTSTREAM_LABEL:-py-$$}" --gpus
   -e HOME=/w/tmp -e TMPDIR=/w/tmp -e TRITON_CACHE_DIR=/w/tmp/triton \
   -e PYTHONPATH="$SW:$SW/build/slotio:/w/pylib" -e HF_HOME=/w/hf "${offline_env[@]}" \
   -e SLOTSTREAM_MODEL=/w/model/qwen38-flash-next-mlx-4bit -e SLOTSTREAM_PACKED=/w/model/packed -e SLOTSTREAM_R=/w \
-  ${CAPW:+-e CAP="$CAPW"} \
+  ${CAPW:+-e CAP="$CAPW"} ${SLOTSTREAM_CONTEXT_WINDOW:+-e SLOTSTREAM_CONTEXT_WINDOW="$SLOTSTREAM_CONTEXT_WINDOW"} \
   -v "$R:/w" -w "$SW" --entrypoint python3 "$IMAGE" "${args[@]}"

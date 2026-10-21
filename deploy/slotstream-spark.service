@@ -5,6 +5,9 @@ Description=slotstream-spark engine (Qwen3.8-Flash-Next, experts streamed from N
 Type=simple
 Environment=SLOTSTREAM_MODE=D5 SLOTSTREAM_TAKE_LOCK=1
 Environment=CAP=%h/slotstream-spark/state
+# Optional: SLOTSTREAM_CONTEXT_WINDOW (KEY=value lines, mode 600). The front loads the same file so its start floor
+# follows the window. Never set SLOTSTREAM_MODE here: an EnvironmentFile overrides the Environment line above.
+EnvironmentFile=-%h/slotstream-spark/serve.env
 ExecStartPre=/usr/bin/mkdir -p %h/slotstream-spark/state
 ExecStart=%h/slotstream-spark/src/tools/spark/py.sh -m slotstream_spark.cli serve
 OOMScoreAdjust=1000

@@ -105,3 +105,12 @@ def test_estimate_grows_with_the_hit_rate():
     b = planner.estimate_tok_s(CURVE, 6000, 0.03, 1e-4, 1e-4)
     c = planner.estimate_tok_s(CURVE, 19012, 0.03, 1e-4, 1e-4)
     assert a < b < c
+
+
+def test_plan_at_a_131072_window_has_40_chunks_at_the_ceiling():
+    p = plan("D5", cap_at_ceiling("D5"), window=131072)
+    led = Ledger("D5", window=131072)
+    assert p.chunks == 40 and p.window == 131072 and p.slots == 40 * modes.SLOTS_PER_CHUNK
+    assert p.expected_peak == led.expected_peak_bytes(40) <= cap_at_ceiling("D5")
+    assert plan("D5", cap_at_avail("D5"), window=131072).chunks == 39
+    assert plan("D5", cap_at_ceiling("D5")).chunks == 48                          # the default window is unchanged

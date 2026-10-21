@@ -81,9 +81,14 @@ def charge(e):
 
 
 class PrefixCache:
-    def __init__(self, max_entries=MAX_ENTRIES, max_tokens=0):
+    def __init__(self, max_entries=MAX_ENTRIES, max_tokens=0, charge_active=True):
+        """`charge_active=True` (the design): the request being served is charged against the token budget, so the
+        retained entries plus the active state fit `max_tokens`. `False`: the live state is paid for elsewhere (the ledger's
+        `kv` term; serve uses it when the prefix term scales with the context window), so the budget pays only for the
+        retained entries, a prompt reserves just its own length, and a hit never evicts the entry it hands out."""
         self.max_entries = int(max_entries)
         self._max_tokens = max(0, int(max_tokens))
+        self.charge_active = bool(charge_active)
         self._entries = []
         self._clock = 0
         self._lock = threading.RLock()
@@ -122,13 +127,14 @@ class PrefixCache:
             return {"entries": len(self._entries), "max_entries": self.max_entries, "held_tokens": self.held_tokens(),
                     "charged_tokens": self.charged_tokens(), "max_tokens": self._max_tokens, "hits": self.hits,
                     "misses": self.misses, "evictions": self.evictions, "checkpoint_hits": self.checkpoint_hits,
-                    "checkpoint_stores": self.checkpoint_stores, "owned_bytes": self.owned_bytes()}
+                    "checkpoint_stores": self.checkpoint_stores, "owned_bytes": self.owned_bytes(),
+                    "charge_active": self.charge_active}
 
     # ------------------------------------------------------------------ eviction
-    def _candidates(self):
+    def _candidates(self, skip=None):
         """PrefixCache.swift:710-760: under the resume rule the unresumable states first, then the checkpoints nothing
-        has used, else everything."""
-        allr = list(enumerate(self._entries))
+        has used, else everything. `skip`: an entry that is never a candidate (the one a hit is handing out)."""
+        allr = [r for r in enumerate(self._entries) if r[1] is not skip]
         if self.resume_rule_in_force:
             unres = [r for r in allr if not r[1].fresh_equivalent and r[1].last_logits is None]
             if unres:
@@ -136,19 +142,23 @@ class PrefixCache:
         spec = [r for r in allr if r[1].reusable and not r[1].was_used_or_returned]
         return spec or allr
 
-    def _evict_lru(self):
-        c = self._candidates()
+    def _evict_lru(self, skip=None):
+        c = self._candidates(skip)
         if not c:
-            return
+            return False
         i = min(c, key=lambda r: r[1].used)[0]
         del self._entries[i]
         self.evictions += 1
+        return True
 
-    def _reserve_active(self, reserve):
+    def _reserve_active(self, reserve, keep=None):
+        """Room for a state of `reserve` tokens: evict until one slot is free and the charged entries (`keep` aside) fit
+        the budget minus the reserve. With `keep=None` this is the design's rule; `keep` is never evicted."""
         allowance = self._max_tokens - min(self._max_tokens, max(0, int(reserve)))
         while self._entries and (len(self._entries) >= self.max_entries or
-                                 sum(charge(e) for e in self._entries) > allowance):
-            self._evict_lru()
+                                 sum(charge(e) for e in self._entries if e is not keep) > allowance):
+            if not self._evict_lru(skip=keep):
+                break
 
     def _keep_prefixes_current(self, tokens):
         for e in self._entries:
@@ -198,7 +208,10 @@ class PrefixCache:
                 self._entries.clear()
                 self.decision = "disabled"
                 return Miss("disabled")
-            reserve = max(len(prompt), reserve_tokens if reserve_tokens is not None else len(prompt))
+            if self.charge_active:
+                reserve = max(len(prompt), reserve_tokens if reserve_tokens is not None else len(prompt))
+            else:
+                reserve = len(prompt)                    # the live state is not charged: room for its own snapshot only
             i = self._best(prompt, key, boundaries)
             if i is None:
                 self.decision = self._miss_reason(prompt, key, boundaries)
@@ -213,13 +226,16 @@ class PrefixCache:
                 sel.used = self._clock
                 sel.was_used_or_returned = True
                 self._keep_prefixes_current_prompt(prompt)
-                self._reserve_active(max(reserve, charge(sel)))
+                if self.charge_active:
+                    self._reserve_active(max(reserve, charge(sel)))
+                else:
+                    self._reserve_active(reserve, keep=sel)
                 self.hits += 1
                 self.checkpoint_hits += 1
             else:
                 del self._entries[i]
                 self._keep_prefixes_current_prompt(prompt)
-                self._reserve_active(max(reserve, charge(sel)))
+                self._reserve_active(max(reserve, charge(sel)) if self.charge_active else reserve)
                 self.hits += 1
             return Hit(sel.state, len(sel.tokens), logits, sel.fresh_equivalent, self.decision)
 
@@ -245,6 +261,21 @@ class PrefixCache:
             return 0 if i is None else len(self._entries[i].tokens)
 
     # ------------------------------------------------------------------ store
+    def would_store(self, tokens):
+        """Whether `store` would keep an ordinary entry of these tokens, so the caller can skip the state copy when the
+        entry would be evicted at once (an unresumable state is the first candidate of its own eviction round)."""
+        tokens = [int(t) for t in tokens]
+        with self._lock:
+            if not self.enabled or not tokens or len(tokens) > self._max_tokens:
+                return False
+            dup = next((e for e in self._entries if e.tokens == tokens), None)
+            if dup is not None and dup.reusable:
+                return True
+            if not self.resume_rule_in_force:
+                return True
+            kept = [e for e in self._entries if e is not dup and (e.fresh_equivalent or e.last_logits is not None)]
+            return len(kept) < self.max_entries and sum(charge(e) for e in kept) + len(tokens) <= self._max_tokens
+
     def store(self, state, tokens, seq_bytes, *, fresh_equivalent=False, key=None, input_tokens=None):
         """An ordinary (non-reusable) entry, e.g. the decode-end state of a finished request."""
         tokens = [int(t) for t in tokens]
@@ -271,6 +302,97 @@ class PrefixCache:
                 self._evict_lru()
             return True
 
+    @staticmethod
+    def _checkpoint_charge(tokens, seq_bytes, logits_present, logits_bytes):
+        return max(len(tokens), token_units(seq_bytes)) + (token_units(logits_bytes + LOGIT_SLACK_BYTES)
+                                                           if logits_present else 0)
+
+    def _plan_checkpoint(self, tokens, chg, logits_present, prompt_key, fresh_equivalent, produced_key, retention,
+                         reserve_tokens):
+        """Room for a checkpoint of `chg` units, without changing anything. -> (ok, existing index or None, victims,
+        inherited, active). Victims may be unresumable states, unused checkpoints and shallower snapshots of the same
+        conversation, plus the LRU entry when `retention="conversation"`."""
+        if self.charge_active:
+            active = max(len(tokens), reserve_tokens if reserve_tokens is not None else 0, chg)
+        else:
+            active = 0
+        allowance = self._max_tokens - min(self._max_tokens, active)
+        if chg > allowance:
+            return False, None, set(), False, active
+
+        def same(e):
+            return (e.tokens == tokens and e.reusable and e.prompt_key == prompt_key and
+                    e.fresh_equivalent == fresh_equivalent and e.produced_key == produced_key)
+
+        existing = next((i for i, e in enumerate(self._entries) if same(e)), None)
+        if existing is not None:
+            return True, existing, set(), False, active
+        victims = set()
+        inherited = False
+        dup = next((i for i, e in enumerate(self._entries) if e.tokens == tokens), None)
+        if dup is not None:
+            d = self._entries[dup]
+            inherited = (not d.reusable) or d.was_used_or_returned
+            victims.add(dup)
+        remaining_count = len(self._entries) - len(victims)
+        remaining_charge = sum(charge(e) for i, e in enumerate(self._entries) if i not in victims)
+        rule = self.resume_rule_in_force
+        unres = sorted([(i, e) for i, e in enumerate(self._entries)
+                        if rule and not e.fresh_equivalent and e.last_logits is None and i not in victims],
+                       key=lambda r: r[1].used)
+        unused = sorted([(i, e) for i, e in enumerate(self._entries)
+                         if e.reusable and not e.was_used_or_returned and i not in victims and
+                         not (rule and e.fresh_equivalent and e.last_logits is None)],
+                        key=lambda r: r[1].used)
+        superseded = sorted([(i, e) for i, e in enumerate(self._entries)
+                             if e.reusable and e.was_used_or_returned and i not in victims and
+                             len(e.tokens) < len(tokens) and e.produced_key == produced_key and
+                             tokens[:len(e.tokens)] == e.tokens], key=lambda r: -len(r[1].tokens))
+        if not self.charge_active and logits_present:
+            # A prompt-end checkpoint resumes only a prompt of its own length: it must not evict the used boundary
+            # snapshot of its conversation, which every later turn resumes from.
+            superseded = []
+        order, seen = [], set()
+
+        def add(rows):
+            for i, e in rows:
+                if i not in seen:
+                    seen.add(i)
+                    order.append((i, e))
+
+        add(unres)
+        add(unused)
+        add(superseded)
+        if retention == "conversation":
+            add(sorted([(i, e) for i, e in enumerate(self._entries) if i not in victims], key=lambda r: r[1].used))
+        for i, e in order:
+            if i in victims:
+                continue
+            if remaining_count < self.max_entries - 1 and remaining_charge <= allowance - chg:
+                break
+            victims.add(i)
+            remaining_count -= 1
+            remaining_charge -= charge(e)
+        ok = remaining_count < self.max_entries - 1 and remaining_charge <= allowance - chg
+        return ok, None, victims, inherited, active
+
+    def would_store_checkpoint(self, tokens, seq_bytes=None, *, logits=False, logits_bytes=0, prompt_key=None,
+                               retention="optional", fresh_equivalent=False, produced_key=None, reserve_tokens=None):
+        """Whether `store_checkpoint` would keep this checkpoint, without changing anything, so the caller can skip the
+        state copy when it would be refused. `seq_bytes=None` assumes BYTES_PER_TOKEN per token (the charge of a copy of
+        the used pages is never above that), so a True here can still meet a refusal from an unusually large state."""
+        tokens = [int(t) for t in tokens]
+        if not tokens:
+            return False
+        if seq_bytes is None:
+            seq_bytes = len(tokens) * BYTES_PER_TOKEN
+        with self._lock:
+            if not self.enabled:
+                return False
+            chg = self._checkpoint_charge(tokens, seq_bytes, logits, logits_bytes)
+            return self._plan_checkpoint(tokens, chg, logits, prompt_key, fresh_equivalent, produced_key, retention,
+                                         reserve_tokens)[0]
+
     def store_checkpoint(self, state, tokens, seq_bytes, *, logits=None, logits_bytes=0, prompt_key=None,
                          retention="optional", fresh_equivalent=False, produced_key=None, reserve_tokens=None):
         """A reusable snapshot (a pass boundary, or the whole prompt with its raw logits). Plans its room before it
@@ -282,18 +404,11 @@ class PrefixCache:
         with self._lock:
             if not self.enabled:
                 return False
-            chg = max(len(tokens), token_units(seq_bytes)) + (token_units(logits_bytes + LOGIT_SLACK_BYTES)
-                                                             if logits is not None else 0)
-            active = max(len(tokens), reserve_tokens if reserve_tokens is not None else 0, chg)
-            allowance = self._max_tokens - min(self._max_tokens, active)
-            if chg > allowance:
+            chg = self._checkpoint_charge(tokens, seq_bytes, logits is not None, logits_bytes)
+            args = (tokens, chg, logits is not None, prompt_key, fresh_equivalent, produced_key, retention, reserve_tokens)
+            ok, existing, victims, inherited, active = self._plan_checkpoint(*args)
+            if not ok:
                 return False
-
-            def same(e):
-                return (e.tokens == tokens and e.reusable and e.prompt_key == prompt_key and
-                        e.fresh_equivalent == fresh_equivalent and e.produced_key == produced_key)
-
-            existing = next((i for i, e in enumerate(self._entries) if same(e)), None)
             if existing is not None:
                 e = self._entries[existing]
                 self._clock += 1
@@ -303,51 +418,10 @@ class PrefixCache:
                 self._reserve_active(active)
                 if any(x is e for x in self._entries):
                     return True
+                ok, existing, victims, inherited, active = self._plan_checkpoint(*args)     # the reserve evicted it
+                if not ok:
+                    return False
             self._clock += 1
-            victims = set()
-            inherited = False
-            dup = next((i for i, e in enumerate(self._entries) if e.tokens == tokens), None)
-            if dup is not None:
-                d = self._entries[dup]
-                inherited = (not d.reusable) or d.was_used_or_returned
-                victims.add(dup)
-            remaining_count = len(self._entries) - len(victims)
-            remaining_charge = sum(charge(e) for i, e in enumerate(self._entries) if i not in victims)
-            rule = self.resume_rule_in_force
-            unres = sorted([(i, e) for i, e in enumerate(self._entries)
-                            if rule and not e.fresh_equivalent and e.last_logits is None and i not in victims],
-                           key=lambda r: r[1].used)
-            unused = sorted([(i, e) for i, e in enumerate(self._entries)
-                             if e.reusable and not e.was_used_or_returned and i not in victims and
-                             not (rule and e.fresh_equivalent and e.last_logits is None)],
-                            key=lambda r: r[1].used)
-            superseded = sorted([(i, e) for i, e in enumerate(self._entries)
-                                 if e.reusable and e.was_used_or_returned and i not in victims and
-                                 len(e.tokens) < len(tokens) and e.produced_key == produced_key and
-                                 tokens[:len(e.tokens)] == e.tokens], key=lambda r: -len(r[1].tokens))
-            order, seen = [], set()
-
-            def add(rows):
-                for i, e in rows:
-                    if i not in seen:
-                        seen.add(i)
-                        order.append((i, e))
-
-            add(unres)
-            add(unused)
-            add(superseded)
-            if retention == "conversation":
-                add(sorted([(i, e) for i, e in enumerate(self._entries) if i not in victims], key=lambda r: r[1].used))
-            for i, e in order:
-                if i in victims:
-                    continue
-                if remaining_count < self.max_entries - 1 and remaining_charge <= allowance - chg:
-                    break
-                victims.add(i)
-                remaining_count -= 1
-                remaining_charge -= charge(e)
-            if not (remaining_count < self.max_entries - 1 and remaining_charge <= allowance - chg):
-                return False
             for i in sorted(victims, reverse=True):
                 del self._entries[i]
                 self.evictions += 1

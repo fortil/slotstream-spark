@@ -212,7 +212,9 @@ def test_a_wrong_prompt_length_fails_the_cell(monkeypatch, tmp_path):
 
 
 def test_32k_cell_sends_the_admissible_size():
-    assert campaign.COLD_TOKENS == {"2k": 2048, "8k": 8192, "32k": 32000}
+    assert campaign.COLD_TOKENS == {"2k": 2048, "8k": 8192, "32k": 32000, "78k": 78000}
+    assert campaign.EXACT_CELLS == ("2k", "8k") and campaign.FOLLOWUP_CELLS == ("8k", "78k")
+    assert campaign.DEFAULT_CELLS == ("decode-8k", "ttft-cold-2k", "ttft-cold-8k", "ttft-cold-32k")   # the f9 campaign is unchanged
 
 
 def test_cut_at_most_falls_back_to_the_longest_prompt_that_cuts(monkeypatch):
