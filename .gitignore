@@ -1,0 +1,91 @@
+# macOS and Obsidian
+.DS_Store
+.obsidian/
+.trash/
+
+# Python environments
+venv/
+.venv/
+venv-*/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+.pytest_cache/
+
+# Model weights and packed artifacts live on the Spark, never in git
+/model/
+*.safetensors
+!tests/fixtures/mtp/*.safetensors
+*.gguf
+experts.bin
+mtp_experts.bin
+ngram.bin
+
+# Golden data and routing traces: only tests/goldens/manifest.json is tracked,
+# with the SHA-256 of every file
+tests/goldens/data/
+bench/traces/
+*.npy
+*.npz
+*.pt
+*.f32
+
+# Build output and native extensions
+build/
+_skbuild/
+*.so
+
+# Kernel profiles and caches
+*.nsys-rep
+*.ncu-rep
+*.sqlite
+mlx-ptx-cache/
+.triton/
+
+# Secrets
+.env
+*.token
+
+# Local and private files of the maintainer's setup
+/private
+/tmp
+/.tasky
+/.v2c/
+/.video_agent/
+/.auth/
+tools/spark/env.local.sh
+slotstream_spark/config/residents.local.toml
+
+# Documents of the planning pipeline that drives this repository (they name private hosts)
+/BRIEF.md*
+/PLAN*.md*
+/PLAN_REVIEW*
+/WORK_REVIEW*
+/EXECUTION_REPORT*
+/RUN_STATE.md
+/CARRY.md
+/DRIVER.log
+/RESUME.md
+
+# Raw captures of Spark runs carry host names and paths. Only the curated captures are tracked
+# (un-ignored below once scrubbed); the rest stays on disk and is listed in db/sources/ARCHIVED.txt.
+db/sources/runs/*/*/*/
+# Curated captures, scrubbed with tools/evidence_scrub.py. The two oracle captures are read
+# directly by the parity31 and contract rebind checks.
+!db/sources/runs/2026/10/20261014T212529-f9-engine/
+!db/sources/runs/2026/10/20261014T235730-f9-oracle/
+!db/sources/runs/2026/10/20261015T103857-f9-ref/
+!db/sources/runs/2026/10/20261012T071331-lb2/
+!db/sources/runs/2026/10/20261014T042830-f6-ab-lookahead/
+!db/sources/runs/2026/10/20261014T114220-f6-ab-mtp/
+!db/sources/runs/2026/10/20261011T201132-oracle-p31-calib/
+!db/sources/runs/2026/10/20261012T173240-m0prime/
+!db/sources/runs/2026/10/20261012T180045-h1/
+!db/sources/runs/2026/10/20261012T184122-h2/
+!db/sources/runs/2026/10/20261015T124723-acceptance2/
+!db/sources/runs/2026/10/20261012T142519-oracle-chain/
+!db/sources/runs/2026/10/20261011T201154-oracle-p31/
+!db/sources/runs/2026/10/20261020T131410-guard-drill/
+!db/sources/runs/2026/10/20261020T152544-acceptance/

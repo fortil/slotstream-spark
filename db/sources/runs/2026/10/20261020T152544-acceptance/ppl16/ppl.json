@@ -1,0 +1,147 @@
+{
+ "band": [
+  5.337486,
+  5.445314
+ ],
+ "full": false,
+ "gemm": {
+  "gemm_calls": 13456,
+  "gemv_fallbacks": 0
+ },
+ "ids_sha256": "e65198947ecb06833dcd69e042e406f52945dcc88073621d52c3e8e54a4d8e55",
+ "in_band": false,
+ "lm_head_tile_rows": 256,
+ "mode": "D5",
+ "nll_sum": 48619.271200180054,
+ "per_window": [
+  {
+   "nll": 2030.0406093597412,
+   "seconds": 9.239,
+   "start": 0,
+   "tokens": 2047,
+   "window": 0
+  },
+  {
+   "nll": 1451.5057821273804,
+   "seconds": 5.649,
+   "start": 2048,
+   "tokens": 2047,
+   "window": 1
+  },
+  {
+   "nll": 1712.7264108657837,
+   "seconds": 5.634,
+   "start": 4096,
+   "tokens": 2047,
+   "window": 2
+  },
+  {
+   "nll": 3564.695731163025,
+   "seconds": 5.919,
+   "start": 6144,
+   "tokens": 2047,
+   "window": 3
+  },
+  {
+   "nll": 3240.8714542388916,
+   "seconds": 5.836,
+   "start": 8192,
+   "tokens": 2047,
+   "window": 4
+  },
+  {
+   "nll": 1895.6615447998047,
+   "seconds": 5.818,
+   "start": 10240,
+   "tokens": 2047,
+   "window": 5
+  },
+  {
+   "nll": 1720.6780281066895,
+   "seconds": 5.639,
+   "start": 12288,
+   "tokens": 2047,
+   "window": 6
+  },
+  {
+   "nll": 2613.0724401474,
+   "seconds": 5.775,
+   "start": 14336,
+   "tokens": 2047,
+   "window": 7
+  },
+  {
+   "nll": 3574.532646179199,
+   "seconds": 5.784,
+   "start": 16384,
+   "tokens": 2047,
+   "window": 8
+  },
+  {
+   "nll": 3696.3346672058105,
+   "seconds": 5.887,
+   "start": 18432,
+   "tokens": 2047,
+   "window": 9
+  },
+  {
+   "nll": 4084.6353511810303,
+   "seconds": 5.9,
+   "start": 20480,
+   "tokens": 2047,
+   "window": 10
+  },
+  {
+   "nll": 3928.190196990967,
+   "seconds": 5.632,
+   "start": 22528,
+   "tokens": 2047,
+   "window": 11
+  },
+  {
+   "nll": 1960.9653692245483,
+   "seconds": 5.879,
+   "start": 24576,
+   "tokens": 2047,
+   "window": 12
+  },
+  {
+   "nll": 4337.268483161926,
+   "seconds": 5.575,
+   "start": 26624,
+   "tokens": 2047,
+   "window": 13
+  },
+  {
+   "nll": 3768.9957065582275,
+   "seconds": 5.544,
+   "start": 28672,
+   "tokens": 2047,
+   "window": 14
+  },
+  {
+   "nll": 5039.096778869629,
+   "seconds": 5.572,
+   "start": 30720,
+   "tokens": 2047,
+   "window": 15
+  }
+ ],
+ "ppl": 4.4126139432281,
+ "ref": 5.3914,
+ "reference_informative": true,
+ "rel_diff": -0.18154580568533207,
+ "rel_tol": 0.01,
+ "rows_sha256": "5c8877eeabb3b8afc09f8ec35194fdac8c55acaa25de738d27000876d7c73e4c",
+ "slots": 18624,
+ "text_chars": 1294336,
+ "tokens_scored": 32752,
+ "tokens_total": 297193,
+ "versions": {
+  "torch": "2.13.0+cu130"
+ },
+ "window": 2048,
+ "windows": 16,
+ "windows_available": 145,
+ "windows_run": 16
+}

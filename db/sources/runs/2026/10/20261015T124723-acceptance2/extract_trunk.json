@@ -1,0 +1,1 @@
+{"path": "$R/tmp/pytest-of-user/pytest-45/r00/packed/trunk.safetensors", "tensors": 12, "tensor_bytes": 25176, "file_bytes": 29272, "header_bytes": 4096, "embed_offsets": {"language_model.model.embed_tokens.weight": 4096, "language_model.model.embed_tokens.scales": 20480, "language_model.model.embed_tokens.biases": 21504}, "seconds": 0.0}

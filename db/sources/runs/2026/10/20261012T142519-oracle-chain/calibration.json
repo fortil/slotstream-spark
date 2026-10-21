@@ -1,0 +1,3141 @@
+{
+ "prompts": [
+  "dev0",
+  "dev1",
+  "dev2",
+  "dev3",
+  "dev4",
+  "dev5",
+  "dev6",
+  "dev7"
+ ],
+ "layers": [
+  {
+   "layer": 0,
+   "spread_max": 0.01144218405171329,
+   "control_min": 0.3282809502537525,
+   "routing_spread_max": 0.026315789473684206,
+   "routing_control_min": 0.0,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.009604973221489378,
+     "control_swap": 0.3908046339326871,
+     "control_noexp": 0.37208839199436244,
+     "routing_spread": 0.008695652173913042,
+     "routing_control": 0.0
+    },
+    "dev1": {
+     "spread": 0.010617275614855868,
+     "control_swap": 0.3478066587358154,
+     "control_noexp": 0.3282809502537525,
+     "routing_spread": 0.007142857142857141,
+     "routing_control": 0.0
+    },
+    "dev2": {
+     "spread": 0.008219819296791208,
+     "control_swap": 0.3681404511419674,
+     "control_noexp": 0.35893783532348994,
+     "routing_spread": 0.026315789473684206,
+     "routing_control": 0.0
+    },
+    "dev3": {
+     "spread": 0.010505857919418993,
+     "control_swap": 0.3643656310636917,
+     "control_noexp": 0.3523545966770325,
+     "routing_spread": 0.017647058823529408,
+     "routing_control": 0.0
+    },
+    "dev4": {
+     "spread": 0.008909540831426765,
+     "control_swap": 0.37894298760095046,
+     "control_noexp": 0.3700692813638046,
+     "routing_spread": 0.010416666666666664,
+     "routing_control": 0.0
+    },
+    "dev5": {
+     "spread": 0.01144218405171329,
+     "control_swap": 0.34389788587583225,
+     "control_noexp": 0.3282830859095823,
+     "routing_spread": 0.017241379310344824,
+     "routing_control": 0.0
+    },
+    "dev6": {
+     "spread": 0.007273240410525599,
+     "control_swap": 0.39370754477364284,
+     "control_noexp": 0.3803723506467174,
+     "routing_spread": 0.006060606060606059,
+     "routing_control": 0.0
+    },
+    "dev7": {
+     "spread": 0.008952905377760131,
+     "control_swap": 0.3784237590601508,
+     "control_noexp": 0.3686574991250979,
+     "routing_spread": 0.014285714285714282,
+     "routing_control": 0.0
+    }
+   }
+  },
+  {
+   "layer": 1,
+   "spread_max": 0.014664214744070406,
+   "control_min": 0.3306916498541364,
+   "routing_spread_max": 0.023684210526315783,
+   "routing_control_min": 0.25172413793103443,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.011668843528140805,
+     "control_swap": 0.3916405446630909,
+     "control_noexp": 0.3695896524668798,
+     "routing_spread": 0.013043478260869563,
+     "routing_control": 0.2652173913043478
+    },
+    "dev1": {
+     "spread": 0.014664214744070406,
+     "control_swap": 0.3758847070802021,
+     "control_noexp": 0.352570026408676,
+     "routing_spread": 0.017857142857142853,
+     "routing_control": 0.40714285714285714
+    },
+    "dev2": {
+     "spread": 0.009515480531737763,
+     "control_swap": 0.36825975641742287,
+     "control_noexp": 0.35973519034165424,
+     "routing_spread": 0.023684210526315783,
+     "routing_control": 0.3447368421052632
+    },
+    "dev3": {
+     "spread": 0.011135832438819061,
+     "control_swap": 0.36774405658254194,
+     "control_noexp": 0.3530603329133409,
+     "routing_spread": 0.002941176470588235,
+     "routing_control": 0.33529411764705885
+    },
+    "dev4": {
+     "spread": 0.01280993548529938,
+     "control_swap": 0.3600570029529306,
+     "control_noexp": 0.34973348353840844,
+     "routing_spread": 0.016666666666666663,
+     "routing_control": 0.2625
+    },
+    "dev5": {
+     "spread": 0.014332664589934397,
+     "control_swap": 0.3513080032869002,
+     "control_noexp": 0.3306916498541364,
+     "routing_spread": 0.017241379310344824,
+     "routing_control": 0.25172413793103443
+    },
+    "dev6": {
+     "spread": 0.009445639141579833,
+     "control_swap": 0.4058464410904736,
+     "control_noexp": 0.3889320719276222,
+     "routing_spread": 0.009090909090909089,
+     "routing_control": 0.2878787878787879
+    },
+    "dev7": {
+     "spread": 0.009901106500669237,
+     "control_swap": 0.3676812667105557,
+     "control_noexp": 0.354482765715898,
+     "routing_spread": 0.004761904761904761,
+     "routing_control": 0.25238095238095243
+    }
+   }
+  },
+  {
+   "layer": 2,
+   "spread_max": 0.02195111556675525,
+   "control_min": 0.44445127204174945,
+   "routing_spread_max": 0.028571428571428564,
+   "routing_control_min": 0.37826086956521743,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.015248899992941831,
+     "control_swap": 0.513082374704358,
+     "control_noexp": 0.4959251865724831,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.37826086956521743
+    },
+    "dev1": {
+     "spread": 0.01909217933841024,
+     "control_swap": 0.4839530889369575,
+     "control_noexp": 0.46460179584824574,
+     "routing_spread": 0.024999999999999994,
+     "routing_control": 0.5142857142857143
+    },
+    "dev2": {
+     "spread": 0.012344748229187887,
+     "control_swap": 0.4696231496784017,
+     "control_noexp": 0.46018846635437394,
+     "routing_spread": 0.018421052631578942,
+     "routing_control": 0.47368421052631576
+    },
+    "dev3": {
+     "spread": 0.01123413259337454,
+     "control_swap": 0.48230712300842343,
+     "control_noexp": 0.4699782984089403,
+     "routing_spread": 0.002941176470588235,
+     "routing_control": 0.5676470588235293
+    },
+    "dev4": {
+     "spread": 0.01554850902494665,
+     "control_swap": 0.4935030951133889,
+     "control_noexp": 0.47949453808375353,
+     "routing_spread": 0.01458333333333333,
+     "routing_control": 0.4791666666666667
+    },
+    "dev5": {
+     "spread": 0.017575865814440043,
+     "control_swap": 0.48737766427345486,
+     "control_noexp": 0.4699938740088743,
+     "routing_spread": 0.017241379310344824,
+     "routing_control": 0.4620689655172414
+    },
+    "dev6": {
+     "spread": 0.013417837270914904,
+     "control_swap": 0.526387771495572,
+     "control_noexp": 0.5086667854465915,
+     "routing_spread": 0.015151515151515148,
+     "routing_control": 0.48484848484848486
+    },
+    "dev7": {
+     "spread": 0.02195111556675525,
+     "control_swap": 0.45911603301128334,
+     "control_noexp": 0.44445127204174945,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.4428571428571429
+    }
+   }
+  },
+  {
+   "layer": 3,
+   "spread_max": 0.027635440045815862,
+   "control_min": 0.49096621271463464,
+   "routing_spread_max": 0.03928571428571427,
+   "routing_control_min": 0.5761904761904763,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.019238337637442496,
+     "control_swap": 0.5662552141592356,
+     "control_noexp": 0.531649355627613,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.7000000000000001
+    },
+    "dev1": {
+     "spread": 0.027178916768878385,
+     "control_swap": 0.5340131444399311,
+     "control_noexp": 0.49096621271463464,
+     "routing_spread": 0.03928571428571427,
+     "routing_control": 0.8285714285714285
+    },
+    "dev2": {
+     "spread": 0.015251854623695991,
+     "control_swap": 0.5232481110756443,
+     "control_noexp": 0.5043775666821707,
+     "routing_spread": 0.021052631578947364,
+     "routing_control": 0.6078947368421052
+    },
+    "dev3": {
+     "spread": 0.014511825449009742,
+     "control_swap": 0.5376123072498735,
+     "control_noexp": 0.5046702511564409,
+     "routing_spread": 0.01176470588235294,
+     "routing_control": 0.711764705882353
+    },
+    "dev4": {
+     "spread": 0.023838389746840594,
+     "control_swap": 0.5410137792190081,
+     "control_noexp": 0.5151127527200636,
+     "routing_spread": 0.03541666666666666,
+     "routing_control": 0.7979166666666667
+    },
+    "dev5": {
+     "spread": 0.0218270545222283,
+     "control_swap": 0.5287192975125142,
+     "control_noexp": 0.4964049226749684,
+     "routing_spread": 0.027586206896551717,
+     "routing_control": 0.6724137931034482
+    },
+    "dev6": {
+     "spread": 0.021114196145094584,
+     "control_swap": 0.5680074498738381,
+     "control_noexp": 0.5345052052908653,
+     "routing_spread": 0.018181818181818177,
+     "routing_control": 0.7575757575757576
+    },
+    "dev7": {
+     "spread": 0.027635440045815862,
+     "control_swap": 0.5240008472242996,
+     "control_noexp": 0.49397611128544205,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.5761904761904763
+    }
+   }
+  },
+  {
+   "layer": 4,
+   "spread_max": 0.03193856624708342,
+   "control_min": 0.5694833260129378,
+   "routing_spread_max": 0.03939393939393939,
+   "routing_control_min": 0.6172413793103447,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.024717608476532895,
+     "control_swap": 0.6656155356899652,
+     "control_noexp": 0.6066055747063299,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.682608695652174
+    },
+    "dev1": {
+     "spread": 0.028924774633212642,
+     "control_swap": 0.6486280581517503,
+     "control_noexp": 0.5694833260129378,
+     "routing_spread": 0.017857142857142853,
+     "routing_control": 0.7535714285714287
+    },
+    "dev2": {
+     "spread": 0.023776750107258972,
+     "control_swap": 0.6230774063293096,
+     "control_noexp": 0.5937189919756511,
+     "routing_spread": 0.03157894736842105,
+     "routing_control": 0.6236842105263157
+    },
+    "dev3": {
+     "spread": 0.018394777879137802,
+     "control_swap": 0.6697372261350628,
+     "control_noexp": 0.6146119067619276,
+     "routing_spread": 0.017647058823529408,
+     "routing_control": 0.7705882352941176
+    },
+    "dev4": {
+     "spread": 0.029998414120224984,
+     "control_swap": 0.622405178027028,
+     "control_noexp": 0.5771845504305043,
+     "routing_spread": 0.02708333333333333,
+     "routing_control": 0.71875
+    },
+    "dev5": {
+     "spread": 0.025547570249343874,
+     "control_swap": 0.6304207198026464,
+     "control_noexp": 0.5811387854469419,
+     "routing_spread": 0.02068965517241379,
+     "routing_control": 0.6172413793103447
+    },
+    "dev6": {
+     "spread": 0.03193856624708342,
+     "control_swap": 0.6826481189089066,
+     "control_noexp": 0.6122238214012157,
+     "routing_spread": 0.03939393939393939,
+     "routing_control": 0.7212121212121212
+    },
+    "dev7": {
+     "spread": 0.03157338220285967,
+     "control_swap": 0.6512575992903189,
+     "control_noexp": 0.6100558361097465,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.7095238095238096
+    }
+   }
+  },
+  {
+   "layer": 5,
+   "spread_max": 0.03416616765584473,
+   "control_min": 0.6058025406588948,
+   "routing_spread_max": 0.045833333333333316,
+   "routing_control_min": 0.6696969696969697,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.025986935728777437,
+     "control_swap": 0.6987440241835171,
+     "control_noexp": 0.6333044885146052,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.7565217391304347
+    },
+    "dev1": {
+     "spread": 0.03200704068546653,
+     "control_swap": 0.7073568452634592,
+     "control_noexp": 0.6155761265110749,
+     "routing_spread": 0.03928571428571427,
+     "routing_control": 0.7678571428571429
+    },
+    "dev2": {
+     "spread": 0.024241844870837005,
+     "control_swap": 0.6655986051411691,
+     "control_noexp": 0.6413183548330994,
+     "routing_spread": 0.03421052631578947,
+     "routing_control": 0.7710526315789473
+    },
+    "dev3": {
+     "spread": 0.021151698152823778,
+     "control_swap": 0.7139530447340502,
+     "control_noexp": 0.6578615824910021,
+     "routing_spread": 0.020588235294117643,
+     "routing_control": 0.7529411764705882
+    },
+    "dev4": {
+     "spread": 0.03416616765584473,
+     "control_swap": 0.6561552986504872,
+     "control_noexp": 0.6058025406588948,
+     "routing_spread": 0.045833333333333316,
+     "routing_control": 0.7166666666666667
+    },
+    "dev5": {
+     "spread": 0.026644285338904734,
+     "control_swap": 0.6797551883997474,
+     "control_noexp": 0.6304286203856687,
+     "routing_spread": 0.02068965517241379,
+     "routing_control": 0.6724137931034483
+    },
+    "dev6": {
+     "spread": 0.03230521825258856,
+     "control_swap": 0.7321118987295897,
+     "control_noexp": 0.6528563627874583,
+     "routing_spread": 0.024242424242424235,
+     "routing_control": 0.6696969696969697
+    },
+    "dev7": {
+     "spread": 0.033796800911665925,
+     "control_swap": 0.7049942535585518,
+     "control_noexp": 0.6649264031654644,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.6714285714285714
+    }
+   }
+  },
+  {
+   "layer": 6,
+   "spread_max": 0.03959605887209711,
+   "control_min": 0.6451720663132541,
+   "routing_spread_max": 0.04642857142857142,
+   "routing_control_min": 0.6166666666666667,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.030132989350903035,
+     "control_swap": 0.7517466161588994,
+     "control_noexp": 0.6851437178191183,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.7347826086956523
+    },
+    "dev1": {
+     "spread": 0.03959605887209711,
+     "control_swap": 0.7627945294920614,
+     "control_noexp": 0.6637632583887992,
+     "routing_spread": 0.04642857142857142,
+     "routing_control": 0.7999999999999999
+    },
+    "dev2": {
+     "spread": 0.028052075701665534,
+     "control_swap": 0.7188876123206829,
+     "control_noexp": 0.6871679249246233,
+     "routing_spread": 0.023684210526315783,
+     "routing_control": 0.6894736842105263
+    },
+    "dev3": {
+     "spread": 0.021773049124351584,
+     "control_swap": 0.7682254150688738,
+     "control_noexp": 0.7051192419058461,
+     "routing_spread": 0.017647058823529408,
+     "routing_control": 0.7176470588235294
+    },
+    "dev4": {
+     "spread": 0.03670707911566768,
+     "control_swap": 0.7022693779591247,
+     "control_noexp": 0.6451720663132541,
+     "routing_spread": 0.02083333333333333,
+     "routing_control": 0.6166666666666667
+    },
+    "dev5": {
+     "spread": 0.027943259897623793,
+     "control_swap": 0.7354287002380586,
+     "control_noexp": 0.6827402046190019,
+     "routing_spread": 0.017241379310344824,
+     "routing_control": 0.693103448275862
+    },
+    "dev6": {
+     "spread": 0.0350684057450997,
+     "control_swap": 0.7881896954776322,
+     "control_noexp": 0.7001631054153407,
+     "routing_spread": 0.024242424242424235,
+     "routing_control": 0.6515151515151516
+    },
+    "dev7": {
+     "spread": 0.034561697567336847,
+     "control_swap": 0.7597868797935177,
+     "control_noexp": 0.7157078234250751,
+     "routing_spread": 0.014285714285714282,
+     "routing_control": 0.6476190476190475
+    }
+   }
+  },
+  {
+   "layer": 7,
+   "spread_max": 0.0396077960307059,
+   "control_min": 0.6704700149199074,
+   "routing_spread_max": 0.02894736842105262,
+   "routing_control_min": 0.6517241379310346,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.029170685254142122,
+     "control_swap": 0.7722454814675757,
+     "control_noexp": 0.7144353853872394,
+     "routing_spread": 0.008695652173913042,
+     "routing_control": 0.7347826086956523
+    },
+    "dev1": {
+     "spread": 0.0396077960307059,
+     "control_swap": 0.7823410119316997,
+     "control_noexp": 0.696328358148242,
+     "routing_spread": 0.014285714285714282,
+     "routing_control": 0.8285714285714286
+    },
+    "dev2": {
+     "spread": 0.0291762212450391,
+     "control_swap": 0.7551929851264633,
+     "control_noexp": 0.7248182625806547,
+     "routing_spread": 0.02894736842105262,
+     "routing_control": 0.7842105263157895
+    },
+    "dev3": {
+     "spread": 0.022942652154590584,
+     "control_swap": 0.7887314490848711,
+     "control_noexp": 0.7302862463499712,
+     "routing_spread": 0.008823529411764704,
+     "routing_control": 0.8117647058823528
+    },
+    "dev4": {
+     "spread": 0.036529772905622274,
+     "control_swap": 0.7239440388618582,
+     "control_noexp": 0.6704700149199074,
+     "routing_spread": 0.016666666666666663,
+     "routing_control": 0.7333333333333334
+    },
+    "dev5": {
+     "spread": 0.02907697404828442,
+     "control_swap": 0.7590908235550283,
+     "control_noexp": 0.7107122927883005,
+     "routing_spread": 0.024137931034482755,
+     "routing_control": 0.6517241379310346
+    },
+    "dev6": {
+     "spread": 0.03635043602440197,
+     "control_swap": 0.8091136486839693,
+     "control_noexp": 0.7281863060529862,
+     "routing_spread": 0.015151515151515148,
+     "routing_control": 0.7454545454545455
+    },
+    "dev7": {
+     "spread": 0.036771383699831135,
+     "control_swap": 0.7746275793567169,
+     "control_noexp": 0.7334332647315571,
+     "routing_spread": 0.019047619047619042,
+     "routing_control": 0.7857142857142857
+    }
+   }
+  },
+  {
+   "layer": 8,
+   "spread_max": 0.04020650048955732,
+   "control_min": 0.6846432047540163,
+   "routing_spread_max": 0.04242424242424241,
+   "routing_control_min": 0.8104166666666667,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.02881620492458228,
+     "control_swap": 0.7844355595451791,
+     "control_noexp": 0.7391480402881617,
+     "routing_spread": 0.013043478260869563,
+     "routing_control": 0.8826086956521738
+    },
+    "dev1": {
+     "spread": 0.04020650048955732,
+     "control_swap": 0.7968959131926562,
+     "control_noexp": 0.7269122155908221,
+     "routing_spread": 0.024999999999999994,
+     "routing_control": 0.9035714285714286
+    },
+    "dev2": {
+     "spread": 0.029118026115685505,
+     "control_swap": 0.7719607102180256,
+     "control_noexp": 0.7434809990755098,
+     "routing_spread": 0.03684210526315789,
+     "routing_control": 0.8394736842105264
+    },
+    "dev3": {
+     "spread": 0.023913738032430933,
+     "control_swap": 0.8029524045492321,
+     "control_noexp": 0.7503306888082379,
+     "routing_spread": 0.017647058823529408,
+     "routing_control": 0.9264705882352942
+    },
+    "dev4": {
+     "spread": 0.036895128163056824,
+     "control_swap": 0.7374558624532324,
+     "control_noexp": 0.6846432047540163,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8104166666666667
+    },
+    "dev5": {
+     "spread": 0.029853614993994533,
+     "control_swap": 0.7693818672574139,
+     "control_noexp": 0.7242940379681692,
+     "routing_spread": 0.024137931034482755,
+     "routing_control": 0.8344827586206898
+    },
+    "dev6": {
+     "spread": 0.03646461940809584,
+     "control_swap": 0.8200928580904427,
+     "control_noexp": 0.7482775498779594,
+     "routing_spread": 0.04242424242424241,
+     "routing_control": 0.8515151515151516
+    },
+    "dev7": {
+     "spread": 0.03665869665096408,
+     "control_swap": 0.7838697020306866,
+     "control_noexp": 0.744831045996479,
+     "routing_spread": 0.009523809523809521,
+     "routing_control": 0.8428571428571429
+    }
+   }
+  },
+  {
+   "layer": 9,
+   "spread_max": 0.04091719317221349,
+   "control_min": 0.6920669788281707,
+   "routing_spread_max": 0.036363636363636355,
+   "routing_control_min": 0.7857142857142857,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.02875855038250682,
+     "control_swap": 0.7927176254417494,
+     "control_noexp": 0.747809787831338,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.9086956521739127
+    },
+    "dev1": {
+     "spread": 0.04091719317221349,
+     "control_swap": 0.807092346747045,
+     "control_noexp": 0.7386739918481212,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.9571428571428572
+    },
+    "dev2": {
+     "spread": 0.029771010815157224,
+     "control_swap": 0.778746817680933,
+     "control_noexp": 0.7495102899882664,
+     "routing_spread": 0.026315789473684206,
+     "routing_control": 0.886842105263158
+    },
+    "dev3": {
+     "spread": 0.024564280367011852,
+     "control_swap": 0.8104161073597135,
+     "control_noexp": 0.7589243677245405,
+     "routing_spread": 0.01176470588235294,
+     "routing_control": 0.8705882352941177
+    },
+    "dev4": {
+     "spread": 0.03769054542032001,
+     "control_swap": 0.7448205292738882,
+     "control_noexp": 0.6920669788281707,
+     "routing_spread": 0.02916666666666666,
+     "routing_control": 0.8624999999999999
+    },
+    "dev5": {
+     "spread": 0.030291339218648197,
+     "control_swap": 0.7787694063731697,
+     "control_noexp": 0.7347569853556936,
+     "routing_spread": 0.013793103448275858,
+     "routing_control": 0.8275862068965518
+    },
+    "dev6": {
+     "spread": 0.037785309594103166,
+     "control_swap": 0.8299013199247124,
+     "control_noexp": 0.7580902849363337,
+     "routing_spread": 0.036363636363636355,
+     "routing_control": 0.9515151515151514
+    },
+    "dev7": {
+     "spread": 0.036461271096629756,
+     "control_swap": 0.7929996034823775,
+     "control_noexp": 0.7548501037138279,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.7857142857142857
+    }
+   }
+  },
+  {
+   "layer": 10,
+   "spread_max": 0.04310779946862101,
+   "control_min": 0.6997876946609077,
+   "routing_spread_max": 0.03939393939393939,
+   "routing_control_min": 0.7833333333333332,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.029984572415624446,
+     "control_swap": 0.7967068920150738,
+     "control_noexp": 0.7532860271960189,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.9043478260869564
+    },
+    "dev1": {
+     "spread": 0.04310779946862101,
+     "control_swap": 0.80931952537765,
+     "control_noexp": 0.7439738729070479,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.932142857142857
+    },
+    "dev2": {
+     "spread": 0.030661396908902742,
+     "control_swap": 0.7821611023130569,
+     "control_noexp": 0.7520704925548505,
+     "routing_spread": 0.015789473684210523,
+     "routing_control": 0.9105263157894737
+    },
+    "dev3": {
+     "spread": 0.02536644540753738,
+     "control_swap": 0.814160844605916,
+     "control_noexp": 0.7634175718148657,
+     "routing_spread": 0.014705882352941173,
+     "routing_control": 0.9235294117647058
+    },
+    "dev4": {
+     "spread": 0.03775716643478814,
+     "control_swap": 0.7513426968034705,
+     "control_noexp": 0.6997876946609077,
+     "routing_spread": 0.018749999999999996,
+     "routing_control": 0.7833333333333332
+    },
+    "dev5": {
+     "spread": 0.03367269293262892,
+     "control_swap": 0.7834516268976986,
+     "control_noexp": 0.7396293395488256,
+     "routing_spread": 0.037931034482758606,
+     "routing_control": 0.882758620689655
+    },
+    "dev6": {
+     "spread": 0.039959766555185905,
+     "control_swap": 0.8345273604287531,
+     "control_noexp": 0.7648848796797728,
+     "routing_spread": 0.03939393939393939,
+     "routing_control": 0.903030303030303
+    },
+    "dev7": {
+     "spread": 0.037877537801514705,
+     "control_swap": 0.7972292823948217,
+     "control_noexp": 0.7611906371371117,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8571428571428571
+    }
+   }
+  },
+  {
+   "layer": 11,
+   "spread_max": 0.046871117961734286,
+   "control_min": 0.7005696994944759,
+   "routing_spread_max": 0.06428571428571428,
+   "routing_control_min": 0.7833333333333333,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.030410142754929755,
+     "control_swap": 0.7993105534436797,
+     "control_noexp": 0.7550037909285416,
+     "routing_spread": 0.013043478260869563,
+     "routing_control": 0.9304347826086956
+    },
+    "dev1": {
+     "spread": 0.046871117961734286,
+     "control_swap": 0.8118931703879546,
+     "control_noexp": 0.7464751345794414,
+     "routing_spread": 0.06428571428571428,
+     "routing_control": 0.932142857142857
+    },
+    "dev2": {
+     "spread": 0.03152470265128341,
+     "control_swap": 0.7835148724529355,
+     "control_noexp": 0.7528088378904801,
+     "routing_spread": 0.04473684210526315,
+     "routing_control": 0.9078947368421053
+    },
+    "dev3": {
+     "spread": 0.026675550719904743,
+     "control_swap": 0.8170898502319606,
+     "control_noexp": 0.7647378830990049,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.9088235294117647
+    },
+    "dev4": {
+     "spread": 0.039560448195933094,
+     "control_swap": 0.7531185572467324,
+     "control_noexp": 0.7005696994944759,
+     "routing_spread": 0.037499999999999985,
+     "routing_control": 0.7833333333333333
+    },
+    "dev5": {
+     "spread": 0.036405117566917757,
+     "control_swap": 0.7861879950782371,
+     "control_noexp": 0.7407345658629135,
+     "routing_spread": 0.03448275862068965,
+     "routing_control": 0.889655172413793
+    },
+    "dev6": {
+     "spread": 0.04351181505559426,
+     "control_swap": 0.8363855728586813,
+     "control_noexp": 0.7680124683237147,
+     "routing_spread": 0.05454545454545454,
+     "routing_control": 0.8878787878787878
+    },
+    "dev7": {
+     "spread": 0.038067345234590495,
+     "control_swap": 0.797557581403532,
+     "control_noexp": 0.7604443425260708,
+     "routing_spread": 0.014285714285714282,
+     "routing_control": 0.9238095238095237
+    }
+   }
+  },
+  {
+   "layer": 12,
+   "spread_max": 0.050943470977502375,
+   "control_min": 0.7236972472003368,
+   "routing_spread_max": 0.04137931034482758,
+   "routing_control_min": 0.8250000000000001,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.03656906856514854,
+     "control_swap": 0.8193116096705901,
+     "control_noexp": 0.7787950353640991,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.8695652173913042
+    },
+    "dev1": {
+     "spread": 0.050943470977502375,
+     "control_swap": 0.8300546162161168,
+     "control_noexp": 0.7706476446449609,
+     "routing_spread": 0.03214285714285713,
+     "routing_control": 0.9107142857142857
+    },
+    "dev2": {
+     "spread": 0.03412673054397685,
+     "control_swap": 0.7964806727728156,
+     "control_noexp": 0.7666317473935595,
+     "routing_spread": 0.021052631578947364,
+     "routing_control": 0.9184210526315789
+    },
+    "dev3": {
+     "spread": 0.03353781224885886,
+     "control_swap": 0.8341495057292704,
+     "control_noexp": 0.7856145593849516,
+     "routing_spread": 0.029411764705882346,
+     "routing_control": 0.8941176470588235
+    },
+    "dev4": {
+     "spread": 0.04231677079393658,
+     "control_swap": 0.7718843358478059,
+     "control_noexp": 0.7236972472003368,
+     "routing_spread": 0.02708333333333333,
+     "routing_control": 0.8250000000000001
+    },
+    "dev5": {
+     "spread": 0.04171833884871073,
+     "control_swap": 0.801637714818518,
+     "control_noexp": 0.7572148495811529,
+     "routing_spread": 0.04137931034482758,
+     "routing_control": 0.8482758620689655
+    },
+    "dev6": {
+     "spread": 0.04718237517345275,
+     "control_swap": 0.8535550969633418,
+     "control_noexp": 0.7960801707013849,
+     "routing_spread": 0.027272727272727268,
+     "routing_control": 0.8727272727272728
+    },
+    "dev7": {
+     "spread": 0.038701456504089744,
+     "control_swap": 0.8122167894767975,
+     "control_noexp": 0.777052898023787,
+     "routing_spread": 0.014285714285714282,
+     "routing_control": 0.8428571428571429
+    }
+   }
+  },
+  {
+   "layer": 13,
+   "spread_max": 0.05520464063517915,
+   "control_min": 0.7393444863473839,
+   "routing_spread_max": 0.046428571428571416,
+   "routing_control_min": 0.7354166666666666,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.03795420292309545,
+     "control_swap": 0.824020522527082,
+     "control_noexp": 0.7831406397049522,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.8695652173913045
+    },
+    "dev1": {
+     "spread": 0.05520464063517915,
+     "control_swap": 0.8366707788870152,
+     "control_noexp": 0.7780339286446608,
+     "routing_spread": 0.046428571428571416,
+     "routing_control": 0.8785714285714284
+    },
+    "dev2": {
+     "spread": 0.03552280865335778,
+     "control_swap": 0.8011124515635237,
+     "control_noexp": 0.7716091306731412,
+     "routing_spread": 0.03157894736842105,
+     "routing_control": 0.8973684210526315
+    },
+    "dev3": {
+     "spread": 0.0356688765451648,
+     "control_swap": 0.8389367170834269,
+     "control_noexp": 0.7903589557460886,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.8588235294117647
+    },
+    "dev4": {
+     "spread": 0.044994700119549855,
+     "control_swap": 0.782782744689564,
+     "control_noexp": 0.7393444863473839,
+     "routing_spread": 0.027083333333333324,
+     "routing_control": 0.7354166666666666
+    },
+    "dev5": {
+     "spread": 0.043855560700383246,
+     "control_swap": 0.8061375022091823,
+     "control_noexp": 0.7640484465769403,
+     "routing_spread": 0.031034482758620682,
+     "routing_control": 0.8034482758620688
+    },
+    "dev6": {
+     "spread": 0.048729115820438734,
+     "control_swap": 0.8604344827526165,
+     "control_noexp": 0.8066641301169017,
+     "routing_spread": 0.024242424242424235,
+     "routing_control": 0.8363636363636364
+    },
+    "dev7": {
+     "spread": 0.04138053457652204,
+     "control_swap": 0.8154646836934075,
+     "control_noexp": 0.7806989357496397,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8571428571428571
+    }
+   }
+  },
+  {
+   "layer": 14,
+   "spread_max": 0.05946182989343683,
+   "control_min": 0.7530927371745246,
+   "routing_spread_max": 0.049999999999999996,
+   "routing_control_min": 0.8241379310344827,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.03882873794874405,
+     "control_swap": 0.834371671046437,
+     "control_noexp": 0.7866048620607304,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.9130434782608695
+    },
+    "dev1": {
+     "spread": 0.05946182989343683,
+     "control_swap": 0.8475742161861313,
+     "control_noexp": 0.780194795865726,
+     "routing_spread": 0.049999999999999996,
+     "routing_control": 0.9464285714285714
+    },
+    "dev2": {
+     "spread": 0.039534130619786174,
+     "control_swap": 0.811684730958298,
+     "control_noexp": 0.7824861186164742,
+     "routing_spread": 0.04473684210526315,
+     "routing_control": 0.8710526315789472
+    },
+    "dev3": {
+     "spread": 0.037077578077225386,
+     "control_swap": 0.8521873056316432,
+     "control_noexp": 0.7991575109404395,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.9205882352941176
+    },
+    "dev4": {
+     "spread": 0.05311008559103357,
+     "control_swap": 0.7984859793492293,
+     "control_noexp": 0.7530927371745246,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.8583333333333334
+    },
+    "dev5": {
+     "spread": 0.04694636665744539,
+     "control_swap": 0.8138667693213928,
+     "control_noexp": 0.7701755241561442,
+     "routing_spread": 0.037931034482758606,
+     "routing_control": 0.8241379310344827
+    },
+    "dev6": {
+     "spread": 0.05173148410659362,
+     "control_swap": 0.8666115428610205,
+     "control_noexp": 0.8106915605948883,
+     "routing_spread": 0.03939393939393939,
+     "routing_control": 0.9424242424242425
+    },
+    "dev7": {
+     "spread": 0.043277888486381956,
+     "control_swap": 0.8209454356672731,
+     "control_noexp": 0.7812344889529655,
+     "routing_spread": 0.04761904761904761,
+     "routing_control": 0.8761904761904761
+    }
+   }
+  },
+  {
+   "layer": 15,
+   "spread_max": 0.06093919515145729,
+   "control_min": 0.7562734031220493,
+   "routing_spread_max": 0.06458333333333331,
+   "routing_control_min": 0.8344827586206898,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.041668343506089923,
+     "control_swap": 0.8490219271219085,
+     "control_noexp": 0.7837382971472607,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.9173913043478261
+    },
+    "dev1": {
+     "spread": 0.05888319740299355,
+     "control_swap": 0.8641291719360076,
+     "control_noexp": 0.7754621202075002,
+     "routing_spread": 0.017857142857142853,
+     "routing_control": 0.9571428571428572
+    },
+    "dev2": {
+     "spread": 0.043929101288113365,
+     "control_swap": 0.8233122342417671,
+     "control_noexp": 0.7925087211492768,
+     "routing_spread": 0.055263157894736833,
+     "routing_control": 0.8526315789473684
+    },
+    "dev3": {
+     "spread": 0.03820137067379049,
+     "control_swap": 0.8754887696597273,
+     "control_noexp": 0.8053623163777581,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.8529411764705882
+    },
+    "dev4": {
+     "spread": 0.06093919515145729,
+     "control_swap": 0.8128947585711462,
+     "control_noexp": 0.7562734031220493,
+     "routing_spread": 0.06458333333333331,
+     "routing_control": 0.8770833333333333
+    },
+    "dev5": {
+     "spread": 0.04790169700191031,
+     "control_swap": 0.8347708985447698,
+     "control_noexp": 0.7719843626104382,
+     "routing_spread": 0.027586206896551717,
+     "routing_control": 0.8344827586206898
+    },
+    "dev6": {
+     "spread": 0.05605210183482893,
+     "control_swap": 0.8791968355355864,
+     "control_noexp": 0.8067639398075208,
+     "routing_spread": 0.054545454545454536,
+     "routing_control": 0.8999999999999999
+    },
+    "dev7": {
+     "spread": 0.04486254267004304,
+     "control_swap": 0.8359922909702626,
+     "control_noexp": 0.7887637435620412,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8666666666666666
+    }
+   }
+  },
+  {
+   "layer": 16,
+   "spread_max": 0.06599022860904898,
+   "control_min": 0.7707040442250278,
+   "routing_spread_max": 0.057575757575757565,
+   "routing_control_min": 0.8310344827586206,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.04543731884709454,
+     "control_swap": 0.858867386074299,
+     "control_noexp": 0.7870848408799905,
+     "routing_spread": 0.030434782608695646,
+     "routing_control": 0.9
+    },
+    "dev1": {
+     "spread": 0.062421254289117246,
+     "control_swap": 0.8717540229418074,
+     "control_noexp": 0.7779317086041896,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.9571428571428571
+    },
+    "dev2": {
+     "spread": 0.04750799571294217,
+     "control_swap": 0.8323580596161216,
+     "control_noexp": 0.8012176691067274,
+     "routing_spread": 0.055263157894736833,
+     "routing_control": 0.8578947368421052
+    },
+    "dev3": {
+     "spread": 0.04242657684694669,
+     "control_swap": 0.8843948310132778,
+     "control_noexp": 0.8139084155010103,
+     "routing_spread": 0.04117647058823529,
+     "routing_control": 0.9529411764705882
+    },
+    "dev4": {
+     "spread": 0.06599022860904898,
+     "control_swap": 0.8292720908653889,
+     "control_noexp": 0.7707040442250278,
+     "routing_spread": 0.05416666666666665,
+     "routing_control": 0.8833333333333334
+    },
+    "dev5": {
+     "spread": 0.05100603684331591,
+     "control_swap": 0.8425871868481555,
+     "control_noexp": 0.7761281481214065,
+     "routing_spread": 0.04827586206896552,
+     "routing_control": 0.8310344827586206
+    },
+    "dev6": {
+     "spread": 0.06256611416236134,
+     "control_swap": 0.8884607856496571,
+     "control_noexp": 0.8155115084241128,
+     "routing_spread": 0.057575757575757565,
+     "routing_control": 0.8484848484848485
+    },
+    "dev7": {
+     "spread": 0.04731894417479421,
+     "control_swap": 0.8422143910169952,
+     "control_noexp": 0.7922651021068324,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.8428571428571429
+    }
+   }
+  },
+  {
+   "layer": 17,
+   "spread_max": 0.06927420158273835,
+   "control_min": 0.7726671689758154,
+   "routing_spread_max": 0.05757575757575756,
+   "routing_control_min": 0.8041666666666667,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.04914777885384095,
+     "control_swap": 0.86564363292957,
+     "control_noexp": 0.7923815593779859,
+     "routing_spread": 0.04782608695652173,
+     "routing_control": 0.8826086956521739
+    },
+    "dev1": {
+     "spread": 0.0670941146164274,
+     "control_swap": 0.8754491231191394,
+     "control_noexp": 0.7820528176436554,
+     "routing_spread": 0.03928571428571427,
+     "routing_control": 0.9249999999999999
+    },
+    "dev2": {
+     "spread": 0.048927865368301855,
+     "control_swap": 0.8385702874929082,
+     "control_noexp": 0.8046908407870778,
+     "routing_spread": 0.05263157894736842,
+     "routing_control": 0.9526315789473685
+    },
+    "dev3": {
+     "spread": 0.04445939683995442,
+     "control_swap": 0.8875668126952592,
+     "control_noexp": 0.81516707304367,
+     "routing_spread": 0.04117647058823529,
+     "routing_control": 0.9147058823529411
+    },
+    "dev4": {
+     "spread": 0.06927420158273835,
+     "control_swap": 0.8367782593893834,
+     "control_noexp": 0.7726671689758154,
+     "routing_spread": 0.05624999999999999,
+     "routing_control": 0.8041666666666667
+    },
+    "dev5": {
+     "spread": 0.05528556525991408,
+     "control_swap": 0.8477834862149294,
+     "control_noexp": 0.7780482486782462,
+     "routing_spread": 0.055172413793103434,
+     "routing_control": 0.8241379310344827
+    },
+    "dev6": {
+     "spread": 0.06860631917645175,
+     "control_swap": 0.8924107319360772,
+     "control_noexp": 0.8171671007912449,
+     "routing_spread": 0.05757575757575756,
+     "routing_control": 0.8333333333333334
+    },
+    "dev7": {
+     "spread": 0.04922934176417499,
+     "control_swap": 0.847269982100713,
+     "control_noexp": 0.7954043879695696,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.9190476190476191
+    }
+   }
+  },
+  {
+   "layer": 18,
+   "spread_max": 0.07294618907884282,
+   "control_min": 0.798051726337108,
+   "routing_spread_max": 0.05208333333333332,
+   "routing_control_min": 0.7937500000000001,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.053251314412594175,
+     "control_swap": 0.8764621690241969,
+     "control_noexp": 0.8069372787379406,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.9086956521739128
+    },
+    "dev1": {
+     "spread": 0.06898272975255208,
+     "control_swap": 0.886374411506812,
+     "control_noexp": 0.798051726337108,
+     "routing_spread": 0.035714285714285705,
+     "routing_control": 0.9071428571428571
+    },
+    "dev2": {
+     "spread": 0.04962975575033751,
+     "control_swap": 0.8561122636189884,
+     "control_noexp": 0.8279855925295121,
+     "routing_spread": 0.021052631578947364,
+     "routing_control": 0.8921052631578947
+    },
+    "dev3": {
+     "spread": 0.04723508013690851,
+     "control_swap": 0.8979869844839861,
+     "control_noexp": 0.8344376222944174,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.9205882352941176
+    },
+    "dev4": {
+     "spread": 0.07294618907884282,
+     "control_swap": 0.8492871398110086,
+     "control_noexp": 0.8044775607686251,
+     "routing_spread": 0.05208333333333332,
+     "routing_control": 0.7937500000000001
+    },
+    "dev5": {
+     "spread": 0.05854609950150281,
+     "control_swap": 0.8592206729283995,
+     "control_noexp": 0.800285517073215,
+     "routing_spread": 0.031034482758620682,
+     "routing_control": 0.7999999999999998
+    },
+    "dev6": {
+     "spread": 0.0711390805674993,
+     "control_swap": 0.9032230439427822,
+     "control_noexp": 0.844742731420019,
+     "routing_spread": 0.04242424242424242,
+     "routing_control": 0.8848484848484848
+    },
+    "dev7": {
+     "spread": 0.05041689045966574,
+     "control_swap": 0.8601440013049261,
+     "control_noexp": 0.8146584268301549,
+     "routing_spread": 0.019047619047619042,
+     "routing_control": 0.8999999999999999
+    }
+   }
+  },
+  {
+   "layer": 19,
+   "spread_max": 0.07727779537720073,
+   "control_min": 0.798252278440628,
+   "routing_spread_max": 0.10263157894736841,
+   "routing_control_min": 0.8604166666666666,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.0557216752917164,
+     "control_swap": 0.8834525367860833,
+     "control_noexp": 0.8095396583874171,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.9260869565217391
+    },
+    "dev1": {
+     "spread": 0.0712065668853319,
+     "control_swap": 0.8939590064713728,
+     "control_noexp": 0.798252278440628,
+     "routing_spread": 0.046428571428571416,
+     "routing_control": 0.9749999999999999
+    },
+    "dev2": {
+     "spread": 0.05700387637634183,
+     "control_swap": 0.8567507109381037,
+     "control_noexp": 0.824208351530636,
+     "routing_spread": 0.10263157894736841,
+     "routing_control": 0.9184210526315787
+    },
+    "dev3": {
+     "spread": 0.05105249116492539,
+     "control_swap": 0.9030666367374519,
+     "control_noexp": 0.8337392265099557,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.9470588235294118
+    },
+    "dev4": {
+     "spread": 0.07727779537720073,
+     "control_swap": 0.8537201286830151,
+     "control_noexp": 0.8002461344953171,
+     "routing_spread": 0.05416666666666666,
+     "routing_control": 0.8604166666666666
+    },
+    "dev5": {
+     "spread": 0.06375710167401251,
+     "control_swap": 0.8640315652353803,
+     "control_noexp": 0.798625112361406,
+     "routing_spread": 0.06896551724137931,
+     "routing_control": 0.8620689655172412
+    },
+    "dev6": {
+     "spread": 0.07541904630175589,
+     "control_swap": 0.9081964139417653,
+     "control_noexp": 0.8454605262247652,
+     "routing_spread": 0.054545454545454536,
+     "routing_control": 0.8727272727272727
+    },
+    "dev7": {
+     "spread": 0.05249131314599236,
+     "control_swap": 0.8665849472672257,
+     "control_noexp": 0.8142976553360421,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.9333333333333333
+    }
+   }
+  },
+  {
+   "layer": 20,
+   "spread_max": 0.07582578179370658,
+   "control_min": 0.7857656061804638,
+   "routing_spread_max": 0.09210526315789473,
+   "routing_control_min": 0.8862068965517242,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05418332384515923,
+     "control_swap": 0.8730768050048987,
+     "control_noexp": 0.8061701381961996,
+     "routing_spread": 0.04347826086956521,
+     "routing_control": 0.9130434782608697
+    },
+    "dev1": {
+     "spread": 0.06956105769164478,
+     "control_swap": 0.8848657951499012,
+     "control_noexp": 0.7935373982793538,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.9642857142857143
+    },
+    "dev2": {
+     "spread": 0.0635239255932924,
+     "control_swap": 0.8499846761035502,
+     "control_noexp": 0.8186622713214043,
+     "routing_spread": 0.09210526315789473,
+     "routing_control": 0.9236842105263157
+    },
+    "dev3": {
+     "spread": 0.051711142540284465,
+     "control_swap": 0.8931105678027432,
+     "control_noexp": 0.8260525202725691,
+     "routing_spread": 0.04411764705882352,
+     "routing_control": 0.8911764705882353
+    },
+    "dev4": {
+     "spread": 0.07582578179370658,
+     "control_swap": 0.8429953703537578,
+     "control_noexp": 0.7859251070600574,
+     "routing_spread": 0.06041666666666665,
+     "routing_control": 0.9041666666666667
+    },
+    "dev5": {
+     "spread": 0.0631761209995972,
+     "control_swap": 0.854202069319271,
+     "control_noexp": 0.7857656061804638,
+     "routing_spread": 0.06551724137931034,
+     "routing_control": 0.8862068965517242
+    },
+    "dev6": {
+     "spread": 0.0752435054522225,
+     "control_swap": 0.8982781348272988,
+     "control_noexp": 0.8326949392841401,
+     "routing_spread": 0.04242424242424241,
+     "routing_control": 0.903030303030303
+    },
+    "dev7": {
+     "spread": 0.052717200553386113,
+     "control_swap": 0.8590411656276987,
+     "control_noexp": 0.8091665118223423,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.9523809523809523
+    }
+   }
+  },
+  {
+   "layer": 21,
+   "spread_max": 0.07973247135099944,
+   "control_min": 0.8056208429212441,
+   "routing_spread_max": 0.07105263157894737,
+   "routing_control_min": 0.796551724137931,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05612847606297839,
+     "control_swap": 0.8899949866409643,
+     "control_noexp": 0.8254752605388236,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.9130434782608695
+    },
+    "dev1": {
+     "spread": 0.07543207891338741,
+     "control_swap": 0.9062326559659352,
+     "control_noexp": 0.8119801262304973,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.9249999999999999
+    },
+    "dev2": {
+     "spread": 0.07246137372120018,
+     "control_swap": 0.8675386158354171,
+     "control_noexp": 0.8319914915679854,
+     "routing_spread": 0.07105263157894737,
+     "routing_control": 0.9447368421052631
+    },
+    "dev3": {
+     "spread": 0.05519584948586002,
+     "control_swap": 0.9057120748413694,
+     "control_noexp": 0.8427048721977494,
+     "routing_spread": 0.03235294117647058,
+     "routing_control": 0.9323529411764707
+    },
+    "dev4": {
+     "spread": 0.07973247135099944,
+     "control_swap": 0.863570716979837,
+     "control_noexp": 0.8058868377356334,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.8208333333333334
+    },
+    "dev5": {
+     "spread": 0.06983059257597754,
+     "control_swap": 0.876056971180985,
+     "control_noexp": 0.8056208429212441,
+     "routing_spread": 0.044827586206896544,
+     "routing_control": 0.796551724137931
+    },
+    "dev6": {
+     "spread": 0.07910122648670172,
+     "control_swap": 0.91698217608426,
+     "control_noexp": 0.8538423812600704,
+     "routing_spread": 0.04242424242424241,
+     "routing_control": 0.8939393939393938
+    },
+    "dev7": {
+     "spread": 0.05636674311897797,
+     "control_swap": 0.8774900954967594,
+     "control_noexp": 0.8267065540918233,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.9095238095238093
+    }
+   }
+  },
+  {
+   "layer": 22,
+   "spread_max": 0.07722843953951318,
+   "control_min": 0.8183518960211537,
+   "routing_spread_max": 0.047368421052631574,
+   "routing_control_min": 0.6482758620689656,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05384037728993923,
+     "control_swap": 0.8904203443313333,
+     "control_noexp": 0.8408866963137225,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.7173913043478263
+    },
+    "dev1": {
+     "spread": 0.0731718083183594,
+     "control_swap": 0.8993369705790598,
+     "control_noexp": 0.8327642702768611,
+     "routing_spread": 0.03928571428571427,
+     "routing_control": 0.8035714285714285
+    },
+    "dev2": {
+     "spread": 0.07212447775074618,
+     "control_swap": 0.8616676866608981,
+     "control_noexp": 0.8399221083159571,
+     "routing_spread": 0.047368421052631574,
+     "routing_control": 0.7999999999999999
+    },
+    "dev3": {
+     "spread": 0.05255503646914955,
+     "control_swap": 0.8966106863484439,
+     "control_noexp": 0.8515362168844189,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.7558823529411764
+    },
+    "dev4": {
+     "spread": 0.07722843953951318,
+     "control_swap": 0.8652762529029853,
+     "control_noexp": 0.8183518960211537,
+     "routing_spread": 0.03541666666666666,
+     "routing_control": 0.6875
+    },
+    "dev5": {
+     "spread": 0.06903603399204877,
+     "control_swap": 0.8726442603096711,
+     "control_noexp": 0.8200092753600491,
+     "routing_spread": 0.027586206896551717,
+     "routing_control": 0.6482758620689656
+    },
+    "dev6": {
+     "spread": 0.07505769735029234,
+     "control_swap": 0.9086625855501437,
+     "control_noexp": 0.8610838043060822,
+     "routing_spread": 0.021212121212121206,
+     "routing_control": 0.7575757575757576
+    },
+    "dev7": {
+     "spread": 0.05458283690092328,
+     "control_swap": 0.8764465247859171,
+     "control_noexp": 0.8371922034616075,
+     "routing_spread": 0.004761904761904761,
+     "routing_control": 0.7571428571428571
+    }
+   }
+  },
+  {
+   "layer": 23,
+   "spread_max": 0.08489539266227288,
+   "control_min": 0.8274479853728269,
+   "routing_spread_max": 0.11578947368421051,
+   "routing_control_min": 0.8217391304347827,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05386717315668292,
+     "control_swap": 0.8949368587875401,
+     "control_noexp": 0.8447884869199064,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.8217391304347827
+    },
+    "dev1": {
+     "spread": 0.07615062001327103,
+     "control_swap": 0.9079306198565165,
+     "control_noexp": 0.837026090531131,
+     "routing_spread": 0.05714285714285714,
+     "routing_control": 0.932142857142857
+    },
+    "dev2": {
+     "spread": 0.07350988772757798,
+     "control_swap": 0.8612743874051397,
+     "control_noexp": 0.8392865917793724,
+     "routing_spread": 0.11578947368421051,
+     "routing_control": 0.9105263157894735
+    },
+    "dev3": {
+     "spread": 0.05249070107210973,
+     "control_swap": 0.8979149798191045,
+     "control_noexp": 0.8539314538086831,
+     "routing_spread": 0.04705882352941176,
+     "routing_control": 0.8676470588235293
+    },
+    "dev4": {
+     "spread": 0.08489539266227288,
+     "control_swap": 0.8721583677027858,
+     "control_noexp": 0.8274479853728269,
+     "routing_spread": 0.07083333333333332,
+     "routing_control": 0.8729166666666668
+    },
+    "dev5": {
+     "spread": 0.06887369677612629,
+     "control_swap": 0.883390512717479,
+     "control_noexp": 0.8291049592118609,
+     "routing_spread": 0.044827586206896544,
+     "routing_control": 0.8310344827586206
+    },
+    "dev6": {
+     "spread": 0.07607817430628346,
+     "control_swap": 0.9085963309414776,
+     "control_noexp": 0.8608497469000644,
+     "routing_spread": 0.06363636363636363,
+     "routing_control": 0.8727272727272728
+    },
+    "dev7": {
+     "spread": 0.05435853742570816,
+     "control_swap": 0.8818663919208913,
+     "control_noexp": 0.8392651225257066,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.8714285714285714
+    }
+   }
+  },
+  {
+   "layer": 24,
+   "spread_max": 0.08805678079684737,
+   "control_min": 0.8645897442733018,
+   "routing_spread_max": 0.06842105263157894,
+   "routing_control_min": 0.8212121212121212,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05477063088562944,
+     "control_swap": 0.9093715443631416,
+     "control_noexp": 0.9033235685579581,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.8739130434782609
+    },
+    "dev1": {
+     "spread": 0.08160268430601356,
+     "control_swap": 0.9255507704796495,
+     "control_noexp": 0.9076848593738335,
+     "routing_spread": 0.049999999999999996,
+     "routing_control": 0.9249999999999999
+    },
+    "dev2": {
+     "spread": 0.07519096407304665,
+     "control_swap": 0.8905179806058529,
+     "control_noexp": 0.8645897442733018,
+     "routing_spread": 0.06842105263157894,
+     "routing_control": 0.8947368421052629
+    },
+    "dev3": {
+     "spread": 0.05282481306888305,
+     "control_swap": 0.9165355503820194,
+     "control_noexp": 0.89795766667616,
+     "routing_spread": 0.029411764705882346,
+     "routing_control": 0.9205882352941177
+    },
+    "dev4": {
+     "spread": 0.08805678079684737,
+     "control_swap": 0.8959035801190212,
+     "control_noexp": 0.865225522942227,
+     "routing_spread": 0.047916666666666656,
+     "routing_control": 0.8645833333333334
+    },
+    "dev5": {
+     "spread": 0.07039560418145231,
+     "control_swap": 0.9030337417120211,
+     "control_noexp": 0.8799067385787724,
+     "routing_spread": 0.031034482758620682,
+     "routing_control": 0.8448275862068965
+    },
+    "dev6": {
+     "spread": 0.07665827826566404,
+     "control_swap": 0.9257283982840937,
+     "control_noexp": 0.9027103399343475,
+     "routing_spread": 0.030303030303030297,
+     "routing_control": 0.8212121212121212
+    },
+    "dev7": {
+     "spread": 0.05777869173981323,
+     "control_swap": 0.894192941245945,
+     "control_noexp": 0.8663576000190549,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8571428571428571
+    }
+   }
+  },
+  {
+   "layer": 25,
+   "spread_max": 0.09119528540965256,
+   "control_min": 0.8717058890598702,
+   "routing_spread_max": 0.06842105263157895,
+   "routing_control_min": 0.889655172413793,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.056649121442907256,
+     "control_swap": 0.916861088199888,
+     "control_noexp": 0.9087853874762668,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.9260869565217391
+    },
+    "dev1": {
+     "spread": 0.08246039654274255,
+     "control_swap": 0.9331078631803826,
+     "control_noexp": 0.9167800683504634,
+     "routing_spread": 0.04642857142857142,
+     "routing_control": 0.9642857142857143
+    },
+    "dev2": {
+     "spread": 0.07901620415062387,
+     "control_swap": 0.9002217228075808,
+     "control_noexp": 0.8717058890598702,
+     "routing_spread": 0.06842105263157895,
+     "routing_control": 0.9763157894736842
+    },
+    "dev3": {
+     "spread": 0.05389719826866395,
+     "control_swap": 0.9229718506537214,
+     "control_noexp": 0.9106078113752043,
+     "routing_spread": 0.029411764705882346,
+     "routing_control": 0.9205882352941176
+    },
+    "dev4": {
+     "spread": 0.09119528540965256,
+     "control_swap": 0.911196761006726,
+     "control_noexp": 0.8805451403691426,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.93125
+    },
+    "dev5": {
+     "spread": 0.07350758628739927,
+     "control_swap": 0.9123106171065675,
+     "control_noexp": 0.8942083879889563,
+     "routing_spread": 0.04827586206896552,
+     "routing_control": 0.889655172413793
+    },
+    "dev6": {
+     "spread": 0.0811379887931181,
+     "control_swap": 0.9368685823622653,
+     "control_noexp": 0.9179117568337886,
+     "routing_spread": 0.06363636363636363,
+     "routing_control": 0.9727272727272726
+    },
+    "dev7": {
+     "spread": 0.057650303650492146,
+     "control_swap": 0.902359234202459,
+     "control_noexp": 0.8744124019146912,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.8999999999999999
+    }
+   }
+  },
+  {
+   "layer": 26,
+   "spread_max": 0.09635579260196131,
+   "control_min": 0.8701822352398736,
+   "routing_spread_max": 0.06578947368421051,
+   "routing_control_min": 0.85,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05923522113942977,
+     "control_swap": 0.9137924538726084,
+     "control_noexp": 0.8960588186362365,
+     "routing_spread": 0.03478260869565217,
+     "routing_control": 0.926086956521739
+    },
+    "dev1": {
+     "spread": 0.08698597717776393,
+     "control_swap": 0.9287546626182078,
+     "control_noexp": 0.9042614269886671,
+     "routing_spread": 0.04642857142857142,
+     "routing_control": 0.9535714285714285
+    },
+    "dev2": {
+     "spread": 0.08248218326610307,
+     "control_swap": 0.9027854021850726,
+     "control_noexp": 0.8701822352398736,
+     "routing_spread": 0.06578947368421051,
+     "routing_control": 0.9447368421052631
+    },
+    "dev3": {
+     "spread": 0.05811708764141598,
+     "control_swap": 0.9240845692956574,
+     "control_noexp": 0.8991311545658549,
+     "routing_spread": 0.05294117647058823,
+     "routing_control": 0.9441176470588234
+    },
+    "dev4": {
+     "spread": 0.09635579260196131,
+     "control_swap": 0.9143924373671909,
+     "control_noexp": 0.876455945986842,
+     "routing_spread": 0.05208333333333332,
+     "routing_control": 0.85
+    },
+    "dev5": {
+     "spread": 0.07818455975436532,
+     "control_swap": 0.9133039500483617,
+     "control_noexp": 0.8823226098619216,
+     "routing_spread": 0.04827586206896552,
+     "routing_control": 0.8758620689655172
+    },
+    "dev6": {
+     "spread": 0.08470275679334083,
+     "control_swap": 0.937876057374709,
+     "control_noexp": 0.9091835434544355,
+     "routing_spread": 0.03939393939393939,
+     "routing_control": 0.9212121212121211
+    },
+    "dev7": {
+     "spread": 0.06201133293275244,
+     "control_swap": 0.9016645256199061,
+     "control_noexp": 0.8705838842103251,
+     "routing_spread": 0.05714285714285713,
+     "routing_control": 0.8999999999999999
+    }
+   }
+  },
+  {
+   "layer": 27,
+   "spread_max": 0.10530670672002669,
+   "control_min": 0.868807765630638,
+   "routing_spread_max": 0.10526315789473684,
+   "routing_control_min": 0.8937499999999999,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.06499572498543141,
+     "control_swap": 0.9180459246832637,
+     "control_noexp": 0.8911368380324707,
+     "routing_spread": 0.04782608695652173,
+     "routing_control": 0.8956521739130432
+    },
+    "dev1": {
+     "spread": 0.09253362466587571,
+     "control_swap": 0.934919018483389,
+     "control_noexp": 0.9002487014012277,
+     "routing_spread": 0.06071428571428571,
+     "routing_control": 0.9285714285714286
+    },
+    "dev2": {
+     "spread": 0.09073523238926035,
+     "control_swap": 0.9084684974998272,
+     "control_noexp": 0.8691199443065215,
+     "routing_spread": 0.10526315789473684,
+     "routing_control": 0.9526315789473683
+    },
+    "dev3": {
+     "spread": 0.06096956159343597,
+     "control_swap": 0.9299174019059213,
+     "control_noexp": 0.8957799343005579,
+     "routing_spread": 0.03235294117647058,
+     "routing_control": 0.9264705882352942
+    },
+    "dev4": {
+     "spread": 0.10530670672002669,
+     "control_swap": 0.9217876737465265,
+     "control_noexp": 0.8732954381292416,
+     "routing_spread": 0.07916666666666665,
+     "routing_control": 0.8937499999999999
+    },
+    "dev5": {
+     "spread": 0.08720437106171768,
+     "control_swap": 0.9192986029711123,
+     "control_noexp": 0.879356727909591,
+     "routing_spread": 0.04827586206896552,
+     "routing_control": 0.9379310344827586
+    },
+    "dev6": {
+     "spread": 0.09305939246773538,
+     "control_swap": 0.944410750725566,
+     "control_noexp": 0.9054027808837649,
+     "routing_spread": 0.07575757575757575,
+     "routing_control": 0.9303030303030303
+    },
+    "dev7": {
+     "spread": 0.06569503493911849,
+     "control_swap": 0.9071893343198383,
+     "control_noexp": 0.868807765630638,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.895238095238095
+    }
+   }
+  },
+  {
+   "layer": 28,
+   "spread_max": 0.11406330140045005,
+   "control_min": 0.880290182949568,
+   "routing_spread_max": 0.10263157894736842,
+   "routing_control_min": 0.8666666666666666,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.06903551514581918,
+     "control_swap": 0.9402841524213683,
+     "control_noexp": 0.9091385943887783,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.8913043478260868
+    },
+    "dev1": {
+     "spread": 0.10298176939963985,
+     "control_swap": 0.9538043316529573,
+     "control_noexp": 0.9139253776572592,
+     "routing_spread": 0.05714285714285714,
+     "routing_control": 0.9357142857142856
+    },
+    "dev2": {
+     "spread": 0.10248116460480379,
+     "control_swap": 0.9256724163413955,
+     "control_noexp": 0.8833336450421427,
+     "routing_spread": 0.10263157894736842,
+     "routing_control": 0.9710526315789473
+    },
+    "dev3": {
+     "spread": 0.067388810787087,
+     "control_swap": 0.9503335755162212,
+     "control_noexp": 0.9022368320939455,
+     "routing_spread": 0.04705882352941176,
+     "routing_control": 0.9117647058823529
+    },
+    "dev4": {
+     "spread": 0.11406330140045005,
+     "control_swap": 0.9434791548309622,
+     "control_noexp": 0.8906570725775692,
+     "routing_spread": 0.04999999999999999,
+     "routing_control": 0.875
+    },
+    "dev5": {
+     "spread": 0.09566645870539485,
+     "control_swap": 0.9382704504580384,
+     "control_noexp": 0.8900484061769265,
+     "routing_spread": 0.037931034482758606,
+     "routing_control": 0.8965517241379309
+    },
+    "dev6": {
+     "spread": 0.09949487443541342,
+     "control_swap": 0.9654929934375149,
+     "control_noexp": 0.9164416198559571,
+     "routing_spread": 0.05151515151515151,
+     "routing_control": 0.906060606060606
+    },
+    "dev7": {
+     "spread": 0.07250536071561353,
+     "control_swap": 0.9277694577797532,
+     "control_noexp": 0.880290182949568,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.8666666666666666
+    }
+   }
+  },
+  {
+   "layer": 29,
+   "spread_max": 0.13103407231388658,
+   "control_min": 0.8867987343392117,
+   "routing_spread_max": 0.08947368421052632,
+   "routing_control_min": 0.8172413793103448,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.07531229503950371,
+     "control_swap": 0.9512150023061552,
+     "control_noexp": 0.912805052514649,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.8260869565217391
+    },
+    "dev1": {
+     "spread": 0.11816739167511395,
+     "control_swap": 0.9684487986098765,
+     "control_noexp": 0.9186384288960022,
+     "routing_spread": 0.07857142857142856,
+     "routing_control": 0.8821428571428571
+    },
+    "dev2": {
+     "spread": 0.1171318613141551,
+     "control_swap": 0.9432671069128084,
+     "control_noexp": 0.8945068577792813,
+     "routing_spread": 0.08947368421052632,
+     "routing_control": 0.8921052631578947
+    },
+    "dev3": {
+     "spread": 0.07279577728382432,
+     "control_swap": 0.9665337844353254,
+     "control_noexp": 0.907455739866266,
+     "routing_spread": 0.04705882352941176,
+     "routing_control": 0.8941176470588235
+    },
+    "dev4": {
+     "spread": 0.13103407231388658,
+     "control_swap": 0.963422244918465,
+     "control_noexp": 0.9035703033879393,
+     "routing_spread": 0.06249999999999998,
+     "routing_control": 0.8395833333333332
+    },
+    "dev5": {
+     "spread": 0.11027652286399202,
+     "control_swap": 0.9534772043730751,
+     "control_noexp": 0.8971791465662463,
+     "routing_spread": 0.07241379310344827,
+     "routing_control": 0.8172413793103448
+    },
+    "dev6": {
+     "spread": 0.1122994276513382,
+     "control_swap": 0.9819825028144584,
+     "control_noexp": 0.9224096550986637,
+     "routing_spread": 0.07878787878787878,
+     "routing_control": 0.8727272727272728
+    },
+    "dev7": {
+     "spread": 0.08312931977763059,
+     "control_swap": 0.9388705075956504,
+     "control_noexp": 0.8867987343392117,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.8571428571428571
+    }
+   }
+  },
+  {
+   "layer": 30,
+   "spread_max": 0.14645120134883066,
+   "control_min": 0.8852944230242039,
+   "routing_spread_max": 0.09999999999999998,
+   "routing_control_min": 0.8655172413793104,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.08125178354487311,
+     "control_swap": 0.9637470513814949,
+     "control_noexp": 0.9091967923723743,
+     "routing_spread": 0.03478260869565217,
+     "routing_control": 0.9347826086956522
+    },
+    "dev1": {
+     "spread": 0.13022488197243898,
+     "control_swap": 0.9807989533829125,
+     "control_noexp": 0.9180017507298108,
+     "routing_spread": 0.09285714285714286,
+     "routing_control": 0.9464285714285714
+    },
+    "dev2": {
+     "spread": 0.12829932122314186,
+     "control_swap": 0.9668756263890464,
+     "control_noexp": 0.9116354053627888,
+     "routing_spread": 0.09210526315789473,
+     "routing_control": 0.9473684210526315
+    },
+    "dev3": {
+     "spread": 0.0766963509754085,
+     "control_swap": 0.9832015384031121,
+     "control_noexp": 0.9077328521844602,
+     "routing_spread": 0.029411764705882346,
+     "routing_control": 0.9529411764705882
+    },
+    "dev4": {
+     "spread": 0.14645120134883066,
+     "control_swap": 0.9843522713216852,
+     "control_noexp": 0.9111862773869582,
+     "routing_spread": 0.09999999999999998,
+     "routing_control": 0.8979166666666667
+    },
+    "dev5": {
+     "spread": 0.12055482669180265,
+     "control_swap": 0.9669042055433,
+     "control_noexp": 0.8954719468803307,
+     "routing_spread": 0.0793103448275862,
+     "routing_control": 0.8655172413793104
+    },
+    "dev6": {
+     "spread": 0.1255395983456523,
+     "control_swap": 1.0024238144421904,
+     "control_noexp": 0.9274694128660892,
+     "routing_spread": 0.0909090909090909,
+     "routing_control": 0.9454545454545453
+    },
+    "dev7": {
+     "spread": 0.09182565446285602,
+     "control_swap": 0.9449616274176592,
+     "control_noexp": 0.8852944230242039,
+     "routing_spread": 0.06190476190476189,
+     "routing_control": 0.9095238095238094
+    }
+   }
+  },
+  {
+   "layer": 31,
+   "spread_max": 0.16462000068724764,
+   "control_min": 0.8976910641486441,
+   "routing_spread_max": 0.10526315789473682,
+   "routing_control_min": 0.8588235294117645,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.08626632631582204,
+     "control_swap": 0.9894192155277691,
+     "control_noexp": 0.9057101275751037,
+     "routing_spread": 0.047826086956521734,
+     "routing_control": 0.9304347826086956
+    },
+    "dev1": {
+     "spread": 0.13788304171785634,
+     "control_swap": 1.004586690613698,
+     "control_noexp": 0.9143623787610748,
+     "routing_spread": 0.06785714285714285,
+     "routing_control": 0.9321428571428572
+    },
+    "dev2": {
+     "spread": 0.13565455754196434,
+     "control_swap": 0.9998959182743644,
+     "control_noexp": 0.924876472417171,
+     "routing_spread": 0.10526315789473682,
+     "routing_control": 0.9368421052631579
+    },
+    "dev3": {
+     "spread": 0.08736835794416102,
+     "control_swap": 1.0240118441417503,
+     "control_noexp": 0.9239699904765728,
+     "routing_spread": 0.04705882352941176,
+     "routing_control": 0.8588235294117645
+    },
+    "dev4": {
+     "spread": 0.16462000068724764,
+     "control_swap": 1.0131084024698211,
+     "control_noexp": 0.9203495438095939,
+     "routing_spread": 0.10416666666666667,
+     "routing_control": 0.9125
+    },
+    "dev5": {
+     "spread": 0.1257452366208108,
+     "control_swap": 0.999248013536445,
+     "control_noexp": 0.9014289987402011,
+     "routing_spread": 0.07241379310344827,
+     "routing_control": 0.8620689655172412
+    },
+    "dev6": {
+     "spread": 0.13354609578880902,
+     "control_swap": 1.0354155847211002,
+     "control_noexp": 0.9276068471822709,
+     "routing_spread": 0.04848484848484847,
+     "routing_control": 0.8848484848484848
+    },
+    "dev7": {
+     "spread": 0.0906500352889156,
+     "control_swap": 0.9753113563808629,
+     "control_noexp": 0.8976910641486441,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.8999999999999999
+    }
+   }
+  },
+  {
+   "layer": 32,
+   "spread_max": 0.17921500254583933,
+   "control_min": 0.9049126483436565,
+   "routing_spread_max": 0.10789473684210525,
+   "routing_control_min": 0.8137931034482758,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.09225793257757152,
+     "control_swap": 0.9966333208788191,
+     "control_noexp": 0.9124920948522584,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.8217391304347827
+    },
+    "dev1": {
+     "spread": 0.14833270621454692,
+     "control_swap": 1.0169259451983423,
+     "control_noexp": 0.925737071683858,
+     "routing_spread": 0.05714285714285713,
+     "routing_control": 0.8857142857142858
+    },
+    "dev2": {
+     "spread": 0.1484478076330877,
+     "control_swap": 1.0218825913820166,
+     "control_noexp": 0.9419830263086477,
+     "routing_spread": 0.10789473684210525,
+     "routing_control": 0.8894736842105262
+    },
+    "dev3": {
+     "spread": 0.09818229296885914,
+     "control_swap": 1.0408462364819937,
+     "control_noexp": 0.9417109789388488,
+     "routing_spread": 0.04411764705882352,
+     "routing_control": 0.9382352941176471
+    },
+    "dev4": {
+     "spread": 0.17921500254583933,
+     "control_swap": 1.0274239534285627,
+     "control_noexp": 0.9328561300964172,
+     "routing_spread": 0.1020833333333333,
+     "routing_control": 0.8604166666666666
+    },
+    "dev5": {
+     "spread": 0.1355079638152547,
+     "control_swap": 1.016450766923352,
+     "control_noexp": 0.9090839608369432,
+     "routing_spread": 0.05172413793103447,
+     "routing_control": 0.8137931034482758
+    },
+    "dev6": {
+     "spread": 0.14626861987345333,
+     "control_swap": 1.04347369746491,
+     "control_noexp": 0.9377934681896838,
+     "routing_spread": 0.07878787878787877,
+     "routing_control": 0.8636363636363636
+    },
+    "dev7": {
+     "spread": 0.09646064660956781,
+     "control_swap": 0.9916536910667024,
+     "control_noexp": 0.9049126483436565,
+     "routing_spread": 0.06190476190476189,
+     "routing_control": 0.8476190476190478
+    }
+   }
+  },
+  {
+   "layer": 33,
+   "spread_max": 0.18823223999638355,
+   "control_min": 0.908708992520053,
+   "routing_spread_max": 0.11842105263157893,
+   "routing_control_min": 0.8275862068965516,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.09706892383292788,
+     "control_swap": 1.0000881999644633,
+     "control_noexp": 0.918567606174365,
+     "routing_spread": 0.04782608695652173,
+     "routing_control": 0.8652173913043477
+    },
+    "dev1": {
+     "spread": 0.16078860170017537,
+     "control_swap": 1.022692989891436,
+     "control_noexp": 0.932440584037988,
+     "routing_spread": 0.09285714285714286,
+     "routing_control": 0.9071428571428569
+    },
+    "dev2": {
+     "spread": 0.15346642766201882,
+     "control_swap": 1.0329956448103352,
+     "control_noexp": 0.9493577886858322,
+     "routing_spread": 0.11842105263157893,
+     "routing_control": 0.9421052631578947
+    },
+    "dev3": {
+     "spread": 0.10372528467685843,
+     "control_swap": 1.0439124206868222,
+     "control_noexp": 0.9440038342642851,
+     "routing_spread": 0.0588235294117647,
+     "routing_control": 0.9264705882352942
+    },
+    "dev4": {
+     "spread": 0.18823223999638355,
+     "control_swap": 1.035857531007439,
+     "control_noexp": 0.9392884733821232,
+     "routing_spread": 0.08541666666666665,
+     "routing_control": 0.84375
+    },
+    "dev5": {
+     "spread": 0.1462870843771723,
+     "control_swap": 1.023984177265153,
+     "control_noexp": 0.9136728246118822,
+     "routing_spread": 0.0689655172413793,
+     "routing_control": 0.8275862068965516
+    },
+    "dev6": {
+     "spread": 0.15341139070858442,
+     "control_swap": 1.0493309508827147,
+     "control_noexp": 0.9433482825566487,
+     "routing_spread": 0.06363636363636363,
+     "routing_control": 0.8424242424242423
+    },
+    "dev7": {
+     "spread": 0.09895082547296769,
+     "control_swap": 0.9946126798284071,
+     "control_noexp": 0.908708992520053,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.8857142857142856
+    }
+   }
+  },
+  {
+   "layer": 34,
+   "spread_max": 0.1869837419739699,
+   "control_min": 0.9187744710762754,
+   "routing_spread_max": 0.10789473684210525,
+   "routing_control_min": 0.8208333333333334,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.09621370069032247,
+     "control_swap": 0.9991203863654956,
+     "control_noexp": 0.9269287194835025,
+     "routing_spread": 0.030434782608695646,
+     "routing_control": 0.9043478260869565
+    },
+    "dev1": {
+     "spread": 0.16969045708825106,
+     "control_swap": 1.024683671206031,
+     "control_noexp": 0.9543235550587172,
+     "routing_spread": 0.05357142857142857,
+     "routing_control": 0.9178571428571428
+    },
+    "dev2": {
+     "spread": 0.15405304374049172,
+     "control_swap": 1.0338017610783905,
+     "control_noexp": 0.9723465227146088,
+     "routing_spread": 0.10789473684210525,
+     "routing_control": 0.9447368421052631
+    },
+    "dev3": {
+     "spread": 0.10192353784209218,
+     "control_swap": 1.0412502923633034,
+     "control_noexp": 0.9520258915540475,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.9117647058823529
+    },
+    "dev4": {
+     "spread": 0.1869837419739699,
+     "control_swap": 1.032999263741079,
+     "control_noexp": 0.9501150851669709,
+     "routing_spread": 0.08124999999999998,
+     "routing_control": 0.8208333333333334
+    },
+    "dev5": {
+     "spread": 0.1483885519174652,
+     "control_swap": 1.0200215744686825,
+     "control_noexp": 0.9229945872466262,
+     "routing_spread": 0.06551724137931034,
+     "routing_control": 0.8448275862068965
+    },
+    "dev6": {
+     "spread": 0.1499365917554756,
+     "control_swap": 1.0468835366874596,
+     "control_noexp": 0.9592110164610572,
+     "routing_spread": 0.036363636363636355,
+     "routing_control": 0.8787878787878788
+    },
+    "dev7": {
+     "spread": 0.09670164640645794,
+     "control_swap": 0.9905931896175152,
+     "control_noexp": 0.9187744710762754,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.8571428571428571
+    }
+   }
+  },
+  {
+   "layer": 35,
+   "spread_max": 0.2017387728175254,
+   "control_min": 0.924379846730019,
+   "routing_spread_max": 0.12894736842105262,
+   "routing_control_min": 0.8606060606060606,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.09927774418485764,
+     "control_swap": 1.0161875842849222,
+     "control_noexp": 0.9327798751156737,
+     "routing_spread": 0.04782608695652173,
+     "routing_control": 0.9391304347826085
+    },
+    "dev1": {
+     "spread": 0.18596414615023749,
+     "control_swap": 1.0434354069246217,
+     "control_noexp": 0.9615359715839564,
+     "routing_spread": 0.08928571428571427,
+     "routing_control": 0.9642857142857143
+    },
+    "dev2": {
+     "spread": 0.1682203980020445,
+     "control_swap": 1.0684427971921506,
+     "control_noexp": 0.9874317161502804,
+     "routing_spread": 0.12894736842105262,
+     "routing_control": 0.9631578947368421
+    },
+    "dev3": {
+     "spread": 0.10235003421274573,
+     "control_swap": 1.056331244699428,
+     "control_noexp": 0.9654413978455353,
+     "routing_spread": 0.020588235294117643,
+     "routing_control": 0.9294117647058823
+    },
+    "dev4": {
+     "spread": 0.2017387728175254,
+     "control_swap": 1.0693003016313283,
+     "control_noexp": 0.9598522323426629,
+     "routing_spread": 0.11249999999999998,
+     "routing_control": 0.8958333333333334
+    },
+    "dev5": {
+     "spread": 0.1632622006886217,
+     "control_swap": 1.0541482495875072,
+     "control_noexp": 0.9336738344035272,
+     "routing_spread": 0.0793103448275862,
+     "routing_control": 0.8862068965517241
+    },
+    "dev6": {
+     "spread": 0.15809172427057078,
+     "control_swap": 1.074034840258664,
+     "control_noexp": 0.9711975786764057,
+     "routing_spread": 0.06666666666666665,
+     "routing_control": 0.8606060606060606
+    },
+    "dev7": {
+     "spread": 0.10123190901077425,
+     "control_swap": 1.003308380000349,
+     "control_noexp": 0.924379846730019,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.9238095238095237
+    }
+   }
+  },
+  {
+   "layer": 36,
+   "spread_max": 0.2156362214547443,
+   "control_min": 0.8949257225905608,
+   "routing_spread_max": 0.12142857142857143,
+   "routing_control_min": 0.85,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.0810109509843298,
+     "control_swap": 0.9813874794664503,
+     "control_noexp": 0.918147293917329,
+     "routing_spread": 0.017391304347826084,
+     "routing_control": 0.9478260869565216
+    },
+    "dev1": {
+     "spread": 0.2156362214547443,
+     "control_swap": 1.0050986406853282,
+     "control_noexp": 0.9348635793645607,
+     "routing_spread": 0.12142857142857143,
+     "routing_control": 0.9821428571428571
+    },
+    "dev2": {
+     "spread": 0.15984150831234947,
+     "control_swap": 1.0730009002501937,
+     "control_noexp": 1.0382445300454204,
+     "routing_spread": 0.09473684210526313,
+     "routing_control": 0.9578947368421052
+    },
+    "dev3": {
+     "spread": 0.09260888952668196,
+     "control_swap": 1.078142608056975,
+     "control_noexp": 0.9985248762037764,
+     "routing_spread": 0.03235294117647058,
+     "routing_control": 0.85
+    },
+    "dev4": {
+     "spread": 0.19052314336712872,
+     "control_swap": 1.0576737100216134,
+     "control_noexp": 0.9555483538778755,
+     "routing_spread": 0.06874999999999998,
+     "routing_control": 0.9416666666666665
+    },
+    "dev5": {
+     "spread": 0.15730895564586345,
+     "control_swap": 1.0181970727235974,
+     "control_noexp": 0.8949257225905608,
+     "routing_spread": 0.07586206896551723,
+     "routing_control": 0.9655172413793103
+    },
+    "dev6": {
+     "spread": 0.15530777221172465,
+     "control_swap": 1.0650196490452601,
+     "control_noexp": 0.9490372208406502,
+     "routing_spread": 0.057575757575757565,
+     "routing_control": 0.8939393939393939
+    },
+    "dev7": {
+     "spread": 0.09094648323350898,
+     "control_swap": 0.992287636802769,
+     "control_noexp": 0.9090064173186883,
+     "routing_spread": 0.03333333333333333,
+     "routing_control": 0.9619047619047617
+    }
+   }
+  },
+  {
+   "layer": 37,
+   "spread_max": 0.22163960063100407,
+   "control_min": 0.9059798010605521,
+   "routing_spread_max": 0.08928571428571429,
+   "routing_control_min": 0.8482758620689654,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.08154209544110096,
+     "control_swap": 0.9828936466403986,
+     "control_noexp": 0.9261649414137372,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.8999999999999998
+    },
+    "dev1": {
+     "spread": 0.22163960063100407,
+     "control_swap": 1.013719072028709,
+     "control_noexp": 0.9465080016681922,
+     "routing_spread": 0.08928571428571429,
+     "routing_control": 0.9607142857142856
+    },
+    "dev2": {
+     "spread": 0.15945725836199062,
+     "control_swap": 1.0586362695385256,
+     "control_noexp": 1.0231310606874782,
+     "routing_spread": 0.07894736842105263,
+     "routing_control": 0.9394736842105262
+    },
+    "dev3": {
+     "spread": 0.09245483206313929,
+     "control_swap": 1.0649685958396793,
+     "control_noexp": 0.9910241389661225,
+     "routing_spread": 0.035294117647058816,
+     "routing_control": 0.9382352941176471
+    },
+    "dev4": {
+     "spread": 0.18881701469790216,
+     "control_swap": 1.0576204216536997,
+     "control_noexp": 0.9589304117022959,
+     "routing_spread": 0.07916666666666665,
+     "routing_control": 0.8874999999999998
+    },
+    "dev5": {
+     "spread": 0.16591967121998044,
+     "control_swap": 1.0260317587192924,
+     "control_noexp": 0.9059798010605521,
+     "routing_spread": 0.08620689655172412,
+     "routing_control": 0.8482758620689654
+    },
+    "dev6": {
+     "spread": 0.1527660810647121,
+     "control_swap": 1.058039627436122,
+     "control_noexp": 0.9572896104695412,
+     "routing_spread": 0.05757575757575757,
+     "routing_control": 0.8878787878787878
+    },
+    "dev7": {
+     "spread": 0.0893617968279378,
+     "control_swap": 0.9893233025275628,
+     "control_noexp": 0.9167596227205718,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.8904761904761904
+    }
+   }
+  },
+  {
+   "layer": 38,
+   "spread_max": 0.2221242958326184,
+   "control_min": 0.9149042732532722,
+   "routing_spread_max": 0.09999999999999999,
+   "routing_control_min": 0.6896551724137931,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.08027290315200165,
+     "control_swap": 0.9906383840468493,
+     "control_noexp": 0.9321607357697911,
+     "routing_spread": 0.004347826086956521,
+     "routing_control": 0.7869565217391303
+    },
+    "dev1": {
+     "spread": 0.2221242958326184,
+     "control_swap": 1.025870196741076,
+     "control_noexp": 0.9539986974109278,
+     "routing_spread": 0.05714285714285715,
+     "routing_control": 0.8357142857142857
+    },
+    "dev2": {
+     "spread": 0.16226602913977234,
+     "control_swap": 1.058677918200147,
+     "control_noexp": 1.0179169064889104,
+     "routing_spread": 0.09999999999999999,
+     "routing_control": 0.9105263157894737
+    },
+    "dev3": {
+     "spread": 0.09108746403393754,
+     "control_swap": 1.0624142632854754,
+     "control_noexp": 0.9885272070559574,
+     "routing_spread": 0.014705882352941173,
+     "routing_control": 0.7911764705882354
+    },
+    "dev4": {
+     "spread": 0.18752374572694208,
+     "control_swap": 1.057597455162842,
+     "control_noexp": 0.962206469203565,
+     "routing_spread": 0.06666666666666665,
+     "routing_control": 0.7833333333333333
+    },
+    "dev5": {
+     "spread": 0.17792889035888437,
+     "control_swap": 1.036644172886067,
+     "control_noexp": 0.9149042732532722,
+     "routing_spread": 0.058620689655172406,
+     "routing_control": 0.6896551724137931
+    },
+    "dev6": {
+     "spread": 0.1498357717785568,
+     "control_swap": 1.0576134687660759,
+     "control_noexp": 0.9617389876113442,
+     "routing_spread": 0.036363636363636355,
+     "routing_control": 0.806060606060606
+    },
+    "dev7": {
+     "spread": 0.0894393185792665,
+     "control_swap": 0.9937827894448406,
+     "control_noexp": 0.924040252386977,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.7523809523809524
+    }
+   }
+  },
+  {
+   "layer": 39,
+   "spread_max": 0.22911291406150314,
+   "control_min": 0.9350600444307956,
+   "routing_spread_max": 0.12894736842105262,
+   "routing_control_min": 0.786206896551724,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.08079517993275118,
+     "control_swap": 1.0114966473435971,
+     "control_noexp": 0.9442246220522518,
+     "routing_spread": 0.030434782608695646,
+     "routing_control": 0.9173913043478261
+    },
+    "dev1": {
+     "spread": 0.22911291406150314,
+     "control_swap": 1.0523722815218728,
+     "control_noexp": 0.9892029236570246,
+     "routing_spread": 0.09285714285714285,
+     "routing_control": 0.9500000000000001
+    },
+    "dev2": {
+     "spread": 0.15952540925288736,
+     "control_swap": 1.070561628490847,
+     "control_noexp": 1.046940505005722,
+     "routing_spread": 0.12894736842105262,
+     "routing_control": 0.8973684210526315
+    },
+    "dev3": {
+     "spread": 0.08773266735933218,
+     "control_swap": 1.0762378643873933,
+     "control_noexp": 1.0060145724354186,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.9
+    },
+    "dev4": {
+     "spread": 0.1922539310724196,
+     "control_swap": 1.0701343405899233,
+     "control_noexp": 0.9786267296820502,
+     "routing_spread": 0.11666666666666665,
+     "routing_control": 0.86875
+    },
+    "dev5": {
+     "spread": 0.17593182704605723,
+     "control_swap": 1.0528054876370856,
+     "control_noexp": 0.9450014796460382,
+     "routing_spread": 0.0689655172413793,
+     "routing_control": 0.786206896551724
+    },
+    "dev6": {
+     "spread": 0.15497848978692969,
+     "control_swap": 1.0896278566035889,
+     "control_noexp": 1.0055917074356664,
+     "routing_spread": 0.06363636363636363,
+     "routing_control": 0.8696969696969696
+    },
+    "dev7": {
+     "spread": 0.08592521947183188,
+     "control_swap": 1.0023242883859145,
+     "control_noexp": 0.9350600444307956,
+     "routing_spread": 0.038095238095238085,
+     "routing_control": 0.7904761904761906
+    }
+   }
+  },
+  {
+   "layer": 40,
+   "spread_max": 0.22902092405457025,
+   "control_min": 0.935334448549635,
+   "routing_spread_max": 0.13421052631578947,
+   "routing_control_min": 0.7896551724137933,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.07930992783132107,
+     "control_swap": 1.0125615793766343,
+     "control_noexp": 0.9461662541919582,
+     "routing_spread": 0.05217391304347825,
+     "routing_control": 0.934782608695652
+    },
+    "dev1": {
+     "spread": 0.22902092405457025,
+     "control_swap": 1.05589527610357,
+     "control_noexp": 0.9846907393448034,
+     "routing_spread": 0.07142857142857141,
+     "routing_control": 0.9535714285714285
+    },
+    "dev2": {
+     "spread": 0.1616189468921239,
+     "control_swap": 1.0617195706661138,
+     "control_noexp": 1.0281841681877593,
+     "routing_spread": 0.13421052631578947,
+     "routing_control": 0.9315789473684211
+    },
+    "dev3": {
+     "spread": 0.08690609172372826,
+     "control_swap": 1.069753523948868,
+     "control_noexp": 0.9982512465109145,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.8617647058823529
+    },
+    "dev4": {
+     "spread": 0.1909271627510664,
+     "control_swap": 1.0632246435881034,
+     "control_noexp": 0.9723353407631948,
+     "routing_spread": 0.10833333333333332,
+     "routing_control": 0.9395833333333333
+    },
+    "dev5": {
+     "spread": 0.17117815311877108,
+     "control_swap": 1.0445594020827385,
+     "control_noexp": 0.9430630374131986,
+     "routing_spread": 0.04827586206896552,
+     "routing_control": 0.7896551724137933
+    },
+    "dev6": {
+     "spread": 0.15561481038157243,
+     "control_swap": 1.0798457946545557,
+     "control_noexp": 0.9974691738653141,
+     "routing_spread": 0.06666666666666665,
+     "routing_control": 0.8878787878787878
+    },
+    "dev7": {
+     "spread": 0.0854361851442502,
+     "control_swap": 1.0035688423454605,
+     "control_noexp": 0.935334448549635,
+     "routing_spread": 0.04285714285714285,
+     "routing_control": 0.8666666666666666
+    }
+   }
+  },
+  {
+   "layer": 41,
+   "spread_max": 0.23331706276739475,
+   "control_min": 0.9368290599904286,
+   "routing_spread_max": 0.12105263157894734,
+   "routing_control_min": 0.8095238095238096,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.07911792207812482,
+     "control_swap": 1.008407424328956,
+     "control_noexp": 0.9476605169659875,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.8956521739130434
+    },
+    "dev1": {
+     "spread": 0.23331706276739475,
+     "control_swap": 1.0469349624210167,
+     "control_noexp": 0.9767259802925593,
+     "routing_spread": 0.07142857142857142,
+     "routing_control": 0.9214285714285716
+    },
+    "dev2": {
+     "spread": 0.1620887864515184,
+     "control_swap": 1.0513778009412873,
+     "control_noexp": 1.0179315003967722,
+     "routing_spread": 0.12105263157894734,
+     "routing_control": 0.9184210526315789
+    },
+    "dev3": {
+     "spread": 0.08602404124012834,
+     "control_swap": 1.0568254736498763,
+     "control_noexp": 0.9921417161862889,
+     "routing_spread": 0.04411764705882352,
+     "routing_control": 0.8970588235294118
+    },
+    "dev4": {
+     "spread": 0.18935311089415804,
+     "control_swap": 1.0554875569203401,
+     "control_noexp": 0.9654094264838654,
+     "routing_spread": 0.10833333333333332,
+     "routing_control": 0.8854166666666666
+    },
+    "dev5": {
+     "spread": 0.17348083261997355,
+     "control_swap": 1.0371908297813832,
+     "control_noexp": 0.9419824481708438,
+     "routing_spread": 0.09310344827586206,
+     "routing_control": 0.8275862068965517
+    },
+    "dev6": {
+     "spread": 0.15368798750804163,
+     "control_swap": 1.068530500715796,
+     "control_noexp": 0.9906676830650786,
+     "routing_spread": 0.06969696969696969,
+     "routing_control": 0.8575757575757575
+    },
+    "dev7": {
+     "spread": 0.0829082811734639,
+     "control_swap": 1.0012411453741779,
+     "control_noexp": 0.9368290599904286,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.8095238095238096
+    }
+   }
+  },
+  {
+   "layer": 42,
+   "spread_max": 0.2096829488602511,
+   "control_min": 0.9368431950488388,
+   "routing_spread_max": 0.09210526315789473,
+   "routing_control_min": 0.7363636363636363,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.07672247236409457,
+     "control_swap": 1.000655839776575,
+     "control_noexp": 0.9502675925675185,
+     "routing_spread": 0.03478260869565217,
+     "routing_control": 0.8478260869565216
+    },
+    "dev1": {
+     "spread": 0.2096829488602511,
+     "control_swap": 1.0316233733943119,
+     "control_noexp": 0.9779841771291824,
+     "routing_spread": 0.049999999999999996,
+     "routing_control": 0.8999999999999998
+    },
+    "dev2": {
+     "spread": 0.15686622739265732,
+     "control_swap": 1.0391485150814115,
+     "control_noexp": 1.0063910293138563,
+     "routing_spread": 0.09210526315789473,
+     "routing_control": 0.9605263157894737
+    },
+    "dev3": {
+     "spread": 0.08136312304824254,
+     "control_swap": 1.0406257143889757,
+     "control_noexp": 0.9858626317540669,
+     "routing_spread": 0.038235294117647055,
+     "routing_control": 0.8352941176470587
+    },
+    "dev4": {
+     "spread": 0.17987377527525397,
+     "control_swap": 1.0379877007667804,
+     "control_noexp": 0.9575110048760181,
+     "routing_spread": 0.075,
+     "routing_control": 0.8604166666666667
+    },
+    "dev5": {
+     "spread": 0.16976477098088916,
+     "control_swap": 1.025563700668703,
+     "control_noexp": 0.9399212167903579,
+     "routing_spread": 0.0896551724137931,
+     "routing_control": 0.7448275862068966
+    },
+    "dev6": {
+     "spread": 0.14503704877369908,
+     "control_swap": 1.05226919620577,
+     "control_noexp": 0.9925974222834283,
+     "routing_spread": 0.030303030303030297,
+     "routing_control": 0.7363636363636363
+    },
+    "dev7": {
+     "spread": 0.0805363845115413,
+     "control_swap": 0.9931076400853375,
+     "control_noexp": 0.9368431950488388,
+     "routing_spread": 0.019047619047619042,
+     "routing_control": 0.8476190476190476
+    }
+   }
+  },
+  {
+   "layer": 43,
+   "spread_max": 0.2089195438265112,
+   "control_min": 0.9370862586362552,
+   "routing_spread_max": 0.09999999999999999,
+   "routing_control_min": 0.7862068965517243,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.07612325186690892,
+     "control_swap": 1.0012573348570188,
+     "control_noexp": 0.9507253266406961,
+     "routing_spread": 0.021739130434782605,
+     "routing_control": 0.8956521739130434
+    },
+    "dev1": {
+     "spread": 0.2089195438265112,
+     "control_swap": 1.030365307066597,
+     "control_noexp": 0.9761770961267433,
+     "routing_spread": 0.06428571428571428,
+     "routing_control": 0.9214285714285715
+    },
+    "dev2": {
+     "spread": 0.15789857232239193,
+     "control_swap": 1.035670380861947,
+     "control_noexp": 1.0004561570468142,
+     "routing_spread": 0.09999999999999999,
+     "routing_control": 0.9157894736842105
+    },
+    "dev3": {
+     "spread": 0.08163666388286306,
+     "control_swap": 1.0383961802469133,
+     "control_noexp": 0.9816366444412505,
+     "routing_spread": 0.041176470588235294,
+     "routing_control": 0.8323529411764705
+    },
+    "dev4": {
+     "spread": 0.18130442454566661,
+     "control_swap": 1.0396721613807482,
+     "control_noexp": 0.9575074892011954,
+     "routing_spread": 0.09583333333333333,
+     "routing_control": 0.7999999999999999
+    },
+    "dev5": {
+     "spread": 0.16959215894762764,
+     "control_swap": 1.0240213214461562,
+     "control_noexp": 0.9380849090127786,
+     "routing_spread": 0.08620689655172414,
+     "routing_control": 0.7862068965517243
+    },
+    "dev6": {
+     "spread": 0.1460542178325297,
+     "control_swap": 1.0485483303289242,
+     "control_noexp": 0.9892404845801201,
+     "routing_spread": 0.07575757575757575,
+     "routing_control": 0.8757575757575757
+    },
+    "dev7": {
+     "spread": 0.08008406827540411,
+     "control_swap": 0.9935145518036257,
+     "control_noexp": 0.9370862586362552,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.8285714285714286
+    }
+   }
+  },
+  {
+   "layer": 44,
+   "spread_max": 0.17715120171179877,
+   "control_min": 0.9303602391442412,
+   "routing_spread_max": 0.09736842105263158,
+   "routing_control_min": 0.7827586206896553,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.06946828024488921,
+     "control_swap": 1.0134987097737322,
+     "control_noexp": 0.974717989557672,
+     "routing_spread": 0.04347826086956521,
+     "routing_control": 0.8695652173913042
+    },
+    "dev1": {
+     "spread": 0.17715120171179877,
+     "control_swap": 1.0160254228455823,
+     "control_noexp": 0.969305437888339,
+     "routing_spread": 0.075,
+     "routing_control": 0.9249999999999999
+    },
+    "dev2": {
+     "spread": 0.13490891799633736,
+     "control_swap": 1.0357953820640884,
+     "control_noexp": 1.0119488272715673,
+     "routing_spread": 0.09736842105263158,
+     "routing_control": 0.9184210526315789
+    },
+    "dev3": {
+     "spread": 0.07400811452703976,
+     "control_swap": 1.0564685659315076,
+     "control_noexp": 0.9828060879935011,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.7852941176470588
+    },
+    "dev4": {
+     "spread": 0.16088640060817774,
+     "control_swap": 1.0428960173334731,
+     "control_noexp": 0.9483602586518511,
+     "routing_spread": 0.06874999999999999,
+     "routing_control": 0.8479166666666668
+    },
+    "dev5": {
+     "spread": 0.1514118976646858,
+     "control_swap": 1.050712817477834,
+     "control_noexp": 0.9429009552734456,
+     "routing_spread": 0.0896551724137931,
+     "routing_control": 0.7827586206896553
+    },
+    "dev6": {
+     "spread": 0.13583714770904867,
+     "control_swap": 1.0814363965198737,
+     "control_noexp": 1.049105421106576,
+     "routing_spread": 0.04545454545454545,
+     "routing_control": 0.8575757575757574
+    },
+    "dev7": {
+     "spread": 0.07173960091610218,
+     "control_swap": 1.0128657064059179,
+     "control_noexp": 0.9303602391442412,
+     "routing_spread": 0.033333333333333326,
+     "routing_control": 0.8476190476190476
+    }
+   }
+  },
+  {
+   "layer": 45,
+   "spread_max": 0.1482492178596723,
+   "control_min": 0.8839472599899119,
+   "routing_spread_max": 0.11052631578947367,
+   "routing_control_min": 0.7499999999999999,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.062435619200251785,
+     "control_swap": 0.9615207581159237,
+     "control_noexp": 0.9426000709629301,
+     "routing_spread": 0.039130434782608685,
+     "routing_control": 0.8478260869565217
+    },
+    "dev1": {
+     "spread": 0.1482492178596723,
+     "control_swap": 0.9742341209404716,
+     "control_noexp": 0.9425200331395109,
+     "routing_spread": 0.04642857142857142,
+     "routing_control": 0.9035714285714285
+    },
+    "dev2": {
+     "spread": 0.11638235386637348,
+     "control_swap": 0.9666731725758622,
+     "control_noexp": 0.9513646628434257,
+     "routing_spread": 0.11052631578947367,
+     "routing_control": 0.8868421052631578
+    },
+    "dev3": {
+     "spread": 0.06329362324565546,
+     "control_swap": 0.974318579057547,
+     "control_noexp": 0.9267842578303646,
+     "routing_spread": 0.03235294117647058,
+     "routing_control": 0.7499999999999999
+    },
+    "dev4": {
+     "spread": 0.1328206326530509,
+     "control_swap": 0.9446107407608678,
+     "control_noexp": 0.8839472599899119,
+     "routing_spread": 0.06041666666666665,
+     "routing_control": 0.7583333333333333
+    },
+    "dev5": {
+     "spread": 0.13640546370115886,
+     "control_swap": 0.9660128343707426,
+     "control_noexp": 0.8997370033760353,
+     "routing_spread": 0.06206896551724137,
+     "routing_control": 0.793103448275862
+    },
+    "dev6": {
+     "spread": 0.11248722068379498,
+     "control_swap": 0.9903766924213492,
+     "control_noexp": 0.9789196274432688,
+     "routing_spread": 0.07575757575757575,
+     "routing_control": 0.7848484848484849
+    },
+    "dev7": {
+     "spread": 0.06337001935076038,
+     "control_swap": 0.9636517022722563,
+     "control_noexp": 0.9149992033647902,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.8857142857142858
+    }
+   }
+  },
+  {
+   "layer": 46,
+   "spread_max": 0.13227182813918648,
+   "control_min": 0.8753027978016127,
+   "routing_spread_max": 0.0894736842105263,
+   "routing_control_min": 0.6687500000000001,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.06047927825934696,
+     "control_swap": 0.9619868532304687,
+     "control_noexp": 0.9373299545703612,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.8391304347826086
+    },
+    "dev1": {
+     "spread": 0.13227182813918648,
+     "control_swap": 0.987644358001517,
+     "control_noexp": 0.9421778467507228,
+     "routing_spread": 0.03928571428571427,
+     "routing_control": 0.892857142857143
+    },
+    "dev2": {
+     "spread": 0.11022875884384187,
+     "control_swap": 0.9696800037679696,
+     "control_noexp": 0.9327692066236279,
+     "routing_spread": 0.0894736842105263,
+     "routing_control": 0.8342105263157894
+    },
+    "dev3": {
+     "spread": 0.06246238999532571,
+     "control_swap": 0.9666518679820825,
+     "control_noexp": 0.9125171859748473,
+     "routing_spread": 0.05294117647058823,
+     "routing_control": 0.7441176470588236
+    },
+    "dev4": {
+     "spread": 0.12696363105631073,
+     "control_swap": 0.9444993910933511,
+     "control_noexp": 0.8792207757147658,
+     "routing_spread": 0.039583333333333325,
+     "routing_control": 0.6687500000000001
+    },
+    "dev5": {
+     "spread": 0.12652874326386856,
+     "control_swap": 0.9563179535626019,
+     "control_noexp": 0.8753027978016127,
+     "routing_spread": 0.06551724137931034,
+     "routing_control": 0.8206896551724137
+    },
+    "dev6": {
+     "spread": 0.10534288767717605,
+     "control_swap": 0.9721376862466136,
+     "control_noexp": 0.9374830365153975,
+     "routing_spread": 0.06363636363636363,
+     "routing_control": 0.7969696969696969
+    },
+    "dev7": {
+     "spread": 0.05989104301625126,
+     "control_swap": 0.9637038121565713,
+     "control_noexp": 0.8983158969585853,
+     "routing_spread": 0.028571428571428564,
+     "routing_control": 0.8857142857142858
+    }
+   }
+  },
+  {
+   "layer": 47,
+   "spread_max": 0.12515541266396518,
+   "control_min": 0.8713193063653439,
+   "routing_spread_max": 0.08157894736842106,
+   "routing_control_min": 0.7104166666666667,
+   "per_prompt": {
+    "dev0": {
+     "spread": 0.05965244321928279,
+     "control_swap": 0.9640643377335535,
+     "control_noexp": 0.9293139324700793,
+     "routing_spread": 0.026086956521739126,
+     "routing_control": 0.7999999999999999
+    },
+    "dev1": {
+     "spread": 0.12467301470020375,
+     "control_swap": 0.998681479977,
+     "control_noexp": 0.9423395715678112,
+     "routing_spread": 0.035714285714285705,
+     "routing_control": 0.875
+    },
+    "dev2": {
+     "spread": 0.11771349881934359,
+     "control_swap": 0.9809563309242774,
+     "control_noexp": 0.9311336271565729,
+     "routing_spread": 0.08157894736842106,
+     "routing_control": 0.831578947368421
+    },
+    "dev3": {
+     "spread": 0.06233465057828138,
+     "control_swap": 0.9718454283085878,
+     "control_noexp": 0.9058427768107506,
+     "routing_spread": 0.02647058823529411,
+     "routing_control": 0.7617647058823529
+    },
+    "dev4": {
+     "spread": 0.12515541266396518,
+     "control_swap": 0.9484881965813006,
+     "control_noexp": 0.8747250705229479,
+     "routing_spread": 0.045833333333333316,
+     "routing_control": 0.7104166666666667
+    },
+    "dev5": {
+     "spread": 0.12267213571812235,
+     "control_swap": 0.9550367238606129,
+     "control_noexp": 0.8713193063653439,
+     "routing_spread": 0.055172413793103454,
+     "routing_control": 0.8137931034482758
+    },
+    "dev6": {
+     "spread": 0.10309487171379184,
+     "control_swap": 0.972647700458234,
+     "control_noexp": 0.9302186785290992,
+     "routing_spread": 0.021212121212121206,
+     "routing_control": 0.7848484848484848
+    },
+    "dev7": {
+     "spread": 0.05880435398894395,
+     "control_swap": 0.9738215844933227,
+     "control_noexp": 0.895394438881496,
+     "routing_spread": 0.023809523809523805,
+     "routing_control": 0.819047619047619
+    }
+   }
+  }
+ ],
+ "logits": {
+  "top1": 0.9448818897637795,
+  "kl_mean": 0.012410261524308493,
+  "kl_p99": 0.14195519072051693,
+  "kl_max": 0.3326383506586301,
+  "positions": 254
+ }
+}

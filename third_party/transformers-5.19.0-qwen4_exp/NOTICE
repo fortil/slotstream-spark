@@ -1,0 +1,10 @@
+Qwen4Exp reference sources
+Source: Hugging Face transformers, tag v5.19.0 (2026-10-06),
+https://github.com/huggingface/transformers/tree/v5.19.0/src/transformers/models/qwen4_exp
+Files: transformers-v5.19.0-configuration_qwen4_exp.py, transformers-v5.19.0-modeling_qwen4_exp.py
+Copyright 2026 The Qwen Team and The HuggingFace Inc. team. Licensed under the Apache License, Version 2.0
+(see LICENSE in this directory).
+
+qwenlm-github-README.md is the README of https://github.com/QwenLM/Qwen3.8-Flash-Next as pushed on 2026-08-27.
+model.safetensors.index.json comes from https://huggingface.co/Qwen/Qwen3.8-Flash-Next at the revision in REVISION.
+mtp-tensors.csv rows were read from the safetensors headers over HTTP range requests.

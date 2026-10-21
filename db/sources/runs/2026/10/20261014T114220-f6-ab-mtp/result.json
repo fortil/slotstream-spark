@@ -1,0 +1,1618 @@
+{
+ "label": "f6-ab-mtp",
+ "metric": "decode_tps",
+ "arms": {
+  "A": "mtp-off/lookahead-off",
+  "B": "mtp-resident/lookahead-off"
+ },
+ "pairs_planned": 16,
+ "pairs_run": 16,
+ "pairs_clean": 16,
+ "pairs_excluded": 0,
+ "stopped": null,
+ "median_ratio": 1.160934441752858,
+ "positive_fraction": 0.875,
+ "pass": true,
+ "pairs": [
+  {
+   "pair": 0,
+   "order": "AB",
+   "a": 25.242552987193694,
+   "b": 29.149165067036588,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 704.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 44850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 67990,
+    "memavailable_mib": 84155,
+    "taken_at": "2026-10-14T11:44:10-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "b38bf732e25aa3ff3be1810ebaac8075fd2604922f79e9269123b189d90c7ae7",
+   "b_ident": "b38bf732e25aa3ff3be1810ebaac8075fd2604922f79e9269123b189d90c7ae7",
+   "ratio": 1.1547629545167177
+  },
+  {
+   "pair": 1,
+   "order": "BA",
+   "a": 26.20504101499489,
+   "b": 32.65714033111822,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 705.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 47850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68031,
+    "memavailable_mib": 84196,
+    "taken_at": "2026-10-14T11:45:57-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "3a5223ee0bbdb1a49c9fc356c310d221d8abba78fc76b7655cf12263a35ab222",
+   "b_ident": "3a5223ee0bbdb1a49c9fc356c310d221d8abba78fc76b7655cf12263a35ab222",
+   "ratio": 1.2462159594572415
+  },
+  {
+   "pair": 2,
+   "order": "AB",
+   "a": 24.339297192385633,
+   "b": 29.18679771726111,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 707.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 50850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68075,
+    "memavailable_mib": 84241,
+    "taken_at": "2026-10-14T11:47:48-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "bd335e263cd2730f5fdc44d171e3731ee4fbc5f8428b38fabc1b3b24656c40c6",
+   "b_ident": "bd335e263cd2730f5fdc44d171e3731ee4fbc5f8428b38fabc1b3b24656c40c6",
+   "ratio": 1.199163537326459
+  },
+  {
+   "pair": 3,
+   "order": "BA",
+   "a": 26.755200862823024,
+   "b": 25.43367774203057,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 709.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 53850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68024,
+    "memavailable_mib": 84190,
+    "taken_at": "2026-10-14T11:49:46-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "250e544833998a101e328104d2e120ece5e6fa8333ced331370dfcbf4aa6a919",
+   "b_ident": "250e544833998a101e328104d2e120ece5e6fa8333ced331370dfcbf4aa6a919",
+   "ratio": 0.9506068697608344
+  },
+  {
+   "pair": 4,
+   "order": "AB",
+   "a": 24.420967197318507,
+   "b": 29.161138334089443,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 711.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 55850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68124,
+    "memavailable_mib": 84290,
+    "taken_at": "2026-10-14T11:51:37-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "f2b7bea9b1d6aba91e073f35a457bf5500795ddcc9bc7a45bd44977a84be1b8d",
+   "b_ident": "f2b7bea9b1d6aba91e073f35a457bf5500795ddcc9bc7a45bd44977a84be1b8d",
+   "ratio": 1.1941025143873671
+  },
+  {
+   "pair": 5,
+   "order": "BA",
+   "a": 26.288824758772652,
+   "b": 28.599936631557842,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 713.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 56850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68083,
+    "memavailable_mib": 84251,
+    "taken_at": "2026-10-14T11:53:27-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "db4f1a1a9aa2fb8e410ff1b34d656aaa93c5fe889ef17418425f86e47b7c203a",
+   "b_ident": "db4f1a1a9aa2fb8e410ff1b34d656aaa93c5fe889ef17418425f86e47b7c203a",
+   "ratio": 1.0879123313420074
+  },
+  {
+   "pair": 6,
+   "order": "AB",
+   "a": 24.66959475142473,
+   "b": 28.792030300143676,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 715.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 57850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68099,
+    "memavailable_mib": 84268,
+    "taken_at": "2026-10-14T11:55:20-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "ee88862bbb82c8e2fa9003847918cbe5216017c8a63fcd27a1d913e6f00de96d",
+   "b_ident": "ee88862bbb82c8e2fa9003847918cbe5216017c8a63fcd27a1d913e6f00de96d",
+   "ratio": 1.1671059289889985
+  },
+  {
+   "pair": 7,
+   "order": "BA",
+   "a": 25.15055440553816,
+   "b": 31.477820308611122,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 717.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 58850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68106,
+    "memavailable_mib": 84275,
+    "taken_at": "2026-10-14T11:57:13-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "9288d6886ea52d295262c6a79217a919bde2d118bd5ef0f8b7ad1119429440d3",
+   "b_ident": "9288d6886ea52d295262c6a79217a919bde2d118bd5ef0f8b7ad1119429440d3",
+   "ratio": 1.2515756035055712
+  },
+  {
+   "pair": 8,
+   "order": "AB",
+   "a": 27.627702619412418,
+   "b": 26.068663682363745,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 719.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 59850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68083,
+    "memavailable_mib": 84253,
+    "taken_at": "2026-10-14T11:59:05-0500",
+    "hour": 11,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "a073c5b753dfd7bb6a2ec8fcb60e42df7674fa5372f200a9905c003adf8f7064",
+   "b_ident": "a073c5b753dfd7bb6a2ec8fcb60e42df7674fa5372f200a9905c003adf8f7064",
+   "ratio": 0.9435697220820227
+  },
+  {
+   "pair": 9,
+   "order": "BA",
+   "a": 26.473551687323013,
+   "b": 29.48832181886993,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 720.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 58850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68080,
+    "memavailable_mib": 84248,
+    "taken_at": "2026-10-14T12:00:52-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "41c33dd143ffbead49d273070da4192ce7bb173d436d69f2ce27e364ba9eca76",
+   "b_ident": "41c33dd143ffbead49d273070da4192ce7bb173d436d69f2ce27e364ba9eca76",
+   "ratio": 1.1138785670753257
+  },
+  {
+   "pair": 10,
+   "order": "AB",
+   "a": 26.349014737120143,
+   "b": 28.87935342344538,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 722.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 56850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68055,
+    "memavailable_mib": 84223,
+    "taken_at": "2026-10-14T12:02:39-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "9d3ba69600ca86e4f44cd14fa91241944c829d6f8b8d561daa3dfeb73afea303",
+   "b_ident": "9d3ba69600ca86e4f44cd14fa91241944c829d6f8b8d561daa3dfeb73afea303",
+   "ratio": 1.0960316243916524
+  },
+  {
+   "pair": 11,
+   "order": "BA",
+   "a": 26.72176950173673,
+   "b": 29.90995853403479,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 724.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 55850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68062,
+    "memavailable_mib": 84231,
+    "taken_at": "2026-10-14T12:04:25-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "2adcd18b4becc66518857f9bcf1a34d9b18487b0493d6717b6d2053776e25e62",
+   "b_ident": "2adcd18b4becc66518857f9bcf1a34d9b18487b0493d6717b6d2053776e25e62",
+   "ratio": 1.1193105506014804
+  },
+  {
+   "pair": 12,
+   "order": "AB",
+   "a": 26.76830950348394,
+   "b": 29.697957226048846,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 726.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 54850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 67978,
+    "memavailable_mib": 84146,
+    "taken_at": "2026-10-14T12:06:10-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "186f1584fb5e0c73ee50ae3713d4554ff8fd16e37aa0a07becbeb4225e9ac4aa",
+   "b_ident": "186f1584fb5e0c73ee50ae3713d4554ff8fd16e37aa0a07becbeb4225e9ac4aa",
+   "ratio": 1.109444629747112
+  },
+  {
+   "pair": 13,
+   "order": "BA",
+   "a": 25.523861916502486,
+   "b": 30.80177641859415,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 727.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 54850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68059,
+    "memavailable_mib": 84228,
+    "taken_at": "2026-10-14T12:07:55-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "28f434201180bc7b6074099ac4810610d43fbcfabfa2b25946334d281aebccd0",
+   "b_ident": "28f434201180bc7b6074099ac4810610d43fbcfabfa2b25946334d281aebccd0",
+   "ratio": 1.2067835392370314
+  },
+  {
+   "pair": 14,
+   "order": "AB",
+   "a": 25.69051101172053,
+   "b": 30.539839295575195,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 729.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 53850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68065,
+    "memavailable_mib": 84235,
+    "taken_at": "2026-10-14T12:09:40-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "8983d5330073a2bfbfbd1e9817ba66722548fe9035c7a4ed2ca0142ba2568bab",
+   "b_ident": "8983d5330073a2bfbfbd1e9817ba66722548fe9035c7a4ed2ca0142ba2568bab",
+   "ratio": 1.188759510530651
+  },
+  {
+   "pair": 15,
+   "order": "BA",
+   "a": 25.6923892639695,
+   "b": 30.61758566249961,
+   "eligible": true,
+   "reasons": [],
+   "snapshot": {
+    "running": [],
+    "scopes": [
+     {
+      "name": "docker-66a6731c01dfbe94d77e6db380c25435d3d3ffa454f0cafabf88253a67c41917.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-9c15d4bd30f216d61a0e9efa1a02743995aa93d45f168ec6af45321c0d309f67.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-2632eacbe3fa4bd5c58aa49e35f962a402c74cb58162eedcba08f96b021f81a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-eb6986a68a1aaa288b0ef330c8c06e3877d188b26bed3f60b3e2799df64b68c3.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0d1da4ecd4351361e8f52fb70a0d9b31032611532f81ea9bd12e76dd2315ac17.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-0824b53eabc122df62ce653caa0f31b54e782985b97d8299d14bb1b5b8633c86.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-dead1b9510360e7cb10d40f7dcc289357b5af1b74056dc922fe55884373690f2.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-87eef6a86648aff3aba77658023cd0d97b1893383acc82b9c799ce47209bd788.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ad8e0287f03792eb27c0739c4f2ba3c1aac1f937d7ba6a2bcc4abff737264aed.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-ed2ba0c61d04e011da625fc9360799b071098f6fd0cb9701cc918b13c44356a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-91a2762c36a64cc35614086099e9a1d6f04eb30432982b9d2582543d0082c189.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-f7ba65017cd8bc1731b79a6833be278e1f81ede7290961ea548929f2590203a9.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     },
+     {
+      "name": "docker-bf6d36990a2eaaf0fce2082e570d1563e82d34cad63fb001e275a0de1ccfaa6d.scope",
+      "mem_pressure_avg10": 0.0,
+      "io_pressure_pct": 0.0
+     }
+    ],
+    "cap_mib": 65126,
+    "cell_cap_mib": 0,
+    "finish_minute": 731.0,
+    "cut": false,
+    "gpu_clock_nominal": true,
+    "sw_power_cap_delta": 0,
+    "nvme_temp_mc": 53850,
+    "nvme_temp_limit_mc": 77850,
+    "nvme_temp_limit_src": "temp1_max-5000",
+    "memfree_mib": 68062,
+    "memavailable_mib": 84231,
+    "taken_at": "2026-10-14T12:11:25-0500",
+    "hour": 12,
+    "foreign_read_mbps": 0.0
+   },
+   "a_ident": "1bec3f512c6b70f1661501255453d93e35d93343ca8b5551e0702145b557b406",
+   "b_ident": "1bec3f512c6b70f1661501255453d93e35d93343ca8b5551e0702145b557b406",
+   "ratio": 1.1916986523879705
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+wikitext test split: pinned 5c8877eeabb3b8afc09f8ec35194fdac8c55acaa25de738d27000876d7c73e4c
+build_ppl_ids: $R/lb/bin/ppl-ids is up to date
+sweep: 400/3215 tensors
+sweep: 800/3215 tensors
+sweep: 1200/3215 tensors
+sweep: 1600/3215 tensors
+sweep: 2000/3215 tensors
+sweep: 2400/3215 tensors
+sweep: 2800/3215 tensors
+sweep: 3200/3215 tensors
+{"tensors": 3215, "scales_biases": 1540, "other": 1675, "exact": true, "exceptions_file": "slotstream_spark/config/q4_1_exceptions.json", "abs_tol": 5.960464477539063e-08, "bad_count": 0, "tolerated_count": 7}
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_qkv.biases count 1 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_qkv.scales count 556 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_z.biases count 39 max abs err 2.887e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_z.scales count 103 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.ple.ple_embedding.ngram_embedding.shard_127.scales count 450 max abs err 1.909e-08
+TOLERATED: language_model.model.layers.2.linear_attn.in_proj_qkv.scales count 120 max abs err 1.909e-08
+TOLERATED: language_model.model.layers.2.linear_attn.in_proj_z.scales count 120 max abs err 1.909e-08
+sweep ok: 3215 tensors, 7 tolerated
+checking 1224 tensors, 111.7 GB -> $R/runs/2026/10/20261015T103857-f9-ref/check/model.gguf
+100/1224 tensors, 39.4 GB, 16 s
+200/1224 tensors, 45.4 GB, 28 s
+300/1224 tensors, 52.0 GB, 41 s
+400/1224 tensors, 58.6 GB, 54 s
+500/1224 tensors, 65.2 GB, 68 s
+600/1224 tensors, 71.2 GB, 80 s
+700/1224 tensors, 77.8 GB, 93 s
+800/1224 tensors, 83.8 GB, 105 s
+900/1224 tensors, 90.4 GB, 118 s
+1000/1224 tensors, 97.0 GB, 131 s
+1100/1224 tensors, 103.5 GB, 145 s
+1200/1224 tensors, 110.1 GB, 158 s
+1224/1224 tensors, 111.7 GB, 160 s
+{"tensors": 1224, "file_bytes": null, "below_099": 88}
+building 1224 tensors, 111.7 GB -> $R/model/q4_1-exact/model.gguf
+100/1224 tensors, 39.4 GB, 239 s
+200/1224 tensors, 45.4 GB, 275 s
+300/1224 tensors, 52.0 GB, 312 s
+400/1224 tensors, 58.6 GB, 350 s
+500/1224 tensors, 65.2 GB, 387 s
+600/1224 tensors, 71.2 GB, 423 s
+700/1224 tensors, 77.8 GB, 461 s
+800/1224 tensors, 83.8 GB, 496 s
+900/1224 tensors, 90.4 GB, 535 s
+1000/1224 tensors, 97.0 GB, 574 s
+1100/1224 tensors, 103.5 GB, 612 s
+1200/1224 tensors, 110.1 GB, 650 s
+1224/1224 tensors, 111.7 GB, 659 s
+{"tensors": 1224, "file_bytes": 111758727232}
+manifest ok: 1224 tensors, 111758727232 bytes
+smoke: ' Paris.\n\nThe capital of France is'
+llamacpp_ppl: MemoryMax 47616 MiB (table 47616 , MemFree 91747 ) -> systemd-run --user --scope --unit=slotstream-spark-f9-ref -p MemoryMax=47616M -p MemoryHigh=47104M -p MemorySwapMax=0 nice -n 10 $R/lb/bin/ppl-ids -m $R/model/q4_1-exact/model.gguf -t 16 -fit off -np 1 --no-repack -lm mmap -cmoe -b 2048 --no-op-offload -ngl 99 -ub 2048 -fa on -c 2048 --ids-file $R/runs/2026/10/20261015T103857-f9-ref/f9-ref/ids.i32 --windows 32 --out $R/runs/2026/10/20261015T103857-f9-ref/f9-ref/windows.jsonl
+llama.cpp ppl 4.7239 over 32 windows / 65,504 tokens (MemoryMax 47616 MiB, peak 47107 MiB, 23.89 tok/s)

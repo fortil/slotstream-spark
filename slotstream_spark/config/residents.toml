@@ -1,0 +1,11 @@
+# Maps the model names reported by GET /running of your model router to the resident class the governor reacts to.
+# Unknown names are class C. Patterns are fnmatch globs matched against the name /running reports.
+# Put your own globs in residents.local.toml (untracked): its [classes] entries replace the ones below, class by class.
+
+default_class = "C"
+
+[classes]
+A = ["large-*"]
+B = ["vision-*"]
+"27B" = ["candidate-27b"]
+C = ["small-*"]

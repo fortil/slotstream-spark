@@ -1,0 +1,134 @@
+--- upstream/qsa.py
++++ vendored/qsa.py
+@@ -8,12 +8,14 @@
+ 
+ import torch
+ 
+-from vllm.model_executor.warmup.jit_warmup_triton_helper import (
++from ._shims import (
++    HAS_TRITON,
+     TritonWarmupTensor,
++    current_platform,
++    tl,
++    triton,
+     triton_scalar_specialization_rep,
+ )
+-from vllm.platforms import current_platform
+-from vllm.triton_utils import HAS_TRITON, tl, triton
+ 
+ 
+ @lru_cache(maxsize=1)
+--- upstream/qsa_indexer.py
++++ vendored/qsa_indexer.py
+@@ -4,12 +4,8 @@
+ 
+ import torch
+ 
+-import vllm.envs as envs
+-from vllm.model_executor.warmup.jit_warmup_triton_helper import (
+-    TritonWarmupTensor,
+-)
+-from vllm.platforms import current_platform
+-from vllm.triton_utils import tl, triton
++from . import _shims
++from ._shims import TritonWarmupTensor, envs, tl, triton
+ 
+ _TOPK_WORKSPACE_BYTES = 1024 * 1024
+ _DECODE_BLOCK_N = 64
+@@ -483,17 +479,7 @@
+ ) -> None:
+     # similar dispatch logic as DeepSeek indexer
+     block_topk = token_topk // compress_ratio
+-    use_cooperative_topk = (
+-        logits.shape[0] <= 64
+-        and logits.stride(0) % 4 == 0
+-        and current_platform.has_device_capability(90)
+-        and not current_platform.is_device_capability_family(120)
+-    )
+-    topk_op = (
+-        torch.ops._C.cooperative_topk
+-        if use_cooperative_topk
+-        else torch.ops._C.persistent_topk
+-    )
++    topk_op = _shims.persistent_topk
+     topk_op(
+         logits,
+         visible_blocks,
+--- upstream/qsa_prepare.py
++++ vendored/qsa_prepare.py
+@@ -4,7 +4,7 @@
+ 
+ import torch
+ 
+-from vllm.triton_utils import tl, triton
++from ._shims import tl, triton
+ 
+ 
+ @triton.jit
+--- upstream/hc.py
++++ vendored/hc.py
+@@ -4,9 +4,7 @@
+ 
+ import torch
+ 
+-from vllm.platforms import current_platform
+-from vllm.triton_utils import tl, triton
+-from vllm.utils.torch_utils import direct_register_custom_op
++from ._shims import current_platform, direct_register_custom_op, tl, triton
+ 
+ 
+ @triton.jit
+--- upstream/qsa_cache.py
++++ vendored/qsa_cache.py
+@@ -19,29 +19,28 @@
+ import torch
+ from torch import nn
+ 
+-from vllm.config import CacheConfig, VllmConfig
+-from vllm.config.cache import CacheDType
+-from vllm.model_executor.layers.attention_layer_base import AttentionLayerBase
+-from vllm.platforms import current_platform
+-from vllm.triton_utils import HAS_TRITON, tl, triton
+-from vllm.utils.math_utils import cdiv
+-from vllm.v1.attention.backend import (
++from ._shims import (
++    HAS_TRITON,
++    PAD_SLOT_ID,
+     AttentionBackend,
+     AttentionCGSupport,
++    AttentionLayerBase,
+     AttentionMetadata,
+     AttentionMetadataBuilder,
+-    CommonAttentionMetadata,
+-)
+-from vllm.v1.attention.backends.utils import (
+-    PAD_SLOT_ID,
+-    split_decodes_and_prefills,
+-)
+-from vllm.v1.kv_cache_interface import (
+     AttentionSpec,
++    CacheConfig,
++    CacheDType,
+     CircularBufferSpec,
++    CommonAttentionMetadata,
+     KVCacheLayout,
+     KVCacheSpec,
+     MLAAttentionSpec,
++    VllmConfig,
++    cdiv,
++    current_platform,
++    split_decodes_and_prefills,
++    tl,
++    triton,
+ )
+ 
+ 
+@@ -191,7 +190,7 @@
+ 
+ @cache
+ def _metadata_launch_pdl() -> bool:
+-    return current_platform.is_arch_support_pdl()
++    return False
+ 
+ 
+ @triton.jit(

@@ -1,0 +1,92 @@
+# Numeric contract of the engine against the transformers oracle (tools/ref_layerwise.py).
+# Rule and fixed values are frozen here, before any engine comparison. The arrays under [layer] and
+# [routing] are empty, and the [logits] limits and [fixture] kl_max_nats are -1.0, until
+# `tools/calibrate_contract.py apply` fills them from oracle-only dumps (bf16 vs fp32 oracle, wrong-expert
+# controls); never from engine results. The logits limits follow rule_logits (design decision 12).
+
+[layer]
+metric = "rel_l2"   # ||engine - oracle||_2 / ||oracle||_2 of the hyper-width layer output [T,10240], same ids, each along its own trajectory
+rule = "L_k = 2*s_k + margin; separable iff c_k >= 4*s_k and c_k >= 2*L_k"
+margin = 0.01
+control_ratio_min = 4.0
+# Per-sequence limits for engine-vs-oracle gates on sequences that are not the 8 dev prompts (design decision 16)
+seq_rule = "L_seq = min(max(L_k, seq_factor*d_k + margin), c_k/seq_ceiling_ratio); d_k = metric(oracle bf16, oracle fp32) on the judged sequence; asserted iff separable[k]"
+seq_factor = 2.0
+seq_ceiling_ratio = 2.0
+min_separable_layers = 4
+# s_k = max over the 8 dev prompts of rel_l2(oracle bf16, oracle fp32) at layer k
+# c_k = min over dev prompts and modes {swap, noexp} of rel_l2(oracle bf16 control, golden) at layer k
+spread = [0.01144218405171329, 0.014664214744070406, 0.02195111556675525, 0.027635440045815862, 0.03193856624708342, 0.03416616765584473, 0.03959605887209711, 0.0396077960307059, 0.04020650048955732, 0.04091719317221349, 0.04310779946862101, 0.046871117961734286, 0.050943470977502375, 0.05520464063517915, 0.05946182989343683, 0.06093919515145729, 0.06599022860904898, 0.06927420158273835, 0.07294618907884282, 0.07727779537720073, 0.07582578179370658, 0.07973247135099944, 0.07722843953951318, 0.08489539266227288, 0.08805678079684737, 0.09119528540965256, 0.09635579260196131, 0.10530670672002669, 0.11406330140045005, 0.13103407231388658, 0.14645120134883066, 0.16462000068724764, 0.17921500254583933, 0.18823223999638355, 0.1869837419739699, 0.2017387728175254, 0.2156362214547443, 0.22163960063100407, 0.2221242958326184, 0.22911291406150314, 0.22902092405457025, 0.23331706276739475, 0.2096829488602511, 0.2089195438265112, 0.17715120171179877, 0.1482492178596723, 0.13227182813918648, 0.12515541266396518]
+control = [0.3282809502537525, 0.3306916498541364, 0.44445127204174945, 0.49096621271463464, 0.5694833260129378, 0.6058025406588948, 0.6451720663132541, 0.6704700149199074, 0.6846432047540163, 0.6920669788281707, 0.6997876946609077, 0.7005696994944759, 0.7236972472003368, 0.7393444863473839, 0.7530927371745246, 0.7562734031220493, 0.7707040442250278, 0.7726671689758154, 0.798051726337108, 0.798252278440628, 0.7857656061804638, 0.8056208429212441, 0.8183518960211537, 0.8274479853728269, 0.8645897442733018, 0.8717058890598702, 0.8701822352398736, 0.868807765630638, 0.880290182949568, 0.8867987343392117, 0.8852944230242039, 0.8976910641486441, 0.9049126483436565, 0.908708992520053, 0.9187744710762754, 0.924379846730019, 0.8949257225905608, 0.9059798010605521, 0.9149042732532722, 0.9350600444307956, 0.935334448549635, 0.9368290599904286, 0.9368431950488388, 0.9370862586362552, 0.9303602391442412, 0.8839472599899119, 0.8753027978016127, 0.8713193063653439]
+limits = [0.03288436810342658, 0.03932842948814081, 0.0539022311335105, 0.06527088009163172, 0.07387713249416683, 0.07833233531168945, 0.08919211774419422, 0.08921559206141179, 0.09041300097911463, 0.09183438634442698, 0.09621559893724202, 0.10374223592346857, 0.11188694195500475, 0.1204092812703583, 0.12892365978687367, 0.1318783903029146, 0.14198045721809796, 0.1485484031654767, 0.15589237815768564, 0.16455559075440146, 0.16165156358741317, 0.16946494270199888, 0.16445687907902637, 0.17979078532454576, 0.18611356159369474, 0.19239057081930513, 0.20271158520392263, 0.2206134134400534, 0.23812660280090012, 0.2720681446277732, 0.30290240269766133, 0.3392400013744953, 0.36843000509167867, 0.3864644799927671, 0.38396748394793984, 0.4134775456350508, 0.4412724429094886, 0.45327920126200816, 0.4542485916652368, 0.4682258281230063, 0.4680418481091405, 0.4766341255347895, 0.4293658977205022, 0.4278390876530224, 0.36430240342359754, 0.3064984357193446, 0.27454365627837296, 0.2603108253279304]
+separable = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, false, false, false, true, true, true, true, true, true]
+
+[routing]
+metric = "top10_set_disagreement"   # 1 - |A inter B| / 10 averaged over tokens, per layer, from router_{LL}_ids
+rule = "L_k = 2*s_k + margin; separable iff c_k >= 4*s_k and c_k >= 2*L_k"
+margin = 0.01
+control_ratio_min = 4.0
+# Per-sequence limits for engine-vs-oracle gates on sequences that are not the 8 dev prompts (design decision 16)
+seq_rule = "L_seq = min(max(L_k, seq_factor*d_k + margin), c_k/seq_ceiling_ratio); d_k = metric(oracle bf16, oracle fp32) on the judged sequence; asserted iff separable[k]"
+seq_factor = 2.0
+seq_ceiling_ratio = 2.0
+ngram_ids = "exact"
+# s_k = max over dev prompts of the bf16-vs-fp32 disagreement; c_k = min over dev prompts of swap-vs-golden.
+# Layer 0 is informational by construction: its router input does not depend on the experts.
+spread = [0.026315789473684206, 0.023684210526315783, 0.028571428571428564, 0.03928571428571427, 0.03939393939393939, 0.045833333333333316, 0.04642857142857142, 0.02894736842105262, 0.04242424242424241, 0.036363636363636355, 0.03939393939393939, 0.06428571428571428, 0.04137931034482758, 0.046428571428571416, 0.049999999999999996, 0.06458333333333331, 0.057575757575757565, 0.05757575757575756, 0.05208333333333332, 0.10263157894736841, 0.09210526315789473, 0.07105263157894737, 0.047368421052631574, 0.11578947368421051, 0.06842105263157894, 0.06842105263157895, 0.06578947368421051, 0.10526315789473684, 0.10263157894736842, 0.08947368421052632, 0.09999999999999998, 0.10526315789473682, 0.10789473684210525, 0.11842105263157893, 0.10789473684210525, 0.12894736842105262, 0.12142857142857143, 0.08928571428571429, 0.09999999999999999, 0.12894736842105262, 0.13421052631578947, 0.12105263157894734, 0.09210526315789473, 0.09999999999999999, 0.09736842105263158, 0.11052631578947367, 0.0894736842105263, 0.08157894736842106]
+control = [0.0, 0.25172413793103443, 0.37826086956521743, 0.5761904761904763, 0.6172413793103447, 0.6696969696969697, 0.6166666666666667, 0.6517241379310346, 0.8104166666666667, 0.7857142857142857, 0.7833333333333332, 0.7833333333333333, 0.8250000000000001, 0.7354166666666666, 0.8241379310344827, 0.8344827586206898, 0.8310344827586206, 0.8041666666666667, 0.7937500000000001, 0.8604166666666666, 0.8862068965517242, 0.796551724137931, 0.6482758620689656, 0.8217391304347827, 0.8212121212121212, 0.889655172413793, 0.85, 0.8937499999999999, 0.8666666666666666, 0.8172413793103448, 0.8655172413793104, 0.8588235294117645, 0.8137931034482758, 0.8275862068965516, 0.8208333333333334, 0.8606060606060606, 0.85, 0.8482758620689654, 0.6896551724137931, 0.786206896551724, 0.7896551724137933, 0.8095238095238096, 0.7363636363636363, 0.7862068965517243, 0.7827586206896553, 0.7499999999999999, 0.6687500000000001, 0.7104166666666667]
+limits = [0.06263157894736841, 0.05736842105263157, 0.06714285714285713, 0.08857142857142854, 0.08878787878787878, 0.10166666666666663, 0.10285714285714284, 0.06789473684210524, 0.09484848484848482, 0.0827272727272727, 0.08878787878787878, 0.13857142857142857, 0.09275862068965515, 0.10285714285714283, 0.10999999999999999, 0.13916666666666663, 0.12515151515151512, 0.12515151515151512, 0.11416666666666664, 0.21526315789473682, 0.19421052631578947, 0.15210526315789474, 0.10473684210526314, 0.24157894736842103, 0.14684210526315788, 0.1468421052631579, 0.14157894736842103, 0.22052631578947368, 0.21526315789473685, 0.18894736842105264, 0.20999999999999996, 0.22052631578947365, 0.2257894736842105, 0.24684210526315786, 0.2257894736842105, 0.26789473684210524, 0.25285714285714284, 0.18857142857142858, 0.21, 0.26789473684210524, 0.27842105263157896, 0.25210526315789467, 0.19421052631578947, 0.21, 0.20473684210526316, 0.23105263157894734, 0.1889473684210526, 0.17315789473684212]
+separable = [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+
+[logits]
+metric = "top1_agreement_and_kl_nats"   # oracle -> engine over the full 248,320 vocabulary, shift-first, computed by logits_metrics of tools/calibrate_contract.py
+rule = "top1_min = 1 - top1_factor*(1 - o_top1); kl_X_max = kl_factor*o_kl_X; valid iff top1_min >= top1_floor and every kl_X_max <= kl_X_ceiling"
+top1_factor = 2.0
+kl_factor = 3.0
+top1_floor = 0.85
+kl_mean_ceiling_nats = 0.05
+kl_p99_ceiling_nats = 0.5
+kl_max_ceiling_nats = 1.5
+# per-sequence rule for sequences other than the 8 dev prompts (design decision 18)
+seq_rule = "kl_X_seq = min(max(kl_X_max_nats, kl_factor*p_X), kl_X_ceiling_nats) for X in {mean, p99, max}; p_X = statistic X of KL(oracle bf16 -> oracle fp32) on the judged sequence, same token ids as the engine dump; top1_min stays calibrated; judgeable iff every p_X <= kl_X_ceiling_nats"
+# oracle bf16-vs-fp32 pair (-1.0 / 0 = not calibrated) and the limits derived from it by rule_logits
+o_top1 = 0.9448818897637795
+o_kl_mean_nats = 0.012410261524308493
+o_kl_p99_nats = 0.14195519072051693
+o_kl_max_nats = 0.3326383506586301
+o_positions = 254
+top1_min = 0.889763779527559
+kl_mean_max_nats = 0.03723078457292548
+kl_p99_max_nats = 0.4258655721615508
+kl_max_nats = 0.9979150519758904
+top1_pooled_rule = "on a hold-out of several prompts top-1 is judged once: sum(agree_i)/sum(positions_i) >= top1_min; per-prompt top-1 informative; single sequences keep top1_min per sequence"
+
+[ops]
+rel_l2_max = 2e-2   # one bf16 op or kernel vs its fp32 reference on identical inputs; never for trajectories
+hc_rel_l2_max = 5e-3   # hc_mix, hc_residual, hc_residual_norm vs fp32 reference_torch; floor: one bf16 store ~1.13e-3 rms, these ops round 1-3 times, measured 1.647e-3-2.393e-3; control: folded weight without gemma_weight (+1 twice) gives rel > 0.05
+fused_moe_rel_l2_max = 1e-2   # step 67 fused affine MoE vs fp64 exact-dequant reference; floor: four bf16 roundings ~2.3e-3; control: nibble order swapped gives rel > 0.1
+attn_oracle_rel_l2_max = 5e-3   # step 69 raw prefill attention kernel vs float64 oracle; P carried as a bf16 hi+lo pair, so the floor is the bf16 output store alone ~1.13e-3 rms, measured 1.64e-3-1.74e-3 (a lone bf16 P measured 5.07e-3-6.4e-3 on the sparse 259x8211 shape); control: V rolled by one row gives rel > control_min_ratio x limit = 0.05 (measured min per-row 0.867)
+forecast_tie_rel = 0.01   # step 73 top-10 sets exact outside a tie margin of forecast_tie_rel * max|correction| per row; floor: fp16 wide product ~7e-4, margin ~14x; control: b transposed gives a non-tie difference
+control_min_ratio = 10.0   # every op-level negative control must exceed control_min_ratio x its limit (0.05 for HC and the attention oracle, 0.1 for fused MoE)
+
+[fixture]
+rule = "kl_max_nats = [logits].kl_max_nats"   # one-position checks against MLX-made references
+kl_max_nats = 0.9979150519758904
+
+[perplexity]
+wikitext2_ref = 5.3914   # third_party/qwen38-flash-next-metadata/MODEL_CARD.md:83; informative only (the README protocol is not published)
+rel_tol = 0.01
+windows = 145
+window_tokens = 2048
+oracle_windows = 32
+oracle_rel_tol = 0.02
+reference_informative = true
+oracle_rule = "gate: |PPL_engine(W)/PPL_oracle(W) - 1| <= oracle_rel_tol on the first oracle_windows windows (same ids_sha256, same starts); PPL_oracle from tools/quality/oracle_ppl.py (tools/ref_layerwise.teacher_force, checkpoint dtype); wikitext2_ref +- rel_tol is informative"
+
+[ablation]
+ppl_correct_max = 20.0
+swap_min_ratio = 5.0
+noexp_min_ratio = 5.0
+
+[engine_self]
+bit_exact = ["pool_size", "resize", "readfault_retry", "mtp_vs_plain", "lookahead_on_off", "prefix_resume", "sweep_cold_warm"]

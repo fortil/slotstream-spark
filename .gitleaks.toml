@@ -1,0 +1,16 @@
+title = "slotstream-spark"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Upstream docstring copied verbatim; the import line is not a secret"
+paths = [
+  '''third_party/transformers-5.19.0-qwen4_exp/transformers-v5\.19\.0-modeling_qwen4_exp\.py''',
+  '''fuentes/upstream-qwen38-flash-next/transformers-v5\.19\.0-modeling_qwen4_exp\.py''',
+]
+
+[[allowlists]]
+description = "tokens_sha256 in curated capture JSON is a SHA-256 of a token list, not a credential"
+regexes = ['''tokens_sha256"\s*:\s*"[0-9a-f]{64}"''']
+regexTarget = "line"

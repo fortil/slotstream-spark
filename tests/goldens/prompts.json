@@ -1,0 +1,82 @@
+[
+ {
+  "id": "dev0",
+  "set": "dev",
+  "text": "The harbor town woke slowly. Fishermen untied their boats while gulls circled over the empty market stalls."
+ },
+ {
+  "id": "dev1",
+  "set": "dev",
+  "text": "La biblioteca del barrio abre a las nueve, pero la fila de estudiantes empieza a formarse mucho antes de que llegue la bibliotecaria."
+ },
+ {
+  "id": "dev2",
+  "set": "dev",
+  "text": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+ },
+ {
+  "id": "dev3",
+  "set": "dev",
+  "text": "A train leaves at 3 pm going 60 km/h. Another leaves at 4 pm going 80 km/h. When does the second catch up?"
+ },
+ {
+  "id": "dev4",
+  "set": "dev",
+  "text": "{\"name\": \"pump-7\", \"status\": \"ok\", \"readings\": [12.5, 13.1, 12.9], \"unit\": \"bar\", \"alerts\": []}"
+ },
+ {
+  "id": "dev5",
+  "set": "dev",
+  "text": "Shopping list:\n- two liters of milk\n- a loaf of rye bread\n- six eggs\n- fresh basil\n- olive oil"
+ },
+ {
+  "id": "dev6",
+  "set": "dev",
+  "text": "\"Did you check the lock?\" asked Maria.\n\"Twice,\" said Tom. \"And the windows too.\"\n\"Then why do I feel uneasy?\""
+ },
+ {
+  "id": "dev7",
+  "set": "dev",
+  "text": "A hash table maps keys to buckets with a hash function; collisions are resolved by chaining or by probing."
+ },
+ {
+  "id": "res0",
+  "set": "reserved",
+  "text": "Rain fell on the old observatory all night, and by morning the dome was covered in a thin layer of moss."
+ },
+ {
+  "id": "res1",
+  "set": "reserved",
+  "text": "El mercado central vende frutas, quesos y pescado fresco; los sábados también hay música en la plaza de enfrente."
+ },
+ {
+  "id": "res2",
+  "set": "reserved",
+  "text": "for line in open('log.txt'):\n    if 'ERROR' in line:\n        print(line.strip())"
+ },
+ {
+  "id": "res3",
+  "set": "reserved",
+  "text": "A rectangle is 12 cm long and 5 cm wide. What is the length of its diagonal, and what is its area?"
+ },
+ {
+  "id": "res4",
+  "set": "reserved",
+  "text": "{\"user\": {\"id\": 42, \"tags\": [\"a\", \"b\"], \"active\": true}, \"page\": 3, \"total\": 118}"
+ },
+ {
+  "id": "res5",
+  "set": "reserved",
+  "text": "Steps to brew tea:\n1. Boil the water\n2. Warm the pot\n3. Add one spoon per cup\n4. Steep for four minutes"
+ },
+ {
+  "id": "res6",
+  "set": "reserved",
+  "text": "\"Where did you leave the keys?\" she asked.\n\"On the table,\" he said, \"next to the blue book.\""
+ },
+ {
+  "id": "res7",
+  "set": "reserved",
+  "text": "TCP numbers every byte of a stream, so the receiver can reorder segments and ask for any that went missing."
+ }
+]

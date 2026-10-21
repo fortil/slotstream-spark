@@ -1,0 +1,4 @@
+READY 256
+TERM 1792520129.012
+TERM 1792520129.012
+$R/tmp/drill-20261020T131406/src/deploy/guard.sh: line 338: 1545466 Killed                  setsid timeout --signal=TERM --kill-after=30 $(( seg + 15 )) "$@"

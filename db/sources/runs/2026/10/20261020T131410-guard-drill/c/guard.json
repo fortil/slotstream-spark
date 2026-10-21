@@ -1,0 +1,1 @@
+{"label":"drill-c","flags":"","precheck":{"mode":"D5","footprint_mib":2048,"memavailable_mib":116502,"memfree_mib":65345,"running":"{\"running\":[]}","containers":12,"ok":true},"start":1792520139,"pgid":1545685,"cap":"$R/runs/2026/10/20261020T131539-drill-c"}

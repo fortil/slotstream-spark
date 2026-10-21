@@ -1,0 +1,1 @@
+{"label":"acceptance2","flags":"","precheck":{"mode":"D5","huella_mib":64870,"memavailable_mib":118251,"memfree_mib":102907,"running":"{\"running\":[]}","containers":1,"ok":true},"start":1792086443,"pgid":1256252,"cap":"$R/runs/2026/10/20261015T124723-acceptance2"}

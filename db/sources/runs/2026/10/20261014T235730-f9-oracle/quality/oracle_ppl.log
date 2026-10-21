@@ -1,0 +1,36 @@
+{"windows_available": 145, "windows": 32, "windows_run": 32, "ids_sha256": "e65198947ecb06833dcd69e042e406f52945dcc88073621d52c3e8e54a4d8e55", "rows_sha256": "5c8877eeabb3b8afc09f8ec35194fdac8c55acaa25de738d27000876d7c73e4c"}
+oracle_ppl: 1 windows in the state file, 31 to score (torch.bfloat16)
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+window 1/32: nll 1432.69 (0.6999/token) 92.2 s
+window 2/32: nll 1729.70 (0.8450/token) 89.0 s
+window 3/32: nll 3523.07 (1.7211/token) 94.0 s
+window 4/32: nll 3221.10 (1.5736/token) 90.4 s
+window 5/32: nll 1895.85 (0.9262/token) 85.8 s
+window 6/32: nll 1706.77 (0.8338/token) 82.4 s
+window 7/32: nll 2610.72 (1.2754/token) 88.2 s
+window 8/32: nll 3684.12 (1.7998/token) 87.5 s
+window 9/32: nll 3679.17 (1.7973/token) 93.2 s
+window 10/32: nll 3962.75 (1.9359/token) 91.9 s
+window 11/32: nll 3916.23 (1.9132/token) 85.9 s
+window 12/32: nll 2005.03 (0.9795/token) 89.6 s
+window 13/32: nll 4388.55 (2.1439/token) 85.4 s
+window 14/32: nll 3773.51 (1.8434/token) 86.3 s
+window 15/32: nll 4999.74 (2.4425/token) 90.5 s
+window 16/32: nll 4623.87 (2.2589/token) 84.4 s
+window 17/32: nll 3728.58 (1.8215/token) 86.0 s
+window 18/32: nll 3763.66 (1.8386/token) 90.7 s
+window 19/32: nll 3206.33 (1.5664/token) 91.2 s
+window 20/32: nll 2027.49 (0.9905/token) 91.0 s
+window 21/32: nll 2689.47 (1.3139/token) 93.0 s
+window 22/32: nll 2033.50 (0.9934/token) 89.1 s
+window 23/32: nll 2405.50 (1.1751/token) 90.5 s
+window 24/32: nll 2428.58 (1.1864/token) 87.6 s
+window 25/32: nll 2557.56 (1.2494/token) 93.4 s
+window 26/32: nll 4774.43 (2.3324/token) 93.0 s
+window 27/32: nll 4884.09 (2.3860/token) 95.0 s
+window 28/32: nll 4276.47 (2.0891/token) 92.7 s
+window 29/32: nll 3296.83 (1.6106/token) 85.9 s
+window 30/32: nll 3601.14 (1.7592/token) 85.3 s
+window 31/32: nll 2912.35 (1.4227/token) 88.4 s
+oracle ppl 4.7265 over 32 windows / 65,504 tokens (torch.bfloat16)

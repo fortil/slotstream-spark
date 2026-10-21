@@ -1,0 +1,11 @@
+tools/spark/py.sh -m pytest -m gate tests/gates/test_oracle_parity31.py -q 
+synced=7078b34-dirty-a56f3358
+SLOTSTREAM_CAPTURE_DIR=$R/runs/2026/10/20261011T201154-oracle-p31
+SLOTSTREAM_DEADLINE=1791768714
+SLOTSTREAM_HUELLA_MIB=10240
+SLOTSTREAM_LABEL=oracle-p31
+SLOTSTREAM_MODE=D5
+SLOTSTREAM_R=$R
+CAP=$R/runs/2026/10/20261011T201154-oracle-p31
+hostname=redacted
+start=2026-10-11T20:11:54-05:00

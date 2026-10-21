@@ -1,0 +1,9 @@
+[Unit]
+Description=slotstream-spark: stop everything at 23:59
+
+[Timer]
+OnCalendar=*-*-* 23:59:00
+Persistent=false
+
+[Install]
+WantedBy=timers.target

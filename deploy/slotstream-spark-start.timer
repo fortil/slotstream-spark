@@ -1,0 +1,9 @@
+[Unit]
+Description=slotstream-spark: open the front socket at 04:00
+
+[Timer]
+OnCalendar=*-*-* 04:00:00
+Persistent=false
+
+[Install]
+WantedBy=timers.target

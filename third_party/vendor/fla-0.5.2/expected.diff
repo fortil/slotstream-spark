@@ -1,0 +1,1374 @@
+--- upstream/fla/__init__.py
++++ vendored/fla_v052/__init__.py
+@@ -1,44 +1,4 @@
+-# Copyright (c) 2023-2026, Songlin Yang, Yu Zhang, Zhiyuan Li
+-#
+-# This source code is licensed under the MIT license found in the
+-# LICENSE file in the root directory of this source tree.
+-# For a list of all contributors, visit:
+-#   https://github.com/fla-org/flash-linear-attention/graphs/contributors
+-
+-import importlib
+-from pkgutil import extend_path
+-
+-__path__ = extend_path(__path__, __name__)
++# Not the upstream file (slotstream-spark): the upstream package __init__ imports every fla subpackage.
++# Only the gated-delta-rule closure is vendored, so this module carries the version alone.
+ __version__ = "0.5.2"
+-
+ __all__: list[str] = []
+-
+-
+-def _import_optional_public_module(module_name: str):
+-    try:
+-        return importlib.import_module(module_name)
+-    except ModuleNotFoundError as exc:
+-        missing = exc.name
+-        # The extension package is optional. Treat its absence, or the absence
+-        # of an external runtime dependency, as the extension being unavailable.
+-        if missing == module_name or (missing is not None and missing.split('.', 1)[0] != 'fla'):
+-            return None
+-        raise
+-
+-
+-def _export_public_api(module) -> None:
+-    globals()[module.__name__.rsplit('.', maxsplit=1)[-1]] = module
+-    for name in module.__all__:
+-        if name.endswith('Config'):
+-            continue
+-        globals()[name] = getattr(module, name)
+-        __all__.append(name)
+-
+-
+-_layers = _import_optional_public_module('fla.layers')
+-_models = _import_optional_public_module('fla.models')
+-if _layers is not None and _models is not None:
+-    _export_public_api(_layers)
+-    _export_public_api(_models)
+-
+-del _import_optional_public_module, _export_public_api, _layers, _models
+--- upstream/fla/modules/__init__.py
++++ vendored/fla_v052/modules/__init__.py
+@@ -1,52 +1,2 @@
+-# Copyright (c) 2023-2026, Songlin Yang, Yu Zhang, Zhiyuan Li
+-#
+-# This source code is licensed under the MIT license found in the
+-# LICENSE file in the root directory of this source tree.
+-# For a list of all contributors, visit:
+-#   https://github.com/fla-org/flash-linear-attention/graphs/contributors
+-
+-from fla.modules.convolution import ImplicitLongConvolution, LongConvolution, ShortConvolution
+-from fla.modules.fused_bitlinear import BitLinear, FusedBitLinear
+-from fla.modules.fused_cross_entropy import FusedCrossEntropyLoss
+-from fla.modules.fused_kl_div import FusedKLDivLoss
+-from fla.modules.fused_linear_cross_entropy import FusedLinearCrossEntropyLoss
+-from fla.modules.fused_norm_gate import (
+-    FusedLayerNormGated,
+-    FusedLayerNormSwishGate,
+-    FusedLayerNormSwishGateLinear,
+-    FusedRMSNormGated,
+-    FusedRMSNormSwishGate,
+-    FusedRMSNormSwishGateLinear,
+-)
+-from fla.modules.l2norm import L2Norm
+-from fla.modules.layernorm import GroupNorm, GroupNormLinear, LayerNorm, LayerNormLinear, RMSNorm, RMSNormLinear
+-from fla.modules.mlp import GatedMLP
+-from fla.modules.rotary import RotaryEmbedding
+-from fla.modules.token_shift import TokenShift
+-
+-__all__ = [
+-    'BitLinear',
+-    'FusedBitLinear',
+-    'FusedCrossEntropyLoss',
+-    'FusedKLDivLoss',
+-    'FusedLayerNormGated',
+-    'FusedLayerNormSwishGate',
+-    'FusedLayerNormSwishGateLinear',
+-    'FusedLinearCrossEntropyLoss',
+-    'FusedRMSNormGated',
+-    'FusedRMSNormSwishGate',
+-    'FusedRMSNormSwishGateLinear',
+-    'GatedMLP',
+-    'GroupNorm',
+-    'GroupNormLinear',
+-    'ImplicitLongConvolution',
+-    'L2Norm',
+-    'LayerNorm',
+-    'LayerNormLinear',
+-    'LongConvolution',
+-    'RMSNorm',
+-    'RMSNormLinear',
+-    'RotaryEmbedding',
+-    'ShortConvolution',
+-    'TokenShift',
+-]
++# Not the upstream file (slotstream-spark): the upstream modules __init__ imports every module.
++# Import from the module files, e.g. fla_v052.modules.l2norm.
+--- upstream/fla/modules/backends/__init__.py
++++ vendored/fla_v052/modules/backends/__init__.py
+@@ -7,8 +7,8 @@
+ 
+ """Module-level backends for FLA components such as rotary and cross-entropy."""
+ 
+-from fla.modules.backends.triton_ascend import TritonAscendBackend
+-from fla.ops.backends import BackendRegistry, dispatch
++from fla_v052.modules.backends.triton_ascend import TritonAscendBackend
++from fla_v052.ops.backends import BackendRegistry, dispatch
+ 
+ modules_registry = BackendRegistry("modules")
+ 
+--- upstream/fla/modules/backends/triton_ascend/__init__.py
++++ vendored/fla_v052/modules/backends/triton_ascend/__init__.py
+@@ -9,7 +9,7 @@
+ 
+ from __future__ import annotations
+ 
+-from fla.ops.backends import BaseBackend
++from fla_v052.ops.backends import BaseBackend
+ 
+ 
+ class TritonAscendBackend(BaseBackend):
+@@ -22,7 +22,7 @@
+ 
+     @classmethod
+     def is_available(cls) -> bool:
+-        from fla.utils import IS_NPU
++        from fla_v052.utils import IS_NPU
+         return IS_NPU
+ 
+     def rotary_embedding_fwdbwd(
+@@ -37,7 +37,7 @@
+         conjugate=False,
+         chunk_indices=None,
+     ):
+-        from fla.modules.backends.triton_ascend.rotary import rotary_embedding_fwdbwd_npu
++        from fla_v052.modules.backends.triton_ascend.rotary import rotary_embedding_fwdbwd_npu
+         return rotary_embedding_fwdbwd_npu(
+             x,
+             cos,
+@@ -62,7 +62,7 @@
+         inplace_backward=False,
+         process_group=None,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_cross_entropy import (
++        from fla_v052.modules.backends.triton_ascend.fused_cross_entropy import (
+             cross_entropy_loss_npu,
+         )
+         return cross_entropy_loss_npu(
+@@ -84,7 +84,7 @@
+         softcapping=None,
+         dtype=None,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_linear_cross_entropy import (
++        from fla_v052.modules.backends.triton_ascend.fused_linear_cross_entropy import (
+             logsumexp_fwd_npu,
+         )
+         return logsumexp_fwd_npu(x, scale=scale, softcapping=softcapping, dtype=dtype)
+@@ -105,7 +105,7 @@
+         l2_penalty_factor=1e-4,
+         accumulate_grad_in_fp32=True,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_linear_cross_entropy import (
++        from fla_v052.modules.backends.triton_ascend.fused_linear_cross_entropy import (
+             fused_linear_cross_entropy_forward_npu,
+         )
+         return fused_linear_cross_entropy_forward_npu(
+@@ -131,59 +131,59 @@
+         dw,
+         db,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_linear_cross_entropy import (
++        from fla_v052.modules.backends.triton_ascend.fused_linear_cross_entropy import (
+             fused_linear_cross_entropy_backward_npu,
+         )
+         return fused_linear_cross_entropy_backward_npu(do, dx, dw, db)
+ 
+     def sigmoid_fwd(self, x, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import sigmoid_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import sigmoid_fwd_npu
+         return sigmoid_fwd_npu(x, output_contiguous=output_contiguous)
+ 
+     def sigmoid_bwd(self, x, dy, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import sigmoid_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import sigmoid_bwd_npu
+         return sigmoid_bwd_npu(x, dy, output_contiguous=output_contiguous)
+ 
+     def logsigmoid_fwd(self, x, temperature=1., output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import logsigmoid_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import logsigmoid_fwd_npu
+         return logsigmoid_fwd_npu(x, temperature=temperature, output_contiguous=output_contiguous)
+ 
+     def logsigmoid_bwd(self, x, dy, temperature=1., output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import logsigmoid_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import logsigmoid_bwd_npu
+         return logsigmoid_bwd_npu(x, dy, temperature=temperature, output_contiguous=output_contiguous)
+ 
+     def swish_fwd(self, x, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import swish_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import swish_fwd_npu
+         return swish_fwd_npu(x, output_contiguous=output_contiguous)
+ 
+     def swish_bwd(self, x, dy, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import swish_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import swish_bwd_npu
+         return swish_bwd_npu(x, dy, output_contiguous=output_contiguous)
+ 
+     def swiglu_fwd(self, x, y, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import swiglu_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import swiglu_fwd_npu
+         return swiglu_fwd_npu(x, y, output_contiguous=output_contiguous)
+ 
+     def swiglu_fwdbwd(self, x, y, g, use_weight=False, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import swiglu_fwdbwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import swiglu_fwdbwd_npu
+         return swiglu_fwdbwd_npu(x, y, g, use_weight=use_weight, output_contiguous=output_contiguous)
+ 
+     def swiglu_linear(self, x, y, weight, bias):
+-        from fla.modules.backends.triton_ascend.activations import swiglu_linear_npu
++        from fla_v052.modules.backends.triton_ascend.activations import swiglu_linear_npu
+         return swiglu_linear_npu(x, y, weight, bias)
+ 
+     def powglu_fwd(self, x, y, power=3.0, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import powglu_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import powglu_fwd_npu
+         return powglu_fwd_npu(x, y, power=power, output_contiguous=output_contiguous)
+ 
+     def powglu_fwdbwd(self, x, y, g, power=3.0, use_weight=False, output_contiguous=False):
+-        from fla.modules.backends.triton_ascend.activations import powglu_fwdbwd_npu
++        from fla_v052.modules.backends.triton_ascend.activations import powglu_fwdbwd_npu
+         return powglu_fwdbwd_npu(
+             x, y, g, power=power, use_weight=use_weight, output_contiguous=output_contiguous,
+         )
+ 
+     def powglu_linear(self, x, y, weight, bias, power=3.0):
+-        from fla.modules.backends.triton_ascend.activations import powglu_linear_npu
++        from fla_v052.modules.backends.triton_ascend.activations import powglu_linear_npu
+         return powglu_linear_npu(x, y, weight, bias, power)
+ 
+     def fused_kl_div_forward(
+@@ -195,7 +195,7 @@
+         reduction='batchmean',
+         accumulate_grad_in_fp32=True,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_kl_div import fused_kl_div_forward_npu
++        from fla_v052.modules.backends.triton_ascend.fused_kl_div import fused_kl_div_forward_npu
+         return fused_kl_div_forward_npu(
+             x,
+             target_x,
+@@ -206,7 +206,7 @@
+         )
+ 
+     def fused_kl_div_backward(self, do, dx, dw):
+-        from fla.modules.backends.triton_ascend.fused_kl_div import fused_kl_div_backward_npu
++        from fla_v052.modules.backends.triton_ascend.fused_kl_div import fused_kl_div_backward_npu
+         return fused_kl_div_backward_npu(do, dx, dw)
+ 
+     def l2norm_fwd(
+@@ -215,7 +215,7 @@
+         eps=1e-6,
+         output_dtype=None,
+     ):
+-        from fla.modules.backends.triton_ascend.l2norm import l2norm_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.l2norm import l2norm_fwd_npu
+         return l2norm_fwd_npu(x, eps, output_dtype)
+ 
+     def l2norm_bwd(
+@@ -225,7 +225,7 @@
+         dy,
+         eps=1e-6,
+     ):
+-        from fla.modules.backends.triton_ascend.l2norm import l2norm_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.l2norm import l2norm_bwd_npu
+         return l2norm_bwd_npu(y, rstd, dy)
+ 
+     def layer_norm_gated_fwd(
+@@ -241,7 +241,7 @@
+         residual_dtype=None,
+         is_rms_norm=False,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_norm_gate import layer_norm_gated_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.fused_norm_gate import layer_norm_gated_fwd_npu
+         return layer_norm_gated_fwd_npu(
+             x,
+             g,
+@@ -272,7 +272,7 @@
+         x_dtype=None,
+         recompute_output=False,
+     ):
+-        from fla.modules.backends.triton_ascend.fused_norm_gate import layer_norm_gated_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.fused_norm_gate import layer_norm_gated_bwd_npu
+         return layer_norm_gated_bwd_npu(
+             dy,
+             x,
+@@ -302,7 +302,7 @@
+         is_rms_norm=False,
+         num_groups=1,
+     ):
+-        from fla.modules.backends.triton_ascend.layernorm import layer_norm_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.layernorm import layer_norm_fwd_npu
+         return layer_norm_fwd_npu(
+             x,
+             weight,
+@@ -330,7 +330,7 @@
+         recompute_output=False,
+         num_groups=1,
+     ):
+-        from fla.modules.backends.triton_ascend.layernorm import layer_norm_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.layernorm import layer_norm_bwd_npu
+         return layer_norm_bwd_npu(
+             dy,
+             x,
+@@ -357,7 +357,7 @@
+         save_kl=False,
+         inplace=False,
+     ):
+-        from fla.modules.backends.triton_ascend.grpo import fused_grpo_loss_npu
++        from fla_v052.modules.backends.triton_ascend.grpo import fused_grpo_loss_npu
+         return fused_grpo_loss_npu(
+             logits,
+             ref_logp,
+@@ -384,7 +384,7 @@
+         BT=64,
+         layout_fallback=False,
+     ):
+-        from fla.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_fwd_npu
++        from fla_v052.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_fwd_npu
+         return causal_conv1d_fwd_npu(
+             x,
+             weight,
+@@ -416,7 +416,7 @@
+         BT=64,
+         layout_fallback=False,
+     ):
+-        from fla.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_bwd_npu
++        from fla_v052.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_bwd_npu
+         return causal_conv1d_bwd_npu(
+             x,
+             dy,
+@@ -442,7 +442,7 @@
+         activation,
+         cu_seqlens,
+     ):
+-        from fla.modules.backends.triton_ascend.causal_conv1d import compute_dh0_npu
++        from fla_v052.modules.backends.triton_ascend.causal_conv1d import compute_dh0_npu
+         return compute_dh0_npu(
+             dy,
+             y,
+@@ -459,7 +459,7 @@
+         initial_state=None,
+         cu_seqlens=None,
+     ):
+-        from fla.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_update_states_npu
++        from fla_v052.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_update_states_npu
+         return causal_conv1d_update_states_npu(
+             x,
+             state_len,
+@@ -476,7 +476,7 @@
+         bias=None,
+         activation=None,
+     ):
+-        from fla.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_update_npu
++        from fla_v052.modules.backends.triton_ascend.causal_conv1d import causal_conv1d_update_npu
+         return causal_conv1d_update_npu(
+             x,
+             cache,
+--- upstream/fla/modules/backends/triton_ascend/activations.py
++++ vendored/fla_v052/modules/backends/triton_ascend/activations.py
+@@ -12,9 +12,9 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
+-from fla.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_activation_block_size
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
++from fla_v052.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_activation_block_size
+ 
+ # Ascend launch limits: grid dim and per-core vector width.
+ _MAX_CORE_DIM = 65535
+--- upstream/fla/modules/backends/triton_ascend/causal_conv1d.py
++++ vendored/fla_v052/modules/backends/triton_ascend/causal_conv1d.py
+@@ -12,8 +12,8 @@
+ import triton.language as tl
+ from einops import rearrange
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.utils import input_guard
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.utils import input_guard
+ 
+ # Ascend Triton rejects grids whose product exceeds 65535 (see fla/modules/token_shift.py).
+ _NPU_MAX_TRITON_GRID = 65535
+--- upstream/fla/modules/backends/triton_ascend/fused_cross_entropy.py
++++ vendored/fla_v052/modules/backends/triton_ascend/fused_cross_entropy.py
+@@ -12,9 +12,9 @@
+ import triton.language as tl
+ from triton.language.math import tanh
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils import input_guard
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils import input_guard
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_vocab_block_size,
+     iter_axis_launch_chunks,
+--- upstream/fla/modules/backends/triton_ascend/fused_kl_div.py
++++ vendored/fla_v052/modules/backends/triton_ascend/fused_kl_div.py
+@@ -12,8 +12,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_elementwise_block_size, compute_vocab_block_size
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_elementwise_block_size, compute_vocab_block_size
+ 
+ _KLD_FWD_MEM_MULT = 12.0
+ _ELEMENTWISE_MEM_MULT = 2.5
+--- upstream/fla/modules/backends/triton_ascend/fused_linear_cross_entropy.py
++++ vendored/fla_v052/modules/backends/triton_ascend/fused_linear_cross_entropy.py
+@@ -13,8 +13,8 @@
+ import triton.language as tl
+ from triton.language.math import tanh
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_elementwise_block_size,
+     compute_vocab_block_size,
+--- upstream/fla/modules/backends/triton_ascend/fused_norm_gate.py
++++ vendored/fla_v052/modules/backends/triton_ascend/fused_norm_gate.py
+@@ -16,8 +16,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.utils import get_multiprocessor_count
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.utils import get_multiprocessor_count
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_row_tile_block_size,
+     compute_ub_block_size,
+--- upstream/fla/modules/backends/triton_ascend/grpo.py
++++ vendored/fla_v052/modules/backends/triton_ascend/grpo.py
+@@ -11,9 +11,9 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils import input_guard
+-from fla.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_vocab_block_size, iter_axis_launch_chunks
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils import input_guard
++from fla_v052.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_vocab_block_size, iter_axis_launch_chunks
+ 
+ # GRPO: use conservative multiplier covering both fwd softmax and bwd grad paths.
+ _GRPO_MEM_MULT = 8.0
+--- upstream/fla/modules/backends/triton_ascend/l2norm.py
++++ vendored/fla_v052/modules/backends/triton_ascend/l2norm.py
+@@ -11,7 +11,7 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_row_tile_block_size,
+     compute_ub_block_size,
+--- upstream/fla/modules/backends/triton_ascend/layernorm.py
++++ vendored/fla_v052/modules/backends/triton_ascend/layernorm.py
+@@ -11,8 +11,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.utils import get_multiprocessor_count
+-from fla.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_ub_block_size, iter_axis_launch_chunks
++from fla_v052.utils import get_multiprocessor_count
++from fla_v052.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_ub_block_size, iter_axis_launch_chunks
+ 
+ # Peak live fp32 vectors in row-wise kernel1 (see Liger Ascend layer_norm).
+ _FWD_MEM_MULT = 6.0
+--- upstream/fla/modules/backends/triton_ascend/rotary.py
++++ vendored/fla_v052/modules/backends/triton_ascend/rotary.py
+@@ -11,9 +11,9 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.utils import autotune_cache_kwargs, get_multiprocessor_count
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.utils import autotune_cache_kwargs, get_multiprocessor_count
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_grid_limited_tile_size,
+     compute_row_tile_block_size,
+--- upstream/fla/modules/l2norm.py
++++ vendored/fla_v052/modules/l2norm.py
+@@ -10,9 +10,9 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.modules.backends import dispatch
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.utils import IS_AMD, autotune_cache_kwargs, input_guard
++from fla_v052.modules.backends import dispatch
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.utils import IS_AMD, autotune_cache_kwargs, input_guard
+ 
+ BT_LIST = [8, 16, 32, 64, 128]
+ NUM_WARPS_AUTOTUNE = [1, 2, 4, 8, 16] if IS_AMD else [1, 2, 4, 8, 16, 32]
+--- upstream/fla/ops/__init__.py
++++ vendored/fla_v052/ops/__init__.py
+@@ -1,91 +1,2 @@
+-# Copyright (c) 2023-2026, Songlin Yang, Yu Zhang, Zhiyuan Li
+-#
+-# This source code is licensed under the MIT license found in the
+-# LICENSE file in the root directory of this source tree.
+-# For a list of all contributors, visit:
+-#   https://github.com/fla-org/flash-linear-attention/graphs/contributors
+-
+-from .abc import chunk_abc
+-from .attn import parallel_attn
+-from .attnres import fused_attnres
+-from .based import fused_chunk_based, parallel_based
+-from .comba import chunk_comba, fused_recurrent_comba
+-from .delta_rule import chunk_delta_rule, fused_chunk_delta_rule, fused_recurrent_delta_rule
+-from .forgetting_attn import parallel_forgetting_attn
+-from .gated_delta_rule import chunk_gated_delta_rule, chunk_gdn, fused_recurrent_gated_delta_rule, fused_recurrent_gdn
+-from .generalized_delta_rule import (
+-    chunk_dplr_delta_rule,
+-    chunk_iplr_delta_rule,
+-    fused_recurrent_dplr_delta_rule,
+-    fused_recurrent_iplr_delta_rule,
+-)
+-from .gla import chunk_gla, fused_chunk_gla, fused_recurrent_gla
+-from .gsa import chunk_gsa, fused_recurrent_gsa
+-from .hgrn import fused_recurrent_hgrn
+-from .kda import chunk_kda, fused_recurrent_kda
+-from .lightning_attn import chunk_lightning_attn, fused_recurrent_lightning_attn
+-from .linear_attn import chunk_linear_attn, fused_chunk_linear_attn, fused_recurrent_linear_attn
+-from .log_linear_attn import chunk_log_linear_attn
+-from .mesa_net import chunk_mesa_net
+-from .nsa import parallel_nsa
+-from .parallax import parallel_parallax
+-from .path_attn import parallel_path_attn
+-from .retention import chunk_retention, fused_chunk_retention, fused_recurrent_retention, parallel_retention
+-from .rwkv6 import chunk_rwkv6, fused_recurrent_rwkv6
+-from .rwkv7 import chunk_rwkv7, fused_recurrent_rwkv7
+-from .simple_gla import chunk_simple_gla, fused_chunk_simple_gla, fused_recurrent_simple_gla, parallel_simple_gla
+-from .wall_attn import parallel_wall_attn, parallel_wall_attn_decode
+-
+-__all__ = [
+-    'chunk_abc',
+-    'chunk_comba',
+-    'chunk_delta_rule',
+-    'chunk_dplr_delta_rule',
+-    'chunk_gated_delta_rule',
+-    'chunk_gdn',
+-    'chunk_gla',
+-    'chunk_gsa',
+-    'chunk_iplr_delta_rule',
+-    'chunk_kda',
+-    'chunk_lightning_attn',
+-    'chunk_linear_attn',
+-    'chunk_log_linear_attn',
+-    'chunk_mesa_net',
+-    'chunk_retention',
+-    'chunk_rwkv6',
+-    'chunk_rwkv7',
+-    'chunk_simple_gla',
+-    'fused_attnres',
+-    'fused_chunk_based',
+-    'fused_chunk_delta_rule',
+-    'fused_chunk_gla',
+-    'fused_chunk_linear_attn',
+-    'fused_chunk_retention',
+-    'fused_chunk_simple_gla',
+-    'fused_recurrent_comba',
+-    'fused_recurrent_delta_rule',
+-    'fused_recurrent_dplr_delta_rule',
+-    'fused_recurrent_gated_delta_rule',
+-    'fused_recurrent_gdn',
+-    'fused_recurrent_gla',
+-    'fused_recurrent_gsa',
+-    'fused_recurrent_hgrn',
+-    'fused_recurrent_iplr_delta_rule',
+-    'fused_recurrent_kda',
+-    'fused_recurrent_lightning_attn',
+-    'fused_recurrent_linear_attn',
+-    'fused_recurrent_retention',
+-    'fused_recurrent_rwkv6',
+-    'fused_recurrent_rwkv7',
+-    'fused_recurrent_simple_gla',
+-    'parallel_attn',
+-    'parallel_based',
+-    'parallel_forgetting_attn',
+-    'parallel_nsa',
+-    'parallel_parallax',
+-    'parallel_path_attn',
+-    'parallel_retention',
+-    'parallel_simple_gla',
+-    'parallel_wall_attn',
+-    'parallel_wall_attn_decode',
+-]
++# Not the upstream file (slotstream-spark): the upstream ops __init__ imports every operator family.
++# Import the operators from their own modules, e.g. fla_v052.ops.gated_delta_rule.
+--- upstream/fla/ops/attn/parallel.py
++++ vendored/fla_v052/ops/attn/parallel.py
+@@ -10,12 +10,12 @@
+ import triton.language as tl
+ from einops import reduce
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.constant import RCP_LN2
+-from fla.ops.utils.cumsum import chunk_global_cumsum
+-from fla.ops.utils.op import exp2, log2
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, check_shared_mem, contiguous
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.constant import RCP_LN2
++from fla_v052.ops.utils.cumsum import chunk_global_cumsum
++from fla_v052.ops.utils.op import exp2, log2
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, check_shared_mem, contiguous
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/backends/__init__.py
++++ vendored/fla_v052/ops/backends/__init__.py
+@@ -19,7 +19,7 @@
+ 
+ import torch
+ 
+-from fla.utils import find_spec_cached
++from fla_v052.utils import find_spec_cached
+ 
+ logger = logging.getLogger(__name__)
+ F = TypeVar('F', bound=Callable)
+@@ -89,7 +89,7 @@
+ 
+ 
+ _OPERATION_BACKEND_MODULES: dict[str, str] = {
+-    'modules': 'fla.modules.backends',
++    'modules': 'fla_v052.modules.backends',
+ }
+ 
+ 
+@@ -149,7 +149,7 @@
+             # Import backend module to trigger registration
+             module_path = _OPERATION_BACKEND_MODULES.get(
+                 operation,
+-                f'fla.ops.{operation}.backends',
++                f'fla_v052.ops.{operation}.backends',
+             )
+             with contextlib.suppress(ImportError):
+                 __import__(module_path, fromlist=[''])
+--- upstream/fla/ops/common/backends/__init__.py
++++ vendored/fla_v052/ops/common/backends/__init__.py
+@@ -7,10 +7,10 @@
+ 
+ """Common backends for shared operations like chunk_gated_delta_rule_fwd_h."""
+ 
+-from fla.ops.backends import BackendRegistry, dispatch
+-from fla.ops.common.backends.intracard import IntraCardCPBackend
+-from fla.ops.common.backends.tilelang import TileLangBackend
+-from fla.ops.common.backends.triton_ascend import TritonAscendCommonBackend
++from fla_v052.ops.backends import BackendRegistry, dispatch
++from fla_v052.ops.common.backends.intracard import IntraCardCPBackend
++from fla_v052.ops.common.backends.tilelang import TileLangBackend
++from fla_v052.ops.common.backends.triton_ascend import TritonAscendCommonBackend
+ 
+ common_registry = BackendRegistry("common")
+ 
+--- upstream/fla/ops/common/backends/intracard.py
++++ vendored/fla_v052/ops/common/backends/intracard.py
+@@ -19,7 +19,7 @@
+ 
+ import torch
+ 
+-from fla.ops.backends import BaseBackend
++from fla_v052.ops.backends import BaseBackend
+ 
+ # Maximum number of sub-sequences per original sequence
+ # Limits merge chain depth to control precision loss
+@@ -82,7 +82,7 @@
+         chunk_indices: torch.LongTensor | None = None,
+     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor | None]:
+         """Intra-card CP implementation of chunk_gated_delta_rule_fwd_h."""
+-        from fla.ops.common.intracard_cp import intracard_fwd_h
++        from fla_v052.ops.common.intracard_cp import intracard_fwd_h
+ 
+         return intracard_fwd_h(
+             k=k, w=w, u=u, g=g, gk=gk,
+--- upstream/fla/ops/common/backends/tilelang/__init__.py
++++ vendored/fla_v052/ops/common/backends/tilelang/__init__.py
+@@ -17,8 +17,8 @@
+ 
+ import torch
+ 
+-from fla.ops.backends import BaseBackend
+-from fla.utils import IS_NVIDIA_HOPPER, TRITON_ABOVE_3_4_0, find_spec_cached, has_usable_nvcc
++from fla_v052.ops.backends import BaseBackend
++from fla_v052.utils import IS_NVIDIA_HOPPER, TRITON_ABOVE_3_4_0, find_spec_cached, has_usable_nvcc
+ 
+ _TILELANG_AVAILABLE = find_spec_cached("tilelang") is not None
+ 
+@@ -95,7 +95,7 @@
+         chunk_size: int = 64,
+         chunk_indices: torch.LongTensor | None = None,
+     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor | None, torch.Tensor | None]:
+-        from fla.ops.common.backends.tilelang.chunk_bwd import (
++        from fla_v052.ops.common.backends.tilelang.chunk_bwd import (
+             chunk_bwd_dqkwg_tilelang,
+         )
+         return chunk_bwd_dqkwg_tilelang(
+@@ -144,7 +144,7 @@
+         cu_seqlens: torch.LongTensor | None = None,
+         chunk_indices: torch.LongTensor | None = None,
+     ) -> tuple[torch.Tensor, torch.Tensor]:
+-        from fla.ops.common.backends.tilelang.parallel_attn_fwd import (
++        from fla_v052.ops.common.backends.tilelang.parallel_attn_fwd import (
+             parallel_attn_fwd_tilelang,
+         )
+         return parallel_attn_fwd_tilelang(
+@@ -189,7 +189,7 @@
+         cu_seqlens: torch.LongTensor | None = None,
+         chunk_indices: torch.LongTensor | None = None,
+     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor | None, torch.Tensor | None]:
+-        from fla.ops.common.backends.tilelang.parallel_attn_bwd import (
++        from fla_v052.ops.common.backends.tilelang.parallel_attn_bwd import (
+             parallel_attn_bwd_tilelang,
+         )
+         return parallel_attn_bwd_tilelang(
+--- upstream/fla/ops/common/backends/tilelang/chunk_bwd.py
++++ vendored/fla_v052/ops/common/backends/tilelang/chunk_bwd.py
+@@ -10,8 +10,8 @@
+ import torch
+ import triton
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.utils import check_shared_mem
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.utils import check_shared_mem
+ 
+ 
+ @tilelang.jit(pass_configs={
+--- upstream/fla/ops/common/backends/tilelang/parallel_attn_bwd.py
++++ vendored/fla_v052/ops/common/backends/tilelang/parallel_attn_bwd.py
+@@ -9,8 +9,8 @@
+ import tilelang.language as T
+ import torch
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.constant import RCP_LN2
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.constant import RCP_LN2
+ 
+ 
+ @tilelang.jit(pass_configs={
+@@ -254,7 +254,7 @@
+         chunk_indices = prepare_chunk_indices(cu_seqlens, BT)
+ 
+     # reuse Triton preprocess for delta (works with unpadded tensors)
+-    from fla.ops.attn.parallel import parallel_attn_bwd_preprocess
++    from fla_v052.ops.attn.parallel import parallel_attn_bwd_preprocess
+     delta = parallel_attn_bwd_preprocess(o, do)
+ 
+     # No padding on the last dim: TileLang T.copy auto-zero-fills OOB columns
+--- upstream/fla/ops/common/backends/tilelang/parallel_attn_fwd.py
++++ vendored/fla_v052/ops/common/backends/tilelang/parallel_attn_fwd.py
+@@ -9,7 +9,7 @@
+ 
+ Supports: GQA, gating (g_cumsum), sliding-window attention, sink_bias,
+ variable-length (cu_seqlens). Output format matches the Triton reference
+-at `fla.ops.attn.parallel.parallel_attn_fwd` so LSE is directly consumable
++at `fla_v052.ops.attn.parallel.parallel_attn_fwd` so LSE is directly consumable
+ by either backend during backward.
+ """
+ 
+@@ -17,8 +17,8 @@
+ import tilelang.language as T
+ import torch
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.constant import RCP_LN2
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.constant import RCP_LN2
+ 
+ 
+ def _pick_tile(K: int, V: int, is_hopper_plus: bool) -> tuple[int, int, int]:
+--- upstream/fla/ops/common/backends/triton_ascend/__init__.py
++++ vendored/fla_v052/ops/common/backends/triton_ascend/__init__.py
+@@ -9,7 +9,7 @@
+ 
+ from __future__ import annotations
+ 
+-from fla.ops.backends import BaseBackend
++from fla_v052.ops.backends import BaseBackend
+ 
+ 
+ class TritonAscendCommonBackend(BaseBackend):
+@@ -20,61 +20,61 @@
+ 
+     @classmethod
+     def is_available(cls) -> bool:
+-        from fla.utils import IS_NPU
++        from fla_v052.utils import IS_NPU
+         return IS_NPU
+ 
+     def chunk_scaled_dot_kkt_fwd_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_scaled_dot_kkt_fwd(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_scaled_dot_kkt import chunk_scaled_dot_kkt_fwd_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_scaled_dot_kkt import chunk_scaled_dot_kkt_fwd_npu
+         return chunk_scaled_dot_kkt_fwd_npu(*args, **kwargs)
+ 
+     def chunk_gated_delta_rule_fwd_h_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_gated_delta_rule_fwd_h(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_delta_h import chunk_gated_delta_rule_fwd_h_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_delta_h import chunk_gated_delta_rule_fwd_h_npu
+         return chunk_gated_delta_rule_fwd_h_npu(*args, **kwargs)
+ 
+     def chunk_fwd_o_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_fwd_o(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_o import chunk_fwd_o_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_o import chunk_fwd_o_npu
+         return chunk_fwd_o_npu(*args, **kwargs)
+ 
+     def chunk_bwd_dv_local_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_bwd_dv_local(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_o import chunk_bwd_dv_local_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_o import chunk_bwd_dv_local_npu
+         return chunk_bwd_dv_local_npu(*args, **kwargs)
+ 
+     def chunk_bwd_dqkwg_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_bwd_dqkwg(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_o import chunk_bwd_dqkwg_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_o import chunk_bwd_dqkwg_npu
+         return chunk_bwd_dqkwg_npu(*args, **kwargs)
+ 
+     def chunk_gated_delta_rule_bwd_dhu_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def chunk_gated_delta_rule_bwd_dhu(self, *args, **kwargs):
+-        from fla.ops.common.backends.triton_ascend.chunk_delta_h import chunk_gated_delta_rule_bwd_dhu_npu
++        from fla_v052.ops.common.backends.triton_ascend.chunk_delta_h import chunk_gated_delta_rule_bwd_dhu_npu
+         return chunk_gated_delta_rule_bwd_dhu_npu(*args, **kwargs)
+ 
+     def fused_beta_sigmoid_fwd_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def fused_beta_sigmoid_fwd(self, x, scale=1.0):
+-        from fla.ops.common.backends.triton_ascend.gate import fused_beta_sigmoid_fwd_npu
++        from fla_v052.ops.common.backends.triton_ascend.gate import fused_beta_sigmoid_fwd_npu
+         return fused_beta_sigmoid_fwd_npu(x, scale)
+ 
+     def fused_beta_sigmoid_bwd_verifier(self, *args, **kwargs):
+         return True, None
+ 
+     def fused_beta_sigmoid_bwd(self, x, dy, scale=1.0):
+-        from fla.ops.common.backends.triton_ascend.gate import fused_beta_sigmoid_bwd_npu
++        from fla_v052.ops.common.backends.triton_ascend.gate import fused_beta_sigmoid_bwd_npu
+         return fused_beta_sigmoid_bwd_npu(x, dy, scale)
+--- upstream/fla/ops/common/backends/triton_ascend/chunk_delta_h.py
++++ vendored/fla_v052/ops/common/backends/triton_ascend/chunk_delta_h.py
+@@ -13,10 +13,10 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
+-from fla.ops.utils.op import exp2
+-from fla.utils import input_guard
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import input_guard
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_row_tile_block_size,
+     get_ub_manager,
+--- upstream/fla/ops/common/backends/triton_ascend/chunk_o.py
++++ vendored/fla_v052/ops/common/backends/triton_ascend/chunk_o.py
+@@ -14,10 +14,10 @@
+ import triton.language as tl
+ import triton.runtime.driver as driver
+ 
+-from fla.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
+-from fla.ops.utils.op import exp2
+-from fla.utils import input_guard
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import input_guard
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_row_tile_block_size,
+     max_grid_axis_chunks,
+--- upstream/fla/ops/common/backends/triton_ascend/chunk_scaled_dot_kkt.py
++++ vendored/fla_v052/ops/common/backends/triton_ascend/chunk_scaled_dot_kkt.py
+@@ -13,10 +13,10 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.op import exp2
+-from fla.utils import input_guard
+-from fla.utils.ascend_ub_manager import (
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import input_guard
++from fla_v052.utils.ascend_ub_manager import (
+     ASCEND_MAX_GRID_DIM,
+     compute_row_tile_block_size,
+     max_grid_axis_chunks,
+--- upstream/fla/ops/common/backends/triton_ascend/gate.py
++++ vendored/fla_v052/ops/common/backends/triton_ascend/gate.py
+@@ -11,7 +11,7 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_activation_block_size
++from fla_v052.utils.ascend_ub_manager import ASCEND_MAX_GRID_DIM, compute_activation_block_size
+ 
+ 
+ def _beta_sigmoid_launch_config(
+--- upstream/fla/ops/common/chunk_delta_h.py
++++ vendored/fla_v052/ops/common/chunk_delta_h.py
+@@ -9,11 +9,11 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.op import exp2
+-from fla.utils import (
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils import prepare_chunk_indices, prepare_chunk_offsets
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import (
+     IS_NVIDIA_BLACKWELL,
+     IS_NVIDIA_HOPPER,
+     autotune_cache_kwargs,
+--- upstream/fla/ops/common/chunk_o.py
++++ vendored/fla_v052/ops/common/chunk_o.py
+@@ -9,11 +9,11 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.common.backends import dispatch
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.op import exp2
+-from fla.utils import (
++from fla_v052.ops.common.backends import dispatch
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import (
+     IS_NVIDIA_HOPPER,
+     TRITON_ABOVE_3_4_0,
+     TRITON_ABOVE_3_7_1,
+--- upstream/fla/ops/common/chunk_scaled_dot_kkt.py
++++ vendored/fla_v052/ops/common/chunk_scaled_dot_kkt.py
+@@ -9,10 +9,10 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.op import exp2
+-from fla.utils import autotune_cache_kwargs
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import autotune_cache_kwargs
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/common/gate.py
++++ vendored/fla_v052/ops/common/gate.py
+@@ -11,8 +11,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
++from fla_v052.ops.backends import dispatch
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
+ 
+ 
+ @triton.jit
+--- upstream/fla/ops/common/intracard_cp.py
++++ vendored/fla_v052/ops/common/intracard_cp.py
+@@ -23,10 +23,10 @@
+ import torch
+ import triton
+ 
+-from fla.ops.common.chunk_delta_h import chunk_gated_delta_rule_fwd_kernel_h_blockdim64
+-from fla.ops.cp.chunk_delta_h import pre_process_fwd_kernel_merged
+-from fla.ops.utils.index import prepare_chunk_indices, prepare_chunk_offsets
+-from fla.utils import get_multiprocessor_count
++from fla_v052.ops.common.chunk_delta_h import chunk_gated_delta_rule_fwd_kernel_h_blockdim64
++from fla_v052.ops.cp.chunk_delta_h import pre_process_fwd_kernel_merged
++from fla_v052.ops.utils.index import prepare_chunk_indices, prepare_chunk_offsets
++from fla_v052.utils import get_multiprocessor_count
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -307,7 +307,7 @@
+     using pure Python loops. This function only creates GPU tensors and
+     launches the merge kernel.
+     """
+-    from fla.ops.cp.chunk_delta_h import merge_fwd_bwd_kernel
++    from fla_v052.ops.cp.chunk_delta_h import merge_fwd_bwd_kernel
+ 
+     if num_non_first == 0:
+         return None, 0
+--- upstream/fla/ops/cp/chunk_delta_h.py
++++ vendored/fla_v052/ops/cp/chunk_delta_h.py
+@@ -14,12 +14,12 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.cp.comm import all_gather_into_tensor
+-from fla.ops.utils.op import exp2
+-from fla.utils import autotune_cache_kwargs, check_shared_mem
++from fla_v052.ops.cp.comm import all_gather_into_tensor
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import autotune_cache_kwargs, check_shared_mem
+ 
+ if TYPE_CHECKING:
+-    from fla.ops.cp.context import FLACPContext
++    from fla_v052.ops.cp.context import FLACPContext
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/cp/context.py
++++ vendored/fla_v052/ops/cp/context.py
+@@ -13,7 +13,7 @@
+ import torch
+ import torch.distributed as dist
+ 
+-from fla.utils import tensor_cache
++from fla_v052.utils import tensor_cache
+ 
+ if TYPE_CHECKING:
+     from torch.distributed import ProcessGroup
+--- upstream/fla/ops/gated_delta_rule/chunk.py
++++ vendored/fla_v052/ops/gated_delta_rule/chunk.py
+@@ -9,25 +9,25 @@
+ 
+ import torch
+ 
+-from fla.modules.l2norm import l2norm_bwd, l2norm_fwd
+-from fla.ops.backends import dispatch
+-from fla.ops.common.chunk_delta_h import chunk_gated_delta_rule_bwd_dhu, chunk_gated_delta_rule_fwd_h
+-from fla.ops.common.chunk_o import chunk_bwd_dqkwg, chunk_bwd_dv_local, chunk_fwd_o
+-from fla.ops.common.gate import fused_beta_sigmoid, fused_beta_sigmoid_bwd
+-from fla.ops.cp import FLACPContext
+-from fla.ops.cp.chunk_delta_h import (
++from fla_v052.modules.l2norm import l2norm_bwd, l2norm_fwd
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.common.chunk_delta_h import chunk_gated_delta_rule_bwd_dhu, chunk_gated_delta_rule_fwd_h
++from fla_v052.ops.common.chunk_o import chunk_bwd_dqkwg, chunk_bwd_dv_local, chunk_fwd_o
++from fla_v052.ops.common.gate import fused_beta_sigmoid, fused_beta_sigmoid_bwd
++from fla_v052.ops.cp import FLACPContext
++from fla_v052.ops.cp.chunk_delta_h import (
+     chunk_gated_delta_rule_bwd_dhu_pre_process,
+     chunk_gated_delta_rule_fwd_h_pre_process,
+     compress_h0,
+     expand_h0,
+ )
+-from fla.ops.gated_delta_rule.chunk_fwd import chunk_gated_delta_rule_fwd_intra
+-from fla.ops.gated_delta_rule.gate import gdn_gate_bwd, gdn_gate_chunk_cumsum
+-from fla.ops.gated_delta_rule.wy_fast import prepare_wy_repr_bwd, recompute_w_u_fwd
+-from fla.ops.utils import chunk_local_cumsum
+-from fla.ops.utils.constant import RCP_LN2
+-from fla.ops.utils.index import prepare_chunk_indices
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
++from fla_v052.ops.gated_delta_rule.chunk_fwd import chunk_gated_delta_rule_fwd_intra
++from fla_v052.ops.gated_delta_rule.gate import gdn_gate_bwd, gdn_gate_chunk_cumsum
++from fla_v052.ops.gated_delta_rule.wy_fast import prepare_wy_repr_bwd, recompute_w_u_fwd
++from fla_v052.ops.utils import chunk_local_cumsum
++from fla_v052.ops.utils.constant import RCP_LN2
++from fla_v052.ops.utils.index import prepare_chunk_indices
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, input_guard
+ 
+ 
+ def chunk_gated_delta_rule_fwd(
+@@ -478,7 +478,7 @@
+         >>> import torch
+         >>> import torch.nn.functional as F
+         >>> from einops import rearrange
+-        >>> from fla.ops.gated_delta_rule import chunk_gated_delta_rule
++        >>> from fla_v052.ops.gated_delta_rule import chunk_gated_delta_rule
+         # inputs with equal lengths
+         >>> B, T, H, HV, K, V = 4, 2048, 4, 8, 512, 512
+         >>> q = torch.randn(B, T, H, K, dtype=torch.bfloat16, device='cuda')
+--- upstream/fla/ops/gated_delta_rule/chunk_fwd.py
++++ vendored/fla_v052/ops/gated_delta_rule/chunk_fwd.py
+@@ -9,13 +9,13 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.common.chunk_scaled_dot_kkt import chunk_scaled_dot_kkt_fwd
+-from fla.ops.gated_delta_rule.wy_fast import recompute_w_u_fwd
+-from fla.ops.utils import prepare_chunk_indices, solve_tril
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.op import exp2
+-from fla.utils import IS_TF32_SUPPORTED, autotune_cache_kwargs
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.common.chunk_scaled_dot_kkt import chunk_scaled_dot_kkt_fwd
++from fla_v052.ops.gated_delta_rule.wy_fast import recompute_w_u_fwd
++from fla_v052.ops.utils import prepare_chunk_indices, solve_tril
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import IS_TF32_SUPPORTED, autotune_cache_kwargs
+ 
+ if IS_TF32_SUPPORTED:
+     SOLVE_TRIL_DOT_PRECISION = tl.constexpr('tf32')
+--- upstream/fla/ops/gated_delta_rule/fused_recurrent.py
++++ vendored/fla_v052/ops/gated_delta_rule/fused_recurrent.py
+@@ -11,9 +11,9 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp
+-from fla.ops.utils.softplus import softplus
+-from fla.utils import input_guard
++from fla_v052.ops.utils.op import exp
++from fla_v052.ops.utils.softplus import softplus
++from fla_v052.utils import input_guard
+ 
+ 
+ @triton.heuristics({
+@@ -390,7 +390,7 @@
+         >>> import torch
+         >>> import torch.nn.functional as F
+         >>> from einops import rearrange
+-        >>> from fla.ops.gated_delta_rule import fused_recurrent_gated_delta_rule
++        >>> from fla_v052.ops.gated_delta_rule import fused_recurrent_gated_delta_rule
+         # inputs with equal lengths
+         >>> B, T, H, HV, K, V = 4, 2048, 4, 8, 512, 512
+         >>> q = torch.randn(B, T, H, K, device='cuda')
+--- upstream/fla/ops/gated_delta_rule/gate.py
++++ vendored/fla_v052/ops/gated_delta_rule/gate.py
+@@ -10,12 +10,12 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.index import prepare_chunk_indices
+-from fla.ops.utils.op import exp
+-from fla.ops.utils.softplus import softplus
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, autotune_cache_kwargs, input_guard
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.index import prepare_chunk_indices
++from fla_v052.ops.utils.op import exp
++from fla_v052.ops.utils.softplus import softplus
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, autotune_cache_kwargs, input_guard
+ 
+ 
+ def naive_gdn_gate(
+--- upstream/fla/ops/gated_delta_rule/wy_fast.py
++++ vendored/fla_v052/ops/gated_delta_rule/wy_fast.py
+@@ -9,11 +9,11 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils import prepare_chunk_indices
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.op import exp2
+-from fla.utils import IS_NVIDIA_BLACKWELL, autotune_cache_kwargs, check_shared_mem
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils import prepare_chunk_indices
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.op import exp2
++from fla_v052.utils import IS_NVIDIA_BLACKWELL, autotune_cache_kwargs, check_shared_mem
+ 
+ # Blackwell can select unstable Triton configs for prepare_wy_repr_bwd_kernel
+ # during autotuning (see #913). Restrict it to the config that has been
+--- upstream/fla/ops/utils/csr.py
++++ vendored/fla_v052/ops/utils/csr.py
+@@ -9,7 +9,7 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.index import prepare_chunk_offsets
++from fla_v052.ops.utils.index import prepare_chunk_offsets
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/utils/cumsum.py
++++ vendored/fla_v052/ops/utils/cumsum.py
+@@ -9,10 +9,10 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils.cache import fla_cache_autotune
+-from fla.ops.utils.index import prepare_chunk_indices
+-from fla.utils import autotune_cache_kwargs, check_shared_mem, input_guard
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils.cache import fla_cache_autotune
++from fla_v052.ops.utils.index import prepare_chunk_indices
++from fla_v052.utils import autotune_cache_kwargs, check_shared_mem, input_guard
+ 
+ BS_LIST = [32, 64] if check_shared_mem() else [16, 32]
+ 
+--- upstream/fla/ops/utils/index.py
++++ vendored/fla_v052/ops/utils/index.py
+@@ -10,7 +10,7 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.utils import autotune_cache_kwargs, tensor_cache
++from fla_v052.utils import autotune_cache_kwargs, tensor_cache
+ 
+ 
+ @triton.autotune(
+--- upstream/fla/ops/utils/logsumexp.py
++++ vendored/fla_v052/ops/utils/logsumexp.py
+@@ -9,8 +9,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp, log
+-from fla.utils import autotune_cache_kwargs
++from fla_v052.ops.utils.op import exp, log
++from fla_v052.utils import autotune_cache_kwargs
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/utils/matmul.py
++++ vendored/fla_v052/ops/utils/matmul.py
+@@ -13,8 +13,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp
+-from fla.utils import autotune_cache_kwargs, input_guard
++from fla_v052.ops.utils.op import exp
++from fla_v052.utils import autotune_cache_kwargs, input_guard
+ 
+ 
+ # `triton.jit`'ed functions can be auto-tuned by using the `triton.autotune` decorator, which consumes:
+--- upstream/fla/ops/utils/op.py
++++ vendored/fla_v052/ops/utils/op.py
+@@ -11,7 +11,7 @@
+ import triton.language as tl
+ import triton.language.extra.libdevice as tldevice
+ 
+-from fla.utils import IS_GATHER_SUPPORTED, IS_NVIDIA_BLACKWELL
++from fla_v052.utils import IS_GATHER_SUPPORTED, IS_NVIDIA_BLACKWELL
+ 
+ if os.environ.get('FLA_USE_FAST_OPS', '0') == '1':
+     @triton.jit
+--- upstream/fla/ops/utils/pack.py
++++ vendored/fla_v052/ops/utils/pack.py
+@@ -12,8 +12,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.index import prepare_lens
+-from fla.utils import autotune_cache_kwargs, input_guard
++from fla_v052.ops.utils.index import prepare_lens
++from fla_v052.utils import autotune_cache_kwargs, input_guard
+ 
+ 
+ @triton.autotune(
+--- upstream/fla/ops/utils/pooling.py
++++ vendored/fla_v052/ops/utils/pooling.py
+@@ -9,8 +9,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.index import prepare_chunk_indices
+-from fla.utils import autocast_custom_bwd, autocast_custom_fwd, autotune_cache_kwargs, input_guard
++from fla_v052.ops.utils.index import prepare_chunk_indices
++from fla_v052.utils import autocast_custom_bwd, autocast_custom_fwd, autotune_cache_kwargs, input_guard
+ 
+ 
+ @triton.heuristics({
+--- upstream/fla/ops/utils/softmax.py
++++ vendored/fla_v052/ops/utils/softmax.py
+@@ -9,8 +9,8 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.utils.op import exp
+-from fla.utils import IS_AMD, autotune_cache_kwargs
++from fla_v052.ops.utils.op import exp
++from fla_v052.utils import IS_AMD, autotune_cache_kwargs
+ 
+ NUM_WARPS_AUTOTUNE = [1, 2, 4, 8, 16] if IS_AMD else [1, 2, 4, 8, 16, 32]
+ 
+--- upstream/fla/ops/utils/softplus.py
++++ vendored/fla_v052/ops/utils/softplus.py
+@@ -11,7 +11,7 @@
+ import triton
+ from triton import language as tl
+ 
+-from fla.utils import IS_NVIDIA
++from fla_v052.utils import IS_NVIDIA
+ 
+ 
+ def _generate_softplus(num_pack):
+--- upstream/fla/ops/utils/solve_tril.py
++++ vendored/fla_v052/ops/utils/solve_tril.py
+@@ -11,10 +11,10 @@
+ import triton
+ import triton.language as tl
+ 
+-from fla.ops.backends import dispatch
+-from fla.ops.utils.index import prepare_chunk_indices
+-from fla.ops.utils.op import make_tensor_descriptor
+-from fla.utils import IS_TMA_SUPPORTED, autotune_cache_kwargs, input_guard
++from fla_v052.ops.backends import dispatch
++from fla_v052.ops.utils.index import prepare_chunk_indices
++from fla_v052.ops.utils.op import make_tensor_descriptor
++from fla_v052.utils import IS_TMA_SUPPORTED, autotune_cache_kwargs, input_guard
+ 
+ FLA_TRIL_PRECISION = os.environ.get('FLA_TRIL_PRECISION', 'ieee')
+ assert FLA_TRIL_PRECISION in ['ieee', 'tf32', 'tf32x3'], \
+--- upstream/fla/utils/_decorators.py
++++ vendored/fla_v052/utils/_decorators.py
+@@ -58,7 +58,7 @@
+     cached: deque = deque(maxlen=FLA_TENSOR_CACHE_SIZE)
+ 
+     def cache_disabled() -> bool:
+-        utils_module = sys.modules.get('fla.utils')
++        utils_module = sys.modules.get('fla_v052.utils')
+         return getattr(utils_module, 'FLA_DISABLE_TENSOR_CACHE', FLA_DISABLE_TENSOR_CACHE)
+ 
+     @functools.wraps(fn)
+@@ -200,7 +200,7 @@
+     - Automatically replace deprecated keyword arguments with new ones.
+     - Raise an error if deprecated arguments are used, depending on the specified conditions.
+ 
+-    By default, the decorator notifies the user about the deprecated argument while the `fla.__version__` < specified `version`
++    By default, the decorator notifies the user about the deprecated argument while the `fla_v052.__version__` < specified `version`
+     in the decorator. To keep notifications with any version `warn_if_greater_or_equal_version=True` can be set.
+ 
+     Args:

@@ -1,0 +1,53 @@
+{
+ "time": "2026-10-12T08:21:13-0500",
+ "epoch": 1791811273,
+ "uname": "Linux host 6.17.0-1029-nvidia #29-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul  1 00:13:52 UTC 2026 aarch64",
+ "driver": "580.173.02",
+ "meminfo": {
+  "MemTotal_kB": 127600748,
+  "MemFree_kB": 74376512,
+  "MemAvailable_kB": 83629056,
+  "Cached_kB": 14676188,
+  "Mlocked_kB": 26156,
+  "AnonPages_kB": 7677924,
+  "Shmem_kB": 156444,
+  "AnonHugePages_kB": 362496
+ },
+ "pressure": {
+  "memory": [
+   "some avg10=0.17 avg60=12.04 avg300=21.69 total=959871628",
+   "full avg10=0.17 avg60=12.01 avg300=21.63 total=957122739"
+  ],
+  "io": [
+   "some avg10=0.12 avg60=8.95 avg300=16.21 total=1780233514",
+   "full avg10=0.11 avg60=8.50 avg300=15.39 total=1730795811"
+  ],
+  "cpu": [
+   "some avg10=0.18 avg60=0.56 avg300=0.99 total=898483927",
+   "full avg10=0.00 avg60=0.00 avg300=0.00 total=0"
+  ]
+ },
+ "docker": {
+  "other-1": "Up 17 hours",
+  "other-2": "Up 45 hours",
+  "other-3": "Up 45 hours",
+  "other-4": "Up 45 hours",
+  "llama-swap": "Up 45 hours",
+  "other-5": "Up 45 hours",
+  "qdrant-1": "Up 45 hours",
+  "postgres-1": "Up 45 hours",
+  "other-6": "Up 45 hours",
+  "other-7": "Up 45 hours",
+  "other-8": "Up 45 hours",
+  "asr-1": "Up 6 hours",
+  "embeddings-1": "Up 6 hours",
+  "other-9": "Up 45 hours"
+ },
+ "running": "{\"running\":[]}\n",
+ "hwmon1": {
+  "temp1": 52.85,
+  "temp2": 55.85,
+  "temp3": 52.85
+ },
+ "loadavg": "7.41 11.51 10.01 1/1756 1846125"
+}

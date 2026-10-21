@@ -1,0 +1,74 @@
+{
+ "a": {
+  "control": 0.3282809502537525,
+  "decode_rel_l2": 0.0057080611178747425,
+  "limit": 0.03288436810342658,
+  "ngram_ok": true,
+  "ok": true,
+  "positions": 23,
+  "rel_l2": 0.006275129803906265,
+  "routing_disagreement": 0.0,
+  "routing_limit": 0.06263157894736841,
+  "routing_ok": true,
+  "routing_separable": false,
+  "separable": true,
+  "spread": 0.01144218405171329
+ },
+ "b": {
+  "bitwise_equal": true,
+  "digests": {
+   "13": "c4aae857ecbda397fb882958cac55fc090be52c85a464429c312875eb1fd41e9",
+   "181": "c4aae857ecbda397fb882958cac55fc090be52c85a464429c312875eb1fd41e9",
+   "512": "c4aae857ecbda397fb882958cac55fc090be52c85a464429c312875eb1fd41e9",
+   "88": "c4aae857ecbda397fb882958cac55fc090be52c85a464429c312875eb1fd41e9"
+  },
+  "pools": [
+   13,
+   88,
+   181,
+   512
+  ],
+  "sha256": "c4aae857ecbda397fb882958cac55fc090be52c85a464429c312875eb1fd41e9"
+ },
+ "base": {
+  "nvml_before_pool": 679985152,
+  "pool_bytes": 2147483648,
+  "vmrss_before_pool": 1048608768
+ },
+ "c": {
+  "bytes_equal": 1000,
+  "ensures": 1000,
+  "errors": 0,
+  "gpu_checks": 3767,
+  "gpu_checks_after_overwrite": 3762,
+  "gpu_checksum_ok": true,
+  "hits": 13,
+  "max_read_s": 0.010491734952665865,
+  "misses": 3826,
+  "pool_slots": 64
+ },
+ "contract": {
+  "fixture_kl_max_nats": 0.9979150519758904,
+  "layer_metric": "rel_l2",
+  "logits": {
+   "kl_max_nats": 0.9979150519758904,
+   "kl_mean_max_nats": 0.03723078457292548,
+   "kl_p99_max_nats": 0.4258655721615508,
+   "top1_min": 0.889763779527559
+  },
+  "path": "slotstream_spark/config/numeric_contract.toml"
+ },
+ "d": {
+  "before_pool": {
+   "nvml_before_pool": 679985152,
+   "pool_bytes": 2147483648,
+   "vmrss_before_pool": 1048608768
+  },
+  "note": "total = VmHWM + NVML + pinned as the plan states; the 512-slot pool (2 chunks) shows in both counters",
+  "nvml": 3096428544,
+  "nvml_source": "pynvml",
+  "pinned": 0,
+  "total_bytes": 7905071104,
+  "vmhwm": 4808642560
+ }
+}

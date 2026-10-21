@@ -1,0 +1,6 @@
+a	true	deadline: rc=76 cut=deadline gone<=1s;
+b	true	running flip: cut after 19 s; rc=76 cut=running gone<=1s;
+c	true	memavailable (threshold 117526): rc=76 cut=memavailable gone<=1s;
+d	true	container: rc=76 cut=deadline gone<=1s; hostconfig=1000 proc=1000
+e	true	memcg: TERM->gone 2.25s (limit 2 s + 0.5 s teardown); rc=76 cut=memcg_over gone<=1s;
+k	true	kill-all rc=0 in 41 s; 

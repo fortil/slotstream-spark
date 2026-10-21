@@ -1,0 +1,55 @@
+name: Measurement report
+description: Numbers from your own machine, whether or not they match the published ones.
+labels: [measurement]
+body:
+  - type: textarea
+    id: machine
+    attributes:
+      label: Machine
+      description: Model, total memory, other workloads on the host, NVMe drive and how it is mounted, driver and CUDA versions.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `cli doctor`
+      description: Output of `tools/spark/py.sh -m slotstream_spark.cli doctor`.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: mode
+    attributes:
+      label: Memory mode
+      description: D1, D2 or D5, and any setting you changed from the default.
+    validations:
+      required: true
+  - type: textarea
+    id: decode
+    attributes:
+      label: Decode result
+      description: The command and full output of `slotstream_spark.cli bench decode`, with the number of runs.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: ttft
+    attributes:
+      label: Time to first token
+      description: The command and full output of `bench/ttft.py`.
+      render: text
+  - type: textarea
+    id: oom
+    attributes:
+      label: Out-of-memory check
+      description: Output of `journalctl -k` filtered for oom-kill lines over the run window, or "none".
+      render: text
+    validations:
+      required: true

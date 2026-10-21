@@ -1,0 +1,1 @@
+{"label":"drill-b","flags":"","precheck":{"mode":"D5","footprint_mib":2048,"memavailable_mib":116516,"memfree_mib":65359,"running":"{\"running\":[]}","containers":12,"ok":true},"start":1792520120,"pgid":1545466,"cap":"$R/runs/2026/10/20261020T131520-drill-b"}

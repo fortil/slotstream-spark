@@ -1,0 +1,1 @@
+{"label":"lb2","flags":"--memcg slotstream-spark-lb","precheck":{"mode":"D5","huella_mib":57344,"memavailable_mib":83811,"memfree_mib":72528,"running":"{\"running\":[]}","containers":14,"ok":true},"start":1791807211,"pgid":967108,"cap":"$R/runs/2026/10/20261012T071331-lb2"}

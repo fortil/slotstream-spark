@@ -1,0 +1,1799 @@
+{
+ "cell": "ttft-cold-32k",
+ "chunks": 48,
+ "eligible": true,
+ "failures": [],
+ "flags": {
+  "pool": [
+   true,
+   true
+  ]
+ },
+ "footprint_samples": [
+  {
+   "nvml": 56850628608,
+   "pinned": 0,
+   "tag": "s0:22624591295277",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53613907968,
+   "vmrss": 53613903872
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22627332426724",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53510918144
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22630138048327",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53511409664
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22632975306451",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53511315456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22635761223280",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53518041088
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22638571189783",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53529092096
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22641397917032",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53528932352
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22644197339212",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53532475392
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22646971563605",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53536288768
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22649775534532",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53536452608
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22652557491921",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53536452608
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22655339669494",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53553373184
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22658133528845",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53553537024
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22660906892292",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53553537024
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22663691266267",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53556883456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22666495434850",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53556883456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22669272733070",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53556883456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22672071254013",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53557141504
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22674871278713",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53559955456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22677660872505",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53559955456
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22680462358891",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53560258560
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22683259374526",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53562302464
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22686050792799",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53562466304
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22688862169266",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647872000,
+   "vmrss": 53562466304
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22691621356487",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54058840064,
+   "vmrss": 54058840064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s0:22694088553397",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54449602560,
+   "vmrss": 54449602560
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s0:22694361111487",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54447357952,
+   "vmrss": 54447357952
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s0:22697170776988",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54447636480,
+   "vmrss": 54447636480
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s0:22699989208131",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54447501312,
+   "vmrss": 54447501312
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s0:22701991818030",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54447509504,
+   "vmrss": 54447509504
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s0:22702798291298",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54449119232,
+   "vmrss": 54449119232
+  },
+  {
+   "nvml": 56850628608,
+   "pinned": 0,
+   "tag": "s1:22728299101205",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53613932544,
+   "vmrss": 53613928448
+  },
+  {
+   "nvml": 57968410624,
+   "pinned": 0,
+   "tag": "s1:22731091355351",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53512675328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22733915699138",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53511278592
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22736741578746",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53511512064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22739575468747",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53518086144
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22742386823083",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53529133056
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22745240589064",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53529133056
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22748086871920",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53528969216
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22750932240865",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53535870976
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22753784187032",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53536034816
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22756626504872",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53536034816
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22759447136520",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53553119232
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22762311058277",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53552955392
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22765171651191",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53553119232
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22767994748027",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53556301824
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22770837519727",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53556465664
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22773683696772",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53556314112
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22776494225712",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53559377920
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22779324510316",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53559541760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22782159390331",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53559541760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22784997386939",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53560258560
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22787831048046",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53562466304
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22790669729684",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53562302464
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22793494425915",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647552512,
+   "vmrss": 53636952064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22796268629469",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54075924480,
+   "vmrss": 54075924480
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s1:22798820685603",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435385344,
+   "vmrss": 54435385344
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s1:22799030019457",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433386496,
+   "vmrss": 54433386496
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s1:22801846140792",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433468416,
+   "vmrss": 54433468416
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s1:22804668333174",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433333248,
+   "vmrss": 54433333248
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s1:22806692069749",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433341440,
+   "vmrss": 54433341440
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s1:22807501971012",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54434951168,
+   "vmrss": 54434951168
+  },
+  {
+   "nvml": 56850628608,
+   "pinned": 0,
+   "tag": "s2:22832479248599",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53613867008,
+   "vmrss": 53613862912
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22835238412745",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53510840320
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22838044197021",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53511262208
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22840869383473",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53511266304
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22843658306653",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53518012416
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22846440644824",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53529059328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22849265663678",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53529059328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22852066014129",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53529059328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22854868347987",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53536247808
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22857700537497",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53536411648
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22860531931800",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53536247808
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22863354856963",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53553496064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22866183784869",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53553496064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22869030183011",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53553496064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22871838261317",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53556842496
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22874652600078",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53556842496
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22877503672615",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53556842496
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22880305290192",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53557100544
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22883151184102",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53559914496
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22885977935205",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53559750656
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22888792644137",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53560217600
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22891614351829",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53562261504
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22894427935087",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53562425344
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22897281177485",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647835136,
+   "vmrss": 53597323264
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s2:22900044622785",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54006792192,
+   "vmrss": 54006792192
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s2:22902822569132",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54437498880,
+   "vmrss": 54437498880
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s2:22905658066174",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54437642240,
+   "vmrss": 54437642240
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s2:22908472462116",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54437642240,
+   "vmrss": 54437642240
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s2:22910343228802",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54437515264,
+   "vmrss": 54437515264
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s2:22911213106031",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54440169472,
+   "vmrss": 54440169472
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s2:22911297027690",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54440169472,
+   "vmrss": 54440169472
+  },
+  {
+   "nvml": 56850628608,
+   "pinned": 0,
+   "tag": "s3:22937203831156",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53613916160,
+   "vmrss": 53613912064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22940023728935",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53511053312
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22942922633942",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53511344128
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22945818923020",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53511348224
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22948681232913",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53518036992
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22951566439419",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53528920064
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22954430031210",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53529083904
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22957315462796",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53532459008
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22960174759163",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53535985664
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22963067534163",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53535985664
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22965953493275",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53535825920
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22968801536538",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53552906240
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22971675300340",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53553070080
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22974562533363",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53553070080
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22977432854287",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53556703232
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22980313251434",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53556867072
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22983213084500",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53556879360
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22986056015059",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53559779328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22988945181747",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53559943168
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22991827824291",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53559943168
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22994690161450",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53562454016
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:22997572825795",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53562454016
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:23000456969146",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647974400,
+   "vmrss": 53562454016
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:23003298956275",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53753360384,
+   "vmrss": 53753360384
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s3:23006128272513",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54132912128,
+   "vmrss": 54132912128
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s3:23008947011321",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433128448,
+   "vmrss": 54433128448
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s3:23011830627489",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433406976,
+   "vmrss": 54433406976
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s3:23014704123812",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433406976,
+   "vmrss": 54433406976
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s3:23016596729227",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54433280000,
+   "vmrss": 54433280000
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s3:23017426886198",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435934208,
+   "vmrss": 54435934208
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s3:23017570587047",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435934208,
+   "vmrss": 54435934208
+  },
+  {
+   "nvml": 56850628608,
+   "pinned": 0,
+   "tag": "s4:23043803584827",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53614014464,
+   "vmrss": 53614010368
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23046492200321",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53511155712
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23049214593535",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53511454720
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23051961310901",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53511294976
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23054675266014",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53518139392
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23057387020017",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53529026560
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23060107733296",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53529190400
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23062852918728",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53529190400
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23065554757281",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53536284672
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23068292759718",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53536448512
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23071002904264",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53536448512
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23073705013224",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53537067008
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23076451311764",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53553635328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23079167816328",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53553635328
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23081911959322",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53553950720
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23084610502906",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53556981760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23087344466628",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53556817920
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23090068478443",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53556989952
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23092790422427",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53560053760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23095519810006",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53560053760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23098248404893",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53560053760
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23100977507425",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53562564608
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23103727619992",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53562400768
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23106490903492",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53647732736,
+   "vmrss": 53562564608
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23109211829906",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 53682274304,
+   "vmrss": 53682274304
+  },
+  {
+   "nvml": 57978896384,
+   "pinned": 0,
+   "tag": "s4:23111915499424",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54107791360,
+   "vmrss": 54107791360
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s4:23114608023671",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435749888,
+   "vmrss": 54435749888
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s4:23117356420590",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435614720,
+   "vmrss": 54435614720
+  },
+  {
+   "nvml": 58115211264,
+   "pinned": 0,
+   "tag": "s4:23120077017682",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435749888,
+   "vmrss": 54435749888
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s4:23121967771177",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54435622912,
+   "vmrss": 54435622912
+  },
+  {
+   "nvml": 58228457472,
+   "pinned": 0,
+   "tag": "s4:23122812510413",
+   "unified": {
+    "pool": 51539607552
+   },
+   "vmhwm": 54438277120,
+   "vmrss": 54438277120
+  }
+ ],
+ "ineligible_reasons": [],
+ "kind": "ttft-cold",
+ "medians": {
+  "prefill_s": 77.428023796,
+  "prefill_tps": 413.2612254744521,
+  "ttft_s": 77.47498227000324
+ },
+ "memavailable_drop_bytes": 61369581568,
+ "mode": "D5",
+ "ok": true,
+ "peak": {
+  "argmax_tag": "vmhwm",
+  "hwm_bound_bytes": 9598844928,
+  "nonpool_bytes": 9598844928,
+  "once_bytes": 61138452480,
+  "samples": 155,
+  "unified_hwm": {
+   "pool": 51539607552
+  }
+ },
+ "prompt_tokens": 31998,
+ "samples": [
+  {
+   "chunks": 48,
+   "cold": {
+    "eval_count": 8,
+    "eval_s": 0.775104758,
+    "prefill_s": 77.318683688,
+    "prefill_tps": 413.84563825633455,
+    "prompt_tokens": 31998,
+    "reused_tokens": 0,
+    "total_s": 78.15117009800088,
+    "ttft_s": 77.36631343200133
+   },
+   "footprint_file": "footprint-serve.jsonl",
+   "memavailable_drop_bytes": 61234491392,
+   "memavailable_min_bytes": 62810222592,
+   "memavailable_start_bytes": 124044713984,
+   "metrics_delta": {
+    "slotstream_decode_tokens_per_second": 10.3212,
+    "slotstream_decode_tokens_total": 8.0,
+    "slotstream_footprint_bytes": 0.0,
+    "slotstream_generation_busy": 0.0,
+    "slotstream_generations_total": 1.0,
+    "slotstream_pool_hits_total": 0.0,
+    "slotstream_prefill_seconds_sum": 77.3187,
+    "slotstream_prompt_tokens_total": 31998.0,
+    "slotstream_queue_depth": 0.0,
+    "slotstream_queue_wait_seconds_sum": 0.000104849,
+    "slotstream_reused_tokens_total": 0.0
+   },
+   "oom_score_adj": 1000,
+   "prefix_dir_entries_after_start": [
+    ".lock"
+   ],
+   "prompt_sha256": "2824f225e4a69c660cc82e41ee0672671740ad095a232b9a837ac07d92e5bac8",
+   "prompt_tokens_expected": 31998,
+   "sample": 0
+  },
+  {
+   "chunks": 48,
+   "cold": {
+    "eval_count": 8,
+    "eval_s": 0.791133627,
+    "prefill_s": 77.395010532,
+    "prefill_tps": 413.43750430488024,
+    "prompt_tokens": 31998,
+    "reused_tokens": 0,
+    "total_s": 78.25613619900105,
+    "ttft_s": 77.45494410399988
+   },
+   "footprint_file": "footprint-serve.jsonl",
+   "memavailable_drop_bytes": 61363412992,
+   "memavailable_min_bytes": 62763626496,
+   "memavailable_start_bytes": 124127039488,
+   "metrics_delta": {
+    "slotstream_decode_tokens_per_second": 10.1121,
+    "slotstream_decode_tokens_total": 8.0,
+    "slotstream_footprint_bytes": 0.0,
+    "slotstream_generation_busy": 0.0,
+    "slotstream_generations_total": 1.0,
+    "slotstream_pool_hits_total": 0.0,
+    "slotstream_prefill_seconds_sum": 77.395,
+    "slotstream_prompt_tokens_total": 31998.0,
+    "slotstream_queue_depth": 0.0,
+    "slotstream_queue_wait_seconds_sum": 8.2544e-05,
+    "slotstream_reused_tokens_total": 0.0
+   },
+   "oom_score_adj": 1000,
+   "prefix_dir_entries_after_start": [
+    ".lock"
+   ],
+   "prompt_sha256": "2824f225e4a69c660cc82e41ee0672671740ad095a232b9a837ac07d92e5bac8",
+   "prompt_tokens_expected": 31998,
+   "sample": 1
+  },
+  {
+   "chunks": 48,
+   "cold": {
+    "eval_count": 8,
+    "eval_s": 0.809858671,
+    "prefill_s": 77.428023796,
+    "prefill_tps": 413.2612254744521,
+    "prompt_tokens": 31998,
+    "reused_tokens": 0,
+    "total_s": 78.29468905600152,
+    "ttft_s": 77.47498227000324
+   },
+   "footprint_file": "footprint-serve.jsonl",
+   "memavailable_drop_bytes": 61250768896,
+   "memavailable_min_bytes": 62894960640,
+   "memavailable_start_bytes": 124145729536,
+   "metrics_delta": {
+    "slotstream_decode_tokens_per_second": 9.87827,
+    "slotstream_decode_tokens_total": 8.0,
+    "slotstream_footprint_bytes": 0.0,
+    "slotstream_generation_busy": 0.0,
+    "slotstream_generations_total": 1.0,
+    "slotstream_pool_hits_total": 0.0,
+    "slotstream_prefill_seconds_sum": 77.428,
+    "slotstream_prompt_tokens_total": 31998.0,
+    "slotstream_queue_depth": 0.0,
+    "slotstream_queue_wait_seconds_sum": 6.1712e-05,
+    "slotstream_reused_tokens_total": 0.0
+   },
+   "oom_score_adj": 1000,
+   "prefix_dir_entries_after_start": [
+    ".lock"
+   ],
+   "prompt_sha256": "2824f225e4a69c660cc82e41ee0672671740ad095a232b9a837ac07d92e5bac8",
+   "prompt_tokens_expected": 31998,
+   "sample": 2
+  },
+  {
+   "chunks": 48,
+   "cold": {
+    "eval_count": 8,
+    "eval_s": 0.771340242,
+    "prefill_s": 78.937876664,
+    "prefill_tps": 405.35673560361727,
+    "prompt_tokens": 31998,
+    "reused_tokens": 0,
+    "total_s": 79.784267731,
+    "ttft_s": 79.00197374100026
+   },
+   "footprint_file": "footprint-serve.jsonl",
+   "memavailable_drop_bytes": 61369581568,
+   "memavailable_min_bytes": 62863761408,
+   "memavailable_start_bytes": 124233342976,
+   "metrics_delta": {
+    "slotstream_decode_tokens_per_second": 10.3716,
+    "slotstream_decode_tokens_total": 8.0,
+    "slotstream_footprint_bytes": 0.0,
+    "slotstream_generation_busy": 0.0,
+    "slotstream_generations_total": 1.0,
+    "slotstream_pool_hits_total": 0.0,
+    "slotstream_prefill_seconds_sum": 78.9379,
+    "slotstream_prompt_tokens_total": 31998.0,
+    "slotstream_queue_depth": 0.0,
+    "slotstream_queue_wait_seconds_sum": 0.000140481,
+    "slotstream_reused_tokens_total": 0.0
+   },
+   "oom_score_adj": 1000,
+   "prefix_dir_entries_after_start": [
+    ".lock"
+   ],
+   "prompt_sha256": "2824f225e4a69c660cc82e41ee0672671740ad095a232b9a837ac07d92e5bac8",
+   "prompt_tokens_expected": 31998,
+   "sample": 3
+  },
+  {
+   "chunks": 48,
+   "cold": {
+    "eval_count": 8,
+    "eval_s": 0.798519298,
+    "prefill_s": 77.91979073,
+    "prefill_tps": 410.6530536109411,
+    "prompt_tokens": 31998,
+    "reused_tokens": 0,
+    "total_s": 78.78444485100044,
+    "ttft_s": 77.97653495999839
+   },
+   "footprint_file": "footprint-serve.jsonl",
+   "memavailable_drop_bytes": 61354975232,
+   "memavailable_min_bytes": 62801956864,
+   "memavailable_start_bytes": 124156932096,
+   "metrics_delta": {
+    "slotstream_decode_tokens_per_second": 10.0185,
+    "slotstream_decode_tokens_total": 8.0,
+    "slotstream_footprint_bytes": 0.0,
+    "slotstream_generation_busy": 0.0,
+    "slotstream_generations_total": 1.0,
+    "slotstream_pool_hits_total": 0.0,
+    "slotstream_prefill_seconds_sum": 77.9198,
+    "slotstream_prompt_tokens_total": 31998.0,
+    "slotstream_queue_depth": 0.0,
+    "slotstream_queue_wait_seconds_sum": 6.0032e-05,
+    "slotstream_reused_tokens_total": 0.0
+   },
+   "oom_score_adj": 1000,
+   "prefix_dir_entries_after_start": [
+    ".lock"
+   ],
+   "prompt_sha256": "2824f225e4a69c660cc82e41ee0672671740ad095a232b9a837ac07d92e5bac8",
+   "prompt_tokens_expected": 31998,
+   "sample": 4
+  }
+ ],
+ "samples_requested": 5,
+ "snapshot": {
+  "cap_mib": 65126,
+  "cell_cap_mib": 0,
+  "cut": false,
+  "finish_minute": 1436.0,
+  "foreign_read_mbps": 0.0,
+  "gpu_clock_nominal": true,
+  "hour": 21,
+  "memavailable_mib": 118326,
+  "memfree_mib": 96638,
+  "no_windows": true,
+  "nvme_temp_limit_mc": 77850,
+  "nvme_temp_limit_src": "temp1_max-5000",
+  "nvme_temp_mc": 50850,
+  "running": [],
+  "scopes": [
+   {
+    "io_pressure_pct": 0.0,
+    "mem_pressure_avg10": 0.0,
+    "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope"
+   }
+  ],
+  "sw_power_cap_delta": 0,
+  "taken_at": "2026-10-14T21:51:24-0500"
+ },
+ "tokens": 32000
+}

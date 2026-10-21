@@ -1,0 +1,15 @@
+{
+  "abs_tol": 5.9604644775390625e-08,
+  "abs_tol_pow2": -24,
+  "revision": "aa7c790e",
+  "source": "DIAG_F9.md, read-only --sweep of 2026-10-14 (step 94)",
+  "tensors": [
+    "language_model.model.layers.1.linear_attn.in_proj_qkv.scales",
+    "language_model.model.layers.1.linear_attn.in_proj_qkv.biases",
+    "language_model.model.layers.1.linear_attn.in_proj_z.scales",
+    "language_model.model.layers.1.linear_attn.in_proj_z.biases",
+    "language_model.model.layers.1.ple.ple_embedding.ngram_embedding.shard_127.scales",
+    "language_model.model.layers.2.linear_attn.in_proj_qkv.scales",
+    "language_model.model.layers.2.linear_attn.in_proj_z.scales"
+  ]
+}

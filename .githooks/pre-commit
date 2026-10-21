@@ -1,0 +1,9 @@
+#!/bin/sh
+# Refuse a commit whose staged files carry private terms (tools/private_terms_check.py).
+# The terms file is ~/.config/git/private-terms.txt or $SLOTSTREAM_PRIVATE_TERMS; without
+# one only the generic patterns run. Enable with: git config core.hooksPath .githooks
+root=$(git rev-parse --show-toplevel) || exit 1
+cd "$root" || exit 1
+py=python3
+[ -x .venv/bin/python ] && py=.venv/bin/python
+exec "$py" tools/private_terms_check.py --staged

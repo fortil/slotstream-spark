@@ -1,0 +1,10 @@
+# EXAMPLE, not installed by tools/spark/install_units.sh.
+# Adds a second address to the front socket so containers on the same host can reach it.
+# Copy to ~/.config/systemd/user/slotstream-spark.socket.d/extra-bind.conf, replace <gateway-ip> with the address
+# of the container network gateway on your host (for the default Docker bridge, `docker network inspect bridge`
+# shows it under IPAM.Gateway), then run `systemctl --user daemon-reload` and restart slotstream-spark.socket.
+# The engine port (18435) is never listed here and stays on loopback.
+# Set SLOTSTREAM_API_KEY in the front's environment file (see RUNBOOK) so this address requires a bearer key.
+[Socket]
+ListenStream=<gateway-ip>:18434
+FreeBind=true

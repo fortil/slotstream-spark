@@ -1,0 +1,1 @@
+{"label":"oracle-chain","flags":"--allow-truncate","precheck":{"mode":"D5","huella_mib":10240,"memavailable_mib":81594,"memfree_mib":72419,"running":"{\"running\":[]}","containers":14,"ok":true},"start":1791833119,"pgid":1968398,"cap":"$R/runs/2026/10/20261012T142519-oracle-chain"}

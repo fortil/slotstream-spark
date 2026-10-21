@@ -1,0 +1,41 @@
+{
+ "iq3xxs": {
+  "files": [
+   {
+    "path": "IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+    "sha256": "219ea929900dfa9ef091f3aa473fdba6874b65fcb36526d7d851ac9e95856d15",
+    "size": 47039860096
+   },
+   {
+    "path": "IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+    "sha256": "316b46f3a2dbd68c900f43136ab9449f9dcc3725dfd8c794847c204bc161e113",
+    "size": 28800138432
+   }
+  ],
+  "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "revision": "ed59f92082b1e93c0e96d60a8b11aab089b52f09",
+  "total_bytes": 75839998528
+ },
+ "q41": {
+  "files": [
+   {
+    "path": "Qwen3.8-Flash-Next-Q4_1/Qwen3.8-Flash-Next-Q4_1-00001-of-00003.gguf",
+    "sha256": "53b2e4e5c63adddb5107304c8a266df491c1d11a525613dbf6303f0001a39212",
+    "size": 39530968768
+   },
+   {
+    "path": "Qwen3.8-Flash-Next-Q4_1/Qwen3.8-Flash-Next-Q4_1-00002-of-00003.gguf",
+    "sha256": "cf2cb13fb3c809e355e2b63746a6a07e3434c1868c26c6a20f6aebf118b8fae7",
+    "size": 39641550400
+   },
+   {
+    "path": "Qwen3.8-Flash-Next-Q4_1/Qwen3.8-Flash-Next-Q4_1-00003-of-00003.gguf",
+    "sha256": "4faa132fd26392605642f9d16538318583cbad2926d5a81906296e9769cb1d13",
+    "size": 32086056352
+   }
+  ],
+  "repo": "bartowski/Qwen3.8-Flash-Next-GGUF",
+  "revision": "928589fdb66c6ff07f22ac561e3fbce76553548f",
+  "total_bytes": 111258575520
+ }
+}

@@ -1,0 +1,15 @@
+checking 1224 tensors, 111.7 GB -> $R/runs/2026/10/20261015T103857-f9-ref/check/model.gguf
+100/1224 tensors, 39.4 GB, 16 s
+200/1224 tensors, 45.4 GB, 28 s
+300/1224 tensors, 52.0 GB, 41 s
+400/1224 tensors, 58.6 GB, 54 s
+500/1224 tensors, 65.2 GB, 68 s
+600/1224 tensors, 71.2 GB, 80 s
+700/1224 tensors, 77.8 GB, 93 s
+800/1224 tensors, 83.8 GB, 105 s
+900/1224 tensors, 90.4 GB, 118 s
+1000/1224 tensors, 97.0 GB, 131 s
+1100/1224 tensors, 103.5 GB, 145 s
+1200/1224 tensors, 110.1 GB, 158 s
+1224/1224 tensors, 111.7 GB, 160 s
+{"tensors": 1224, "file_bytes": null, "below_099": 88}

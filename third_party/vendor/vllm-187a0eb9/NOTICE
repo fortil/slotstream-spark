@@ -1,0 +1,10 @@
+Qwen4Exp QSA and hyper-connection kernels
+Source: vLLM (https://github.com/vllm-project/vllm) at commit 187a0eb98aa42341d703f83421d693fa7585581b
+Copyright contributors to the vLLM project. Licensed under the Apache License, Version 2.0
+(see LICENSE in this directory).
+
+Files in qwen4_exp_ops/ derived from vLLM (qsa.py, qsa_indexer.py, qsa_prepare.py, hc.py, qsa_cache.py)
+were modified by slotstream-spark: imports redirected to _shims.py, programmatic dependent launch
+turned off, and the vLLM CUDA top-k ops replaced by slotstream_spark.kernels.topk_stable.
+The exact differences are in expected.diff and are checked by diff.sh.
+_shims.py and __init__.py were written by slotstream-spark.

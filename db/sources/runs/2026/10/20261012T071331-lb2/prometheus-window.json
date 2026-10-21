@@ -1,0 +1,22 @@
+{
+ "start": 1791807211,
+ "end": 1791811271,
+ "window_s": 4060,
+ "jobs": {
+  "asr-1": {
+   "ttft_p50": null,
+   "ttft_p99": null,
+   "e2e_p99": null,
+   "queue_p99": null,
+   "requests": 0.0
+  },
+  "embeddings-1": {
+   "ttft_p50": null,
+   "ttft_p99": null,
+   "e2e_p99": null,
+   "queue_p99": null,
+   "requests": 0.0
+  }
+ },
+ "prom_access": "curl"
+}

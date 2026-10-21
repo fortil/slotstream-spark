@@ -1,0 +1,243 @@
+{
+ "dtype": "torch.bfloat16",
+ "engine_capture": "$R/runs/2026/10/20261014T212529-f9-engine/quality/ppl.json",
+ "full": true,
+ "ids_sha256": "e65198947ecb06833dcd69e042e406f52945dcc88073621d52c3e8e54a4d8e55",
+ "nll_sum": 101739.56009059814,
+ "oracle": "tools/ref_layerwise.py teacher_force",
+ "per_window": [
+  {
+   "nll": 2000.6836067150944,
+   "seconds": 85.621,
+   "start": 0,
+   "tokens": 2047,
+   "window": 0
+  },
+  {
+   "nll": 1432.6902593894843,
+   "seconds": 92.169,
+   "start": 2048,
+   "tokens": 2047,
+   "window": 1
+  },
+  {
+   "nll": 1729.7011019271508,
+   "seconds": 88.956,
+   "start": 4096,
+   "tokens": 2047,
+   "window": 2
+  },
+  {
+   "nll": 3523.073730075682,
+   "seconds": 94.047,
+   "start": 6144,
+   "tokens": 2047,
+   "window": 3
+  },
+  {
+   "nll": 3221.0985581867953,
+   "seconds": 90.387,
+   "start": 8192,
+   "tokens": 2047,
+   "window": 4
+  },
+  {
+   "nll": 1895.8511569929055,
+   "seconds": 85.845,
+   "start": 10240,
+   "tokens": 2047,
+   "window": 5
+  },
+  {
+   "nll": 1706.7742871943656,
+   "seconds": 82.354,
+   "start": 12288,
+   "tokens": 2047,
+   "window": 6
+  },
+  {
+   "nll": 2610.71800027646,
+   "seconds": 88.207,
+   "start": 14336,
+   "tokens": 2047,
+   "window": 7
+  },
+  {
+   "nll": 3684.117104079516,
+   "seconds": 87.481,
+   "start": 16384,
+   "tokens": 2047,
+   "window": 8
+  },
+  {
+   "nll": 3679.174022645026,
+   "seconds": 93.16,
+   "start": 18432,
+   "tokens": 2047,
+   "window": 9
+  },
+  {
+   "nll": 3962.753762734075,
+   "seconds": 91.939,
+   "start": 20480,
+   "tokens": 2047,
+   "window": 10
+  },
+  {
+   "nll": 3916.2276943572433,
+   "seconds": 85.94,
+   "start": 22528,
+   "tokens": 2047,
+   "window": 11
+  },
+  {
+   "nll": 2005.0336518802835,
+   "seconds": 89.634,
+   "start": 24576,
+   "tokens": 2047,
+   "window": 12
+  },
+  {
+   "nll": 4388.550901137227,
+   "seconds": 85.442,
+   "start": 26624,
+   "tokens": 2047,
+   "window": 13
+  },
+  {
+   "nll": 3773.5070103785833,
+   "seconds": 86.319,
+   "start": 28672,
+   "tokens": 2047,
+   "window": 14
+  },
+  {
+   "nll": 4999.742467614953,
+   "seconds": 90.474,
+   "start": 30720,
+   "tokens": 2047,
+   "window": 15
+  },
+  {
+   "nll": 4623.872367788056,
+   "seconds": 84.431,
+   "start": 32768,
+   "tokens": 2047,
+   "window": 16
+  },
+  {
+   "nll": 3728.584508602758,
+   "seconds": 86.048,
+   "start": 34816,
+   "tokens": 2047,
+   "window": 17
+  },
+  {
+   "nll": 3763.659466131302,
+   "seconds": 90.716,
+   "start": 36864,
+   "tokens": 2047,
+   "window": 18
+  },
+  {
+   "nll": 3206.3317538577626,
+   "seconds": 91.16,
+   "start": 38912,
+   "tokens": 2047,
+   "window": 19
+  },
+  {
+   "nll": 2027.4938968928489,
+   "seconds": 90.96,
+   "start": 40960,
+   "tokens": 2047,
+   "window": 20
+  },
+  {
+   "nll": 2689.473534746163,
+   "seconds": 92.985,
+   "start": 43008,
+   "tokens": 2047,
+   "window": 21
+  },
+  {
+   "nll": 2033.5044462513872,
+   "seconds": 89.092,
+   "start": 45056,
+   "tokens": 2047,
+   "window": 22
+  },
+  {
+   "nll": 2405.4989574897436,
+   "seconds": 90.507,
+   "start": 47104,
+   "tokens": 2047,
+   "window": 23
+  },
+  {
+   "nll": 2428.582261670155,
+   "seconds": 87.599,
+   "start": 49152,
+   "tokens": 2047,
+   "window": 24
+  },
+  {
+   "nll": 2557.5629400054336,
+   "seconds": 93.373,
+   "start": 51200,
+   "tokens": 2047,
+   "window": 25
+  },
+  {
+   "nll": 4774.430209449953,
+   "seconds": 92.974,
+   "start": 53248,
+   "tokens": 2047,
+   "window": 26
+  },
+  {
+   "nll": 4884.090129078412,
+   "seconds": 94.961,
+   "start": 55296,
+   "tokens": 2047,
+   "window": 27
+  },
+  {
+   "nll": 4276.465686303225,
+   "seconds": 92.746,
+   "start": 57344,
+   "tokens": 2047,
+   "window": 28
+  },
+  {
+   "nll": 3296.8284635318914,
+   "seconds": 85.852,
+   "start": 59392,
+   "tokens": 2047,
+   "window": 29
+  },
+  {
+   "nll": 3601.137039553034,
+   "seconds": 85.269,
+   "start": 61440,
+   "tokens": 2047,
+   "window": 30
+  },
+  {
+   "nll": 2912.3471136611715,
+   "seconds": 88.359,
+   "start": 63488,
+   "tokens": 2047,
+   "window": 31
+  }
+ ],
+ "ppl": 4.726480644786782,
+ "rows_sha256": "5c8877eeabb3b8afc09f8ec35194fdac8c55acaa25de738d27000876d7c73e4c",
+ "state_file": "$R/state/f9-oracle/windows.jsonl",
+ "tokens_scored": 65504,
+ "versions": {
+  "torch": "2.13.0+cu130",
+  "transformers": "5.19.0"
+ },
+ "windows": 32
+}

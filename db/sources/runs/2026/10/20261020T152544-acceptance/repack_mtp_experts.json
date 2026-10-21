@@ -1,0 +1,1 @@
+{"path": "$R/tmp/pytest-of-user/pytest-53/r00/packed/mtp_experts.bin", "layers": 1, "experts": 2, "record_bytes": 221184, "total_bytes": 442368, "written_layers": [0], "seconds": 0.0, "direct_write": true, "proc_io": {"rchar": 485032, "read_bytes": 483328, "wchar": 443519, "write_bytes": 450560}}

@@ -1,0 +1,88 @@
+token 1: 29108 (26 s)
+token 2: 4009 (25 s)
+token 3: 5435 (26 s)
+token 4: 660 (26 s)
+token 5: 7736 (27 s)
+token 6: 314 (27 s)
+token 7: 279 (27 s)
+token 8: 9155 (28 s)
+token 9: 19142 (27 s)
+token 10: 11 (28 s)
+token 11: 321 (28 s)
+token 12: 948 (29 s)
+token 13: 424 (29 s)
+token 14: 27891 (29 s)
+token 15: 8964 (30 s)
+token 16: 579 (30 s)
+{"ids": [248045, 846, 198, 814, 20139, 303, 2250, 22157, 3069, 279, 12515, 369, 6105, 13, 248046, 198, 248045, 74455, 198, 248068, 271, 248069, 271], "gen": [29108, 4009, 5435, 660, 7736, 314, 279, 9155, 19142, 11, 321, 948, 424, 27891, 8964, 579], "text": "Sunlight contains all colors of the visible spectrum, and when it enters Earth's"}
+golden dev/dev0: 23 tokens
+golden dev/dev1: 28 tokens
+golden dev/dev2: 38 tokens
+golden dev/dev3: 34 tokens
+golden dev/dev4: 48 tokens
+golden dev/dev5: 29 tokens
+golden dev/dev6: 33 tokens
+golden dev/dev7: 21 tokens
+golden reserved/res0: 24 tokens
+golden reserved/res1: 25 tokens
+golden reserved/res2: 23 tokens
+golden reserved/res3: 28 tokens
+golden reserved/res4: 38 tokens
+golden reserved/res5: 34 tokens
+golden reserved/res6: 26 tokens
+golden reserved/res7: 22 tokens
+{"prompts": 16, "written": 16, "experts_mode": "correct"}
+golden dev/dev0: 23 tokens
+golden dev/dev1: 28 tokens
+golden dev/dev2: 38 tokens
+golden dev/dev3: 34 tokens
+golden dev/dev4: 48 tokens
+golden dev/dev5: 29 tokens
+golden dev/dev6: 33 tokens
+golden dev/dev7: 21 tokens
+golden reserved/res0: 24 tokens
+golden reserved/res1: 25 tokens
+golden reserved/res2: 23 tokens
+golden reserved/res3: 28 tokens
+golden reserved/res4: 38 tokens
+golden reserved/res5: 34 tokens
+golden reserved/res6: 26 tokens
+golden reserved/res7: 22 tokens
+{"prompts": 16, "written": 16, "experts_mode": "correct"}
+{"reproducible": true, "files": 2400}
+golden dev/dev0: 23 tokens
+golden dev/dev1: 28 tokens
+golden dev/dev2: 38 tokens
+golden dev/dev3: 34 tokens
+golden dev/dev4: 48 tokens
+golden dev/dev5: 29 tokens
+golden dev/dev6: 33 tokens
+golden dev/dev7: 21 tokens
+{"prompts": 8, "written": 8, "experts_mode": "correct"}
+golden dev/dev0: 23 tokens
+golden dev/dev1: 28 tokens
+golden dev/dev2: 38 tokens
+golden dev/dev3: 34 tokens
+golden dev/dev4: 48 tokens
+golden dev/dev5: 29 tokens
+golden dev/dev6: 33 tokens
+golden dev/dev7: 21 tokens
+{"prompts": 8, "written": 8, "experts_mode": "swap"}
+golden dev/dev0: 23 tokens
+golden dev/dev1: 28 tokens
+golden dev/dev2: 38 tokens
+golden dev/dev3: 34 tokens
+golden dev/dev4: 48 tokens
+golden dev/dev5: 29 tokens
+golden dev/dev6: 33 tokens
+golden dev/dev7: 21 tokens
+{"prompts": 8, "written": 8, "experts_mode": "noexp"}
+{"prompts": ["dev0", "dev1", "dev2", "dev3", "dev4", "dev5", "dev6", "dev7"], "logits": {"top1": 0.9448818897637795, "kl_mean": 0.012410261524308493, "kl_p99": 0.14195519072051693, "kl_max": 0.3326383506586301, "positions": 254}}
+correct  en: ppl       3.56 (88 tokens)
+correct  es: ppl       2.75 (115 tokens)
+swap     en: ppl    2328.28 (88 tokens)
+swap     es: ppl    6466.19 (115 tokens)
+noexp    en: ppl     565.31 (88 tokens)
+noexp    es: ppl    1204.34 (115 tokens)
+{"pass": true, "reasons": []}
+oracle chain done

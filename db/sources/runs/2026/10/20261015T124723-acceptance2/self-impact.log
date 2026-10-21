@@ -1,0 +1,3 @@
+MemAvailable minimum over the run: 56366656 kB (55045 MiB), samples 2103
+oom-kill or NV_ERR_NO_MEMORY lines in the kernel log since the start: 0
+production PSI: not_applicable: production paused by the user

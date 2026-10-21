@@ -1,0 +1,13 @@
+[Unit]
+Description=slotstream-spark front: starts the engine on demand under the governor rule 1
+Requires=slotstream-spark.socket
+After=slotstream-spark.socket
+
+[Service]
+Type=simple
+# Optional: SLOTSTREAM_API_KEY, SLOTSTREAM_FRONT_WAIT_S, SLOTSTREAM_RUNNING_URL (KEY=value lines, mode 600).
+EnvironmentFile=-%h/slotstream-spark/front.env
+ExecStart=%h/slotstream-spark/src/tools/spark/py.sh -m slotstream_spark.front
+OOMScoreAdjust=1000
+KillMode=control-group
+TimeoutStopSec=15

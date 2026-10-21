@@ -1,0 +1,4 @@
+2026-10-20T13:17:18-05:00 kill-all: start
+2026-10-20T13:17:18-05:00 kill-all: stopped drill-b.run
+2026-10-20T13:17:59-05:00 kill-all: stopped drill-k.run
+2026-10-20T13:17:59-05:00 kill-all: done

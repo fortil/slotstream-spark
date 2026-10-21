@@ -1,0 +1,7 @@
+pool prefill: 3840 records in 1.2 s, per_layer 80, exhausted 0
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+arbiter throttle_c=77.85
+prefix: saved shared 4096-token prefix (219.5 MB written) in 0.17 s
+prefix: prefix save 4096 tokens: saved
+prefix: saved shared 8192-token prefix (323.4 MB written) in 0.13 s
+prefix: prefix save 8192 tokens: saved

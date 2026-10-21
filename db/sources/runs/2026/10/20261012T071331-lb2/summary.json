@@ -1,0 +1,245 @@
+{
+ "iq3-r-d5": {
+  "prompts": {},
+  "aa_diff": {},
+  "threads": {},
+  "envelope_exceeded": false,
+  "memfree_stop": true,
+  "memfree": {
+   "min_mib": 14317.0,
+   "root_direct_growth_mib": 5496.0,
+   "rows": 109
+  },
+  "server": null,
+  "mlb2": {
+   "samples": 5487,
+   "duration_s": 109.72,
+   "peak_read_mb_s": 2731.8,
+   "mean_read_mb_s": 591.4,
+   "max_inflight": 0.0,
+   "max_prod_io_psi_avg10": 0.0
+  },
+  "mlb4": null
+ },
+ "q41-a-d5": {
+  "prompts": {
+   "short": {
+    "decode_tps": {
+     "median": 10.482318058294247,
+     "min": 8.406709059550213,
+     "max": 10.616078748415568,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.23810547252651304,
+     "min": 0.21272046701051295,
+     "max": 0.531069018994458,
+     "n": 10
+    }
+   },
+   "2k": {
+    "decode_tps": {
+     "median": 10.273184919271701,
+     "min": 7.485913522465552,
+     "max": 10.549731961875832,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.260616889456287,
+     "min": 0.21936954499688,
+     "max": 0.5597911520162597,
+     "n": 10
+    }
+   },
+   "8k": {
+    "decode_tps": {
+     "median": 10.27069384459337,
+     "min": 8.918312680692166,
+     "max": 10.417624654057365,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.2624713550321758,
+     "min": 0.24144195998087525,
+     "max": 0.43880900903604925,
+     "n": 10
+    }
+   }
+  },
+  "aa_diff": {
+   "short": 0.0075,
+   "2k": 0.0076,
+   "8k": 0.005
+  },
+  "threads": {
+   "12": {
+    "median": 9.977864482261879,
+    "min": 9.601364021962596,
+    "max": 9.99383022569112,
+    "n": 3
+   },
+   "20": {
+    "median": 10.11671874682234,
+    "min": 9.715283893563212,
+    "max": 10.253512369393656,
+    "n": 3
+   },
+   "8": {
+    "median": 10.116705440746243,
+    "min": 7.153777705450992,
+    "max": 10.323348525641094,
+    "n": 3
+   }
+  },
+  "envelope_exceeded": false,
+  "memfree_stop": false,
+  "memfree": {
+   "min_mib": 19104.0,
+   "root_direct_growth_mib": 637.0,
+   "rows": 1796
+  },
+  "server": {
+   "op_offload": false,
+   "memfree_stop_mib": 14336
+  },
+  "mlb2": {
+   "samples": 3423,
+   "duration_s": 68.44,
+   "peak_read_mb_s": 3502.3,
+   "mean_read_mb_s": 1106.7,
+   "max_inflight": 0.0,
+   "max_prod_io_psi_avg10": 0.0
+  },
+  "mlb4": {
+   "nvml_mib": 5396,
+   "memory_current_mib": 47019,
+   "memory_stat_mib": {
+    "anon": 400,
+    "file": 46453,
+    "shmem": 621
+   },
+   "buffer_lines": [
+    "0.56.684.516 I load_tensors:   CPU_Mapped model buffer size =  6623.81 MiB",
+    "0.56.684.516 I load_tensors:   CPU_Mapped model buffer size = 37803.92 MiB",
+    "0.56.684.517 I load_tensors:   CPU_Mapped model buffer size = 30586.78 MiB",
+    "0.56.684.517 I load_tensors:        CUDA0 model buffer size =  3197.34 MiB",
+    "0.56.684.518 I load_tensors:   CPU_Mapped model buffer size = 30517.72 MiB",
+    "1.01.404.042 I llama_context:  CUDA_Host  output buffer size =     0.95 MiB",
+    "1.01.430.642 I llama_kv_cache:      CUDA0 KV buffer size =   768.00 MiB",
+    "1.01.439.311 I llama_memory_recurrent:      CUDA0 RS buffer size =   112.57 MiB",
+    "1.01.446.071 I llama_kv_cache:      CUDA0 KV buffer size =   192.00 MiB",
+    "1.02.511.840 I sched_reserve:      CUDA0 compute buffer size =   925.50 MiB",
+    "1.02.511.848 I sched_reserve:  CUDA_Host compute buffer size =   574.98 MiB"
+   ],
+   "huella_mib": 57344,
+   "memorymax_mib": 47616,
+   "memorymax_table_mib": 47616,
+   "memfree_at_start_mib": 72505,
+   "memfree_source": "/proc/meminfo before launch",
+   "op_offload": false,
+   "memfree_stop_mib": 14336,
+   "root_direct_file_mib": 10324
+  }
+ },
+ "q41-b-d5": {
+  "prompts": {
+   "short": {
+    "decode_tps": {
+     "median": 33.604846692407925,
+     "min": 31.65698147241425,
+     "max": 33.94719039418642,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.10989735502516851,
+     "min": 0.10643794306088239,
+     "max": 0.17032078502234071,
+     "n": 10
+    }
+   },
+   "2k": {
+    "decode_tps": {
+     "median": 32.922822389381416,
+     "min": 32.00639228114688,
+     "max": 33.3216384578017,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.10748822696041316,
+     "min": 0.1011872129747644,
+     "max": 0.12271257606334984,
+     "n": 10
+    }
+   },
+   "8k": {
+    "decode_tps": {
+     "median": 32.68314337834026,
+     "min": 30.961548926445214,
+     "max": 32.983453682570826,
+     "n": 10
+    },
+    "ttft_s": {
+     "median": 0.1273597555118613,
+     "min": 0.11046109697781503,
+     "max": 0.17127324093598872,
+     "n": 10
+    }
+   }
+  },
+  "aa_diff": {
+   "short": 0.0079,
+   "2k": 0.013,
+   "8k": 0.0003
+  },
+  "threads": {},
+  "envelope_exceeded": false,
+  "memfree_stop": false,
+  "memfree": {
+   "min_mib": 16564.0,
+   "root_direct_growth_mib": 2832.0,
+   "rows": 1649
+  },
+  "server": {
+   "op_offload": false,
+   "memfree_stop_mib": 14336
+  },
+  "mlb2": {
+   "samples": 6445,
+   "duration_s": 128.88,
+   "peak_read_mb_s": 2759.4,
+   "mean_read_mb_s": 634.4,
+   "max_inflight": 0.0,
+   "max_prod_io_psi_avg10": 0.0
+  },
+  "mlb4": {
+   "nvml_mib": 48918,
+   "memory_current_mib": 3583,
+   "memory_stat_mib": {
+    "anon": 403,
+    "file": 2924,
+    "shmem": 621
+   },
+   "buffer_lines": [
+    "1.42.950.173 I load_tensors:   CPU_Mapped model buffer size =  6623.81 MiB",
+    "1.42.950.173 I load_tensors:   CPU_Mapped model buffer size = 37803.92 MiB",
+    "1.42.950.174 I load_tensors:   CPU_Mapped model buffer size = 30586.78 MiB",
+    "1.42.950.175 I load_tensors:        CUDA0 model buffer size =  3197.34 MiB",
+    "1.42.950.175 I load_tensors:   CPU_Mapped model buffer size = 30517.72 MiB",
+    "1.52.095.112 I llama_context:  CUDA_Host  output buffer size =     0.95 MiB",
+    "1.52.124.678 I llama_kv_cache:      CUDA0 KV buffer size =   768.00 MiB",
+    "1.52.133.819 I llama_memory_recurrent:      CUDA0 RS buffer size =   112.57 MiB",
+    "1.52.141.321 I llama_kv_cache:      CUDA0 KV buffer size =   192.00 MiB",
+    "1.54.877.765 I sched_reserve:      CUDA0 compute buffer size =   925.50 MiB",
+    "1.54.877.772 I sched_reserve:  CUDA_Host compute buffer size =   574.98 MiB"
+   ],
+   "huella_mib": 57344,
+   "memorymax_mib": 4096,
+   "memorymax_table_mib": 4096,
+   "memfree_at_start_mib": 72693,
+   "memfree_source": "/proc/meminfo before launch",
+   "op_offload": false,
+   "memfree_stop_mib": 14336,
+   "root_direct_file_mib": 10954
+  }
+ }
+}

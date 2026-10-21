@@ -1,0 +1,21 @@
+== factual recall ==
+PASS  capital of France
+PASS  author of Hamlet
+PASS  symbol for gold
+PASS  continent count
+== arithmetic and reasoning ==
+PASS  17x23
+PASS  elapsed time
+PASS  multi-step arithmetic
+PASS  sorting
+PASS  decimal comparison
+== instruction following ==
+PASS  exact-word obedience
+PASS  list format
+PASS  yes/no obedience
+== language and code ==
+PASS  translation
+PASS  python one-liner
+PASS  cloze completion
+
+quality probe: passed 15, failed 0

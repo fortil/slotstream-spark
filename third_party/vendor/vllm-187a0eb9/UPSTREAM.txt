@@ -1,0 +1,16 @@
+# Upstream of the vendored Qwen4Exp ops
+repo https://github.com/vllm-project/vllm
+sha 187a0eb98aa42341d703f83421d693fa7585581b
+license Apache-2.0 (LICENSE in this directory is the upstream file at that sha; upstream has no NOTICE)
+# file <upstream path> <vendored name> <sha256 of the upstream file>
+file vllm/models/qwen4_exp/nvidia/ops/qsa.py qsa.py 6a41ab3e8af9f6579dd64c7c5b08364f2df558061a1d2a57cef74cb5c2ea18bb
+file vllm/models/qwen4_exp/nvidia/ops/qsa_indexer.py qsa_indexer.py 4d09eb2f409e7cd71c7849c4f3bdd71d722bce6feaccb558f7ae67ac2d489a2b
+file vllm/models/qwen4_exp/nvidia/ops/qsa_prepare.py qsa_prepare.py 22049c20b85fea0d38fe03175de36acc02edc55802ae89efafef2dffdc813187
+file vllm/models/qwen4_exp/nvidia/ops/hc.py hc.py f4af1d4bf4564c6ce18b59f5aa3bc6e4c07a8e785a671de26ff4a92f62927813
+file vllm/models/qwen4_exp/common/qsa_cache.py qsa_cache.py 1cee91239399c13a6228734ad9bb195c2980c649da8e9e1dfe6b6cf6f8c7b41e
+# Files of qwen4_exp_ops/ that are not upstream: __init__.py and _shims.py (slotstream-spark).
+# Allowed hunks in expected.diff: imports rewritten to ._shims (current_platform, triton/tl,
+# logger, envs, cdiv and the vLLM interfaces qsa_cache subclasses); PDL off
+# (qsa_cache._metadata_launch_pdl returns False, and _shims.is_arch_support_pdl() is False for the
+# launch_pdl flags of hc.py); torch.ops._C.persistent_topk / cooperative_topk replaced by
+# _shims.persistent_topk, which calls slotstream_spark.kernels.topk_stable.

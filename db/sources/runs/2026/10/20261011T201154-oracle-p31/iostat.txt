@@ -1,0 +1,46 @@
+Linux 6.17.0-1029-nvidia (host) 	10/11/26 	_aarch64_	(20 CPU)
+
+10/11/26 20:11:54
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1        120.78     13.73     0.40   0.33    2.17   116.37    6.00      0.55     2.81  31.88    3.81    93.11    0.09      5.72     0.00   0.00    0.97 62693.61    0.29    1.09    0.28   0.59
+
+
+10/11/26 20:11:55
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00  115.00      0.70    63.00  35.39    3.02     6.19    0.00      0.00     0.00   0.00    0.00     0.00    1.00    2.00    0.35   2.30
+
+
+10/11/26 20:11:56
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00    1.00      0.01     0.00   0.00    9.00     8.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.01   1.00
+
+
+10/11/26 20:11:57
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.00
+
+
+10/11/26 20:11:58
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1        399.00     44.10     0.00   0.00    1.79   113.18    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.71   2.80
+
+
+10/11/26 20:11:59
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1       2119.00    204.02     0.00   0.00    1.08    98.59    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    2.30  10.90
+
+
+10/11/26 20:12:00
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1       4084.00    402.97     0.00   0.00    0.61   101.04  344.00      5.48    31.00   8.27    0.23    16.31    0.00      0.00     0.00   0.00    0.00     0.00    1.00    1.00    2.57  16.70
+
+
+10/11/26 20:12:01
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1        213.00     20.63     0.00   0.00    0.30    99.19    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.06   0.70
+
+
+10/11/26 20:12:02
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+nvme0n1          0.00      0.00     0.00   0.00    0.00     0.00    8.00      0.61     2.00  20.00   10.00    77.50    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.08   1.00
+

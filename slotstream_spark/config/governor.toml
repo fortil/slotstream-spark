@@ -1,0 +1,23 @@
+# Governor constants (step 52). Pure policy lives in slotstream_spark/memory/governor.py.
+# a_transient_mib comes from platform.toml memory.a_transient_mib (step 14) and a1_load_s from
+# db/records/measurements/a1.md; memfree_cap is memory.d1_variant == "D1prime". The loader fills them in.
+
+tick_s = 1                  # footprint, MemAvailable, MemFree, PSI and /running read
+running_poll_ms = 250       # GET /running only
+floor_chunks = 2            # the floor: fixed bytes plus 2 pool chunks
+margin_mib = 512            # cap margin (rule 2 of section 3.7)
+emergency_mib = 10240       # MemAvailable below this: shrink as an emergency (8 GiB + 2 GiB)
+min_avail_mib = 8192        # MemAvailable never below this, also during an A load
+grow_after_s = 60           # calm seconds before growing (Governor.swift:289-291)
+grow_step_chunks = 1        # chunks per grow step
+stable_band_mib = 512       # MemAvailable band that counts as stable
+a_stable_s = 60             # A is ready when its state says so and MemAvailable was stable this long
+a1_load_default_s = 180     # used when a1.md observed no load duration
+memfree_total_mib = 0       # total memory the A fraction is taken of; 0 = MemTotal of this host, read at load
+memfree_a_percent = 40      # A's fraction of the total (D1prime)
+window_start_min = 240      # 04:00
+may_start_end_min = 1425    # 23:45: no start after this
+window_end_min = 1439       # 23:59: the engine exits
+
+[d5]
+exit_after_s = 5            # any /running entry persists this long at the floor: exit

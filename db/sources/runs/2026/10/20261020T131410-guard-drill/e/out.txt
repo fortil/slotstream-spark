@@ -1,0 +1,5 @@
+Running as unit: slotstream-spark-drill-e.scope; invocation ID: 90d95a9f71be4a109eecc62246c1bd97
+READY 2048
+TERM 1792520231.483
+TERM 1792520231.483
+$R/tmp/drill-20261020T131406/src/deploy/guard.sh: line 338: 1547532 Killed                  setsid timeout --signal=TERM --kill-after=30 $(( seg + 15 )) "$@"

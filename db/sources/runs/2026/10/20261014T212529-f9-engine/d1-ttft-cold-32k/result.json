@@ -1,0 +1,46 @@
+{
+ "cell": "ttft-cold-32k",
+ "chunks": 0,
+ "eligible": true,
+ "failures": [
+  "sample 0: RuntimeError: the stream ended without a final frame",
+  "sample 1: RuntimeError: the stream ended without a final frame",
+  "sample 2: RuntimeError: the stream ended without a final frame"
+ ],
+ "flags": {},
+ "footprint_samples": [],
+ "ineligible_reasons": [],
+ "kind": "ttft-cold",
+ "memavailable_drop_bytes": 0,
+ "mode": "D1",
+ "ok": false,
+ "prompt_tokens": null,
+ "samples": [],
+ "samples_requested": 3,
+ "snapshot": {
+  "cap_mib": 19866,
+  "cell_cap_mib": 0,
+  "cut": false,
+  "finish_minute": 1403.0,
+  "foreign_read_mbps": 0.0,
+  "gpu_clock_nominal": true,
+  "hour": 22,
+  "memavailable_mib": 118475,
+  "memfree_mib": 96778,
+  "no_windows": true,
+  "nvme_temp_limit_mc": 77850,
+  "nvme_temp_limit_src": "temp1_max-5000",
+  "nvme_temp_mc": 53850,
+  "running": [],
+  "scopes": [
+   {
+    "io_pressure_pct": 0.0,
+    "mem_pressure_avg10": 0.0,
+    "name": "docker-c58ece54ec323f4a1890f662ca28d39e0b14a114a79cb6010fd00abd0e47c378.scope"
+   }
+  ],
+  "sw_power_cap_delta": 0,
+  "taken_at": "2026-10-14T22:08:12-0500"
+ },
+ "tokens": 32000
+}

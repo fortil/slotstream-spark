@@ -1,0 +1,2 @@
+cold 8K TTFT 12.46 s (limit 30 s), prompt tokens 8192
+D5 decode 21.45 tok/s over 192 tokens (floor 17 tok/s)

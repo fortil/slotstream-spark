@@ -1,0 +1,6 @@
+[Unit]
+Description=slotstream-spark: start the front socket
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user start slotstream-spark.socket

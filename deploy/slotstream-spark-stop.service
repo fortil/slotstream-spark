@@ -1,0 +1,9 @@
+# Pause mode (RUNBOOK): while the user has production paused ($R/state/PAUSED, NO_WINDOWS=1) the 23:59 window does not
+# apply. The user decides on the host whether to keep or disable slotstream-spark-stop.timer; agents never touch it.
+# Until then this unit still stops the socket, the front and the engine at 23:59.
+[Unit]
+Description=slotstream-spark: stop the socket, the front and the engine
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user stop slotstream-spark.socket slotstream-spark-front.service slotstream-spark.service

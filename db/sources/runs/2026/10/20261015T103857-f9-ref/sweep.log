@@ -1,0 +1,16 @@
+sweep: 400/3215 tensors
+sweep: 800/3215 tensors
+sweep: 1200/3215 tensors
+sweep: 1600/3215 tensors
+sweep: 2000/3215 tensors
+sweep: 2400/3215 tensors
+sweep: 2800/3215 tensors
+sweep: 3200/3215 tensors
+{"tensors": 3215, "scales_biases": 1540, "other": 1675, "exact": true, "exceptions_file": "slotstream_spark/config/q4_1_exceptions.json", "abs_tol": 5.960464477539063e-08, "bad_count": 0, "tolerated_count": 7}
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_qkv.biases count 1 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_qkv.scales count 556 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_z.biases count 39 max abs err 2.887e-08
+TOLERATED: language_model.model.layers.1.linear_attn.in_proj_z.scales count 103 max abs err 2.980e-08
+TOLERATED: language_model.model.layers.1.ple.ple_embedding.ngram_embedding.shard_127.scales count 450 max abs err 1.909e-08
+TOLERATED: language_model.model.layers.2.linear_attn.in_proj_qkv.scales count 120 max abs err 1.909e-08
+TOLERATED: language_model.model.layers.2.linear_attn.in_proj_z.scales count 120 max abs err 1.909e-08

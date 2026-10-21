@@ -1,0 +1,15 @@
+building 1224 tensors, 111.7 GB -> $R/model/q4_1-exact/model.gguf
+100/1224 tensors, 39.4 GB, 239 s
+200/1224 tensors, 45.4 GB, 275 s
+300/1224 tensors, 52.0 GB, 312 s
+400/1224 tensors, 58.6 GB, 350 s
+500/1224 tensors, 65.2 GB, 387 s
+600/1224 tensors, 71.2 GB, 423 s
+700/1224 tensors, 77.8 GB, 461 s
+800/1224 tensors, 83.8 GB, 496 s
+900/1224 tensors, 90.4 GB, 535 s
+1000/1224 tensors, 97.0 GB, 574 s
+1100/1224 tensors, 103.5 GB, 612 s
+1200/1224 tensors, 110.1 GB, 650 s
+1224/1224 tensors, 111.7 GB, 659 s
+{"tensors": 1224, "file_bytes": 111758727232}

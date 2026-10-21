@@ -1,0 +1,1 @@
+{"label":"f9-oracle","flags":"","precheck":{"mode":"D5","huella_mib":16384,"memavailable_mib":118544,"memfree_mib":96410,"running":"{\"running\":[]}","containers":1,"ok":true},"start":1792040250,"pgid":305275,"cap":"$R/runs/2026/10/20261014T235730-f9-oracle"}

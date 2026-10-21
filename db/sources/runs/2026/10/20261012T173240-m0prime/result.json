@@ -1,0 +1,252 @@
+{
+ "chunk_free": {
+  "max_ns": 18730308,
+  "p50_ns": 17165749,
+  "p99_ns": 18604500,
+  "samples": 100
+ },
+ "elapsed_s": 37.1,
+ "fill": {
+  "bytes": 5662310400,
+  "expected_bytes": 5662310400,
+  "io_gbs": 10.344,
+  "lane_cpus": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   10,
+   11,
+   12,
+   13,
+   14
+  ],
+  "lanes": 10,
+  "reader_jobs": 2048,
+  "records": 2048,
+  "seconds": 0.55,
+  "t_memcpy_hist_note": "log2 ns buckets: p50 = bucket geometric midpoint, p99 = bucket upper bound",
+  "t_memcpy_mean_ms": 0.1346,
+  "t_memcpy_p50_ms": 0.0927,
+  "t_memcpy_p99_ms": 0.5243,
+  "wall_gbs": 10.226
+ },
+ "gdn_ab": {
+  "direction": "reference = engine with set_gdn('ref'), other = fused",
+  "finite": true,
+  "kl_max": 0.005818131301999197,
+  "kl_mean": 0.0001766873212729391,
+  "kl_p99": 0.0028553348082758358,
+  "positions": 277,
+  "rel_l2_by_layer": {
+   "0": 0.003751908698009702,
+   "1": 0.005289503975473028,
+   "2": 0.007289569074843958,
+   "3": 0.01110554750733855
+  },
+  "top1": 0.9711191335740073
+ },
+ "gemv": {
+  "10240x2560_b4": {
+   "bits": 4,
+   "bytes": 14791680,
+   "cold_graph_us": 109.41,
+   "gbs_cold_graph": 135.19,
+   "k": 2560,
+   "n": 10240
+  },
+  "10240x320_b4": {
+   "bits": 4,
+   "bytes": 1884800,
+   "cold_graph_us": 20.96,
+   "gbs_cold_graph": 89.9,
+   "k": 320,
+   "n": 10240
+  },
+  "12288x2560_b4": {
+   "bits": 4,
+   "bytes": 17748992,
+   "cold_graph_us": 134.19,
+   "gbs_cold_graph": 132.27,
+   "k": 2560,
+   "n": 12288
+  },
+  "1x2560_b16": {
+   "bits": 16,
+   "bytes": 10244,
+   "cold_graph_us": 3.86,
+   "gbs_cold_graph": 2.65,
+   "k": 2560,
+   "n": 1
+  },
+  "248320x2560_b4": {
+   "bits": 4,
+   "bytes": 358579200,
+   "cold_graph_us": 2513.71,
+   "gbs_cold_graph": 142.65,
+   "k": 2560,
+   "n": 248320
+  },
+  "2560x2560_b4": {
+   "bits": 4,
+   "bytes": 3701760,
+   "cold_graph_us": 31.31,
+   "gbs_cold_graph": 118.25,
+   "k": 2560,
+   "n": 2560
+  },
+  "2560x6144_b4": {
+   "bits": 4,
+   "bytes": 8869888,
+   "cold_graph_us": 70.74,
+   "gbs_cold_graph": 125.39,
+   "k": 6144,
+   "n": 2560
+  },
+  "2560x640_b4": {
+   "bits": 4,
+   "bytes": 933120,
+   "cold_graph_us": 10.02,
+   "gbs_cold_graph": 93.15,
+   "k": 640,
+   "n": 2560
+  },
+  "320x10240_b4": {
+   "bits": 4,
+   "bytes": 1864960,
+   "cold_graph_us": 17.57,
+   "gbs_cold_graph": 106.17,
+   "k": 10240,
+   "n": 320
+  },
+  "48x2560_b16": {
+   "bits": 16,
+   "bytes": 251072,
+   "cold_graph_us": 4.1,
+   "gbs_cold_graph": 61.3,
+   "k": 2560,
+   "n": 48
+  },
+  "4x10240_b16": {
+   "bits": 16,
+   "bytes": 102416,
+   "cold_graph_us": 2.94,
+   "gbs_cold_graph": 34.88,
+   "k": 10240,
+   "n": 4
+  },
+  "512x2560_b16": {
+   "bits": 16,
+   "bytes": 2628608,
+   "cold_graph_us": 14.73,
+   "gbs_cold_graph": 178.5,
+   "k": 2560,
+   "n": 512
+  },
+  "512x2560_b4": {
+   "bits": 4,
+   "bytes": 744448,
+   "cold_graph_us": 9.23,
+   "gbs_cold_graph": 80.67,
+   "k": 2560,
+   "n": 512
+  },
+  "6144x2560_b4": {
+   "bits": 4,
+   "bytes": 8877056,
+   "cold_graph_us": 64.0,
+   "gbs_cold_graph": 138.69,
+   "k": 2560,
+   "n": 6144
+  },
+  "640x2560_b16": {
+   "bits": 16,
+   "bytes": 3284480,
+   "cold_graph_us": 16.19,
+   "gbs_cold_graph": 202.85,
+   "k": 2560,
+   "n": 640
+  },
+  "640x2560_b4": {
+   "bits": 4,
+   "bytes": 929280,
+   "cold_graph_us": 10.14,
+   "gbs_cold_graph": 91.62,
+   "k": 2560,
+   "n": 640
+  }
+ },
+ "layer_types": [
+  "linear_attention",
+  "linear_attention",
+  "linear_attention",
+  "full_attention"
+ ],
+ "pool": {
+  "chunks": 6,
+  "mem_type": "vmm_host_numa",
+  "record_bytes": 2764800,
+  "slots": 2328
+ },
+ "positions": 277,
+ "runtime": {
+  "footprint_bytes": 2637857704,
+  "formula": "(VmRSS + NVML + pinned) - pool - weights - state; pinned buffers are inside VmRSS; the pool is subtracted once for each counter (VmRSS, NVML) whose growth when the pool was created is >= 90% of its owned bytes (on this machine the pool shows in both)",
+  "nvml": 7929053184,
+  "nvml_before_pool": 753385472,
+  "nvml_source": "pynvml",
+  "pinned_term": 0,
+  "pool_bytes": 6442450944,
+  "pool_in_nvml": true,
+  "pool_in_rss": true,
+  "rss_before_pool": 1042067456,
+  "state_bytes": 125128704,
+  "vmhwm": 9133297664,
+  "vmrss": 8280911872,
+  "weights_bytes": 562076760
+ },
+ "tau": {
+  "ensure_p50_us": 11.472,
+  "launch_p50_us": 2.224,
+  "p50_us": 14.112,
+  "p99_us": 15.568,
+  "segments": "wait_seq + ensure (all hits, 10 experts) + gb.replay (routed+shared experts graph)",
+  "steps": 1024,
+  "wait_p50_us": 0.352,
+  "warmup": 16
+ },
+ "timings": {
+  "basis": "full layer step (attention+router+routed+shared experts, experts resident), L2 flushed before each replay; t_gdn = mean of layers 0 and 2 (layer 1 has the host-side PLE)",
+  "layer_steps": {
+   "0": {
+    "cold_us_median": 918.24,
+    "cold_us_p99": 1339.49,
+    "mode": "graph",
+    "note": ""
+   },
+   "2": {
+    "cold_us_median": 914.21,
+    "cold_us_p99": 1328.83,
+    "mode": "graph",
+    "note": ""
+   },
+   "3": {
+    "cold_us_median": 842.46,
+    "cold_us_p99": 1246.78,
+    "mode": "graph",
+    "note": ""
+   }
+  },
+  "t_comp_48_ms": 45.648,
+  "t_embed_us": 21.38,
+  "t_gdn_us": 916.23,
+  "t_lm_head_us": 2533.34,
+  "t_qsa_us": 842.46
+ },
+ "trunk_load_s": 0.71,
+ "versions": {
+  "cuda": "13.0",
+  "torch": "2.13.0+cu130"
+ }
+}

@@ -1,0 +1,9 @@
+Gated delta rule operators
+Source: flash-linear-attention / fla-core 0.5.2 (https://github.com/fla-org/flash-linear-attention)
+Copyright (c) 2023-2026 Songlin Yang, Yu Zhang, Zhiyuan Li. Licensed under the MIT License
+(see LICENSE in this directory).
+
+The files under fla_v052/ were modified by slotstream-spark: the package name in imports is
+`fla_v052` instead of `fla` so that they do not collide with an installed fla, and the three
+package __init__.py files (fla, fla.ops, fla.modules) are small stubs. The exact differences are
+in expected.diff and are checked by diff.sh.

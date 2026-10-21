@@ -1,0 +1,38 @@
+== D5 decode-8k (5 samples)
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0012", "decode_tps": 32.075405217708436, "ok": true}
+D5 decode-8k prompt 0: 32.08 tok/s (mtp resident), prefill 4.645 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0013", "decode_tps": 30.367655750311407, "ok": true}
+D5 decode-8k prompt 1: 30.37 tok/s (mtp resident), prefill 2.908 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0064", "decode_tps": 28.63174538771539, "ok": true}
+D5 decode-8k prompt 2: 28.63 tok/s (mtp resident), prefill 7.109 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0065", "decode_tps": 29.37382205099466, "ok": true}
+D5 decode-8k prompt 3: 29.37 tok/s (mtp resident), prefill 2.84 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0066", "decode_tps": 27.385246413429368, "ok": true}
+D5 decode-8k prompt 4: 27.39 tok/s (mtp resident), prefill 3.197 s
+== D5 decode-8k: ok in 278 s
+== D5 ttft-cold-2k (5 samples)
+D5 ttft-cold-2k sample 0: ttft 6.82 s, prefill 6.81 s (300.6 tok/s), reused 0
+D5 ttft-cold-2k sample 1: ttft 6.72 s, prefill 6.72 s (304.9 tok/s), reused 0
+D5 ttft-cold-2k sample 2: ttft 6.67 s, prefill 6.66 s (307.6 tok/s), reused 0
+D5 ttft-cold-2k sample 3: ttft 6.80 s, prefill 6.79 s (301.8 tok/s), reused 0
+D5 ttft-cold-2k sample 4: ttft 6.87 s, prefill 6.86 s (298.5 tok/s), reused 0
+== D5 ttft-cold-2k: ok in 135 s
+== D5 ttft-cold-8k (5 samples)
+D5 ttft-cold-8k sample 0: ttft 21.60 s, prefill 21.58 s (379.7 tok/s), reused 0, follow-up 1.05 s (reused 8192)
+D5 ttft-cold-8k sample 1: ttft 22.03 s, prefill 22.02 s (372.1 tok/s), reused 0, follow-up 1.06 s (reused 8192)
+D5 ttft-cold-8k sample 2: ttft 22.25 s, prefill 22.23 s (368.6 tok/s), reused 0, follow-up 1.05 s (reused 8192)
+D5 ttft-cold-8k sample 3: ttft 21.94 s, prefill 21.92 s (373.7 tok/s), reused 0, follow-up 1.05 s (reused 8192)
+D5 ttft-cold-8k sample 4: ttft 22.18 s, prefill 22.17 s (369.6 tok/s), reused 0, follow-up 1.05 s (reused 8192)
+== D5 ttft-cold-8k: ok in 218 s
+== D5 ttft-cold-32k (5 samples)
+D5 ttft-cold-32k sample 0: ttft 77.37 s, prefill 77.32 s (413.8 tok/s), reused 0
+D5 ttft-cold-32k sample 1: ttft 77.45 s, prefill 77.40 s (413.4 tok/s), reused 0
+D5 ttft-cold-32k sample 2: ttft 77.47 s, prefill 77.43 s (413.3 tok/s), reused 0
+D5 ttft-cold-32k sample 3: ttft 79.00 s, prefill 78.94 s (405.4 tok/s), reused 0
+D5 ttft-cold-32k sample 4: ttft 77.98 s, prefill 77.92 s (410.7 tok/s), reused 0
+== D5 ttft-cold-32k: ok in 525 s

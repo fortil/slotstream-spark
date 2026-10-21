@@ -1,0 +1,31 @@
+name: Bug
+description: Something in the code, scripts or docs does not do what it says.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected and what you got. Paste the exact command.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Machine and versions
+      description: Hardware, memory, OS, Python, torch and triton versions. Output of `tools/spark/py.sh -m slotstream_spark.cli doctor` if you got that far.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant lines only. Remove host names, logins and addresses first.
+      render: text

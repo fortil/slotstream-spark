@@ -1,0 +1,21 @@
+{"text_chars": 1294336, "rows_sha256": "5c8877eeabb3b8afc09f8ec35194fdac8c55acaa25de738d27000876d7c73e4c", "tokens_total": 297193, "ids_sha256": "e65198947ecb06833dcd69e042e406f52945dcc88073621d52c3e8e54a4d8e55", "windows_available": 145, "windows_run": 16, "window": 2048}
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+window   0/16: nll 2030.04 (0.9917/token) 9.2 s
+window   1/16: nll 1451.51 (0.7091/token) 5.6 s
+window   2/16: nll 1712.73 (0.8367/token) 5.6 s
+window   3/16: nll 3564.70 (1.7414/token) 5.9 s
+window   4/16: nll 3240.87 (1.5832/token) 5.8 s
+window   5/16: nll 1895.66 (0.9261/token) 5.8 s
+window   6/16: nll 1720.68 (0.8406/token) 5.6 s
+window   7/16: nll 2613.07 (1.2765/token) 5.8 s
+window   8/16: nll 3574.53 (1.7462/token) 5.8 s
+window   9/16: nll 3696.33 (1.8057/token) 5.9 s
+window  10/16: nll 4084.64 (1.9954/token) 5.9 s
+window  11/16: nll 3928.19 (1.9190/token) 5.6 s
+window  12/16: nll 1960.97 (0.9580/token) 5.9 s
+window  13/16: nll 4337.27 (2.1188/token) 5.6 s
+window  14/16: nll 3769.00 (1.8412/token) 5.5 s
+window  15/16: nll 5039.10 (2.4617/token) 5.6 s
+ppl 4.4126 over 16 windows / 32,752 tokens (ref 5.3914, band 5.3375-5.4453, rel diff -18.15%)
+ppl-16-windows | windows 16 | bit-identical True
+RESULT: PASS ppl-16-windows

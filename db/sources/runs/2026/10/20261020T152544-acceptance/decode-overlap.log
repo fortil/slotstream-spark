@@ -1,0 +1,13 @@
+r0088 reasoning    prompt   76  demand/token off  184.36 on  103.84  issued 23306 adopted 21224 (late 7161) discarded 2082 failed 0
+r0089 reasoning    prompt   76  demand/token off  185.45 on  103.55  issued 23207 adopted 21079 (late 7007) discarded 2128 failed 0
+r0223 multilingual prompt  212  demand/token off  205.04 on  118.59  issued 24922 adopted 22432 (late 7466) discarded 2490 failed 0
+r0224 multilingual prompt  213  demand/token off  176.17 on  116.02  issued 23962 adopted 21047 (late 6905) discarded 2915 failed 0
+r0247 structured   prompt  329  demand/token off  212.25 on  140.96  issued 25972 adopted 21679 (late 7335) discarded 4293 failed 0
+r0248 structured   prompt  239  demand/token off  211.03 on  120.28  issued 26909 adopted 23581 (late 7777) discarded 3328 failed 0
+r0277 dialogue     prompt  118  demand/token off  147.38 on   89.73  issued 21580 adopted 19696 (late 6399) discarded 1884 failed 0
+r0278 dialogue     prompt  121  demand/token off  164.75 on   87.30  issued 21129 adopted 18799 (late 6277) discarded 2330 failed 0
+decode ids identical on/off over 8 prompts x 128 tokens
+.mode attention-corrected: demand records per token off 185.80 on 110.03  adopted 169537 of 190987 issued (precision 0.888, lateness 0.332)
+.0 leaked reservations at the end of all requests
+.                                                                        [100%]
+3 passed in 475.83s (0:07:55)

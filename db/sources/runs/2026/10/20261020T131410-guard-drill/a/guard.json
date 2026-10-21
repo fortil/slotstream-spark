@@ -1,0 +1,1 @@
+{"label":"drill-a","flags":"","precheck":{"mode":"D5","footprint_mib":2048,"memavailable_mib":116558,"memfree_mib":65401,"running":"{\"running\":[]}","containers":12,"ok":true},"start":1792520050,"pgid":1544740,"cap":"$R/runs/2026/10/20261020T131410-drill-a"}

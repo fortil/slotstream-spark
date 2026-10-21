@@ -1,0 +1,5 @@
+PASS  images openai-chat -> 400
+PASS  images ollama-chat -> 400
+PASS  images anthropic-messages -> 400
+PASS  images openai-responses -> 400
+images: 4 of 4 refused with a 400

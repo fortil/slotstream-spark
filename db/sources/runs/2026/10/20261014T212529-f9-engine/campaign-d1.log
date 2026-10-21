@@ -1,0 +1,26 @@
+== D1 decode-8k (3 samples)
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0012", "decode_tps": 9.371093476698253, "ok": true}
+D1 decode-8k prompt 0: 9.37 tok/s (mtp off), prefill 6.058 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0013", "decode_tps": 8.77353174744773, "ok": true}
+D1 decode-8k prompt 1: 8.77 tok/s (mtp off), prefill 4.408 s
+slotio: staging allocation 353894400 B (4 x 32 records of 2764800 B, mapped 354418688 B, vmm_host_numa)
+{"prompt_id": "r0064", "decode_tps": 13.208467235656247, "ok": true}
+D1 decode-8k prompt 2: 13.21 tok/s (mtp off), prefill 8.147 s
+== D1 decode-8k: ok in 270 s
+== D1 ttft-cold-2k (3 samples)
+D1 ttft-cold-2k sample 0: ttft 8.51 s, prefill 8.50 s (240.8 tok/s), reused 0
+D1 ttft-cold-2k sample 1: ttft 8.37 s, prefill 8.36 s (244.9 tok/s), reused 0
+D1 ttft-cold-2k sample 2: ttft 8.42 s, prefill 8.42 s (243.3 tok/s), reused 0
+== D1 ttft-cold-2k: ok in 59 s
+== D1 ttft-cold-8k (3 samples)
+D1 ttft-cold-8k sample 0: ttft 24.50 s, prefill 24.49 s (334.6 tok/s), reused 0, follow-up 14.46 s (reused 4096)
+D1 ttft-cold-8k sample 1: ttft 23.91 s, prefill 23.90 s (342.8 tok/s), reused 0, follow-up 14.67 s (reused 4096)
+D1 ttft-cold-8k sample 2: ttft 24.72 s, prefill 24.70 s (331.6 tok/s), reused 0, follow-up 14.17 s (reused 4096)
+== D1 ttft-cold-8k: ok in 154 s
+== D1 ttft-cold-32k (3 samples)
+D1 ttft-cold-32k sample 0 FAILED: the stream ended without a final frame
+D1 ttft-cold-32k sample 1 FAILED: the stream ended without a final frame
+D1 ttft-cold-32k sample 2 FAILED: the stream ended without a final frame
+== D1 ttft-cold-32k: FAILED in 327 s

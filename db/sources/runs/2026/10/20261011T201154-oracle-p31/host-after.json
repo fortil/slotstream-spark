@@ -1,0 +1,53 @@
+{
+ "time": "2026-10-11T20:12:03-0500",
+ "epoch": 1791767523,
+ "uname": "Linux host 6.17.0-1029-nvidia #29-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul  1 00:13:52 UTC 2026 aarch64",
+ "driver": "580.173.02",
+ "meminfo": {
+  "MemTotal_kB": 127600748,
+  "MemFree_kB": 41405452,
+  "MemAvailable_kB": 81908476,
+  "Cached_kB": 44583524,
+  "Mlocked_kB": 26156,
+  "AnonPages_kB": 7637076,
+  "Shmem_kB": 152028,
+  "AnonHugePages_kB": 358400
+ },
+ "pressure": {
+  "memory": [
+   "some avg10=0.00 avg60=0.00 avg300=0.00 total=19890579",
+   "full avg10=0.00 avg60=0.00 avg300=0.00 total=19833846"
+  ],
+  "io": [
+   "some avg10=0.38 avg60=0.21 avg300=0.05 total=1064803616",
+   "full avg10=0.22 avg60=0.16 avg300=0.04 total=1039799382"
+  ],
+  "cpu": [
+   "some avg10=0.14 avg60=0.03 avg300=0.00 total=787878050",
+   "full avg10=0.00 avg60=0.00 avg300=0.00 total=0"
+  ]
+ },
+ "docker": {
+  "other-1": "Up 5 hours",
+  "other-2": "Up 33 hours",
+  "other-3": "Up 33 hours",
+  "other-4": "Up 33 hours",
+  "llama-swap": "Up 33 hours",
+  "other-5": "Up 33 hours",
+  "qdrant-1": "Up 33 hours",
+  "postgres-1": "Up 33 hours",
+  "other-6": "Up 33 hours",
+  "other-7": "Up 33 hours",
+  "other-8": "Up 33 hours",
+  "asr-1": "Up 33 hours",
+  "embeddings-1": "Up 33 hours",
+  "other-9": "Up 33 hours"
+ },
+ "running": "{\"running\":[]}\n",
+ "hwmon1": {
+  "temp1": 37.85,
+  "temp2": 39.85,
+  "temp3": 37.85
+ },
+ "loadavg": "0.48 0.22 0.72 1/1748 780615"
+}

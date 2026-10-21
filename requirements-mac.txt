@@ -1,0 +1,9 @@
+pytest
+numpy
+jinja2
+tokenizers
+starlette
+uvicorn
+h11
+httpx
+hypothesis

@@ -1,0 +1,14 @@
+r0088 reasoning    prompt   76  rounds  24  accepted [22, 17] of [23, 22]  emitted/round 2.62
+r0089 reasoning    prompt   76  rounds  24  accepted [21, 18] of [23, 21]  emitted/round 2.62
+r0223 multilingual prompt  212  rounds  27  accepted [22, 14] of [27, 22]  emitted/round 2.33
+r0224 multilingual prompt  213  rounds  27  accepted [20, 16] of [27, 20]  emitted/round 2.33
+r0247 structured   prompt  329  rounds  22  accepted [21, 20] of [22, 21]  emitted/round 2.86
+r0248 structured   prompt  239  rounds  26  accepted [20, 17] of [25, 20]  emitted/round 2.42
+r0277 dialogue     prompt  118  rounds  36  accepted [19, 8] of [36, 18]  emitted/round 1.75
+r0278 dialogue     prompt  121  rounds  32  accepted [21, 10] of [31, 21]  emitted/round 1.97
+acceptance per depth: depth 1: 166/214 = 0.776, depth 2: 120/165 = 0.727; 2.31 tokens per verify round over 218 rounds
+.all drafts wrong: ids identical over 8 prompts x 64 tokens, 0 accepted
+.half the drafts wrong: ids identical over 8 prompts x 64 tokens
+.0 leaked record buffers; final position and token list equal plain in all runs
+.                                                                        [100%]
+4 passed in 602.58s (0:10:02)

@@ -1,0 +1,60 @@
+{
+ "cohorts": {
+  "B0": {
+   "file": "b0.jsonl",
+   "pair_ids": [
+    "r0003",
+    "r0004",
+    "r0005",
+    "r0032",
+    "r0033",
+    "r0034",
+    "r0061",
+    "r0062",
+    "r0063",
+    "r0096",
+    "r0097",
+    "r0098",
+    "r0099",
+    "r0124",
+    "r0125",
+    "r0126"
+   ],
+   "requests": 33,
+   "sha256": "ac538a8e3248ddf031d4a5efa8bbf3fa63356d0ce2ba8d15ce7f7cb3ed9735e8",
+   "split": "test",
+   "verified_sha": 33
+  },
+  "B1": {
+   "file": "b1.jsonl",
+   "pair_ids": [
+    "r0012",
+    "r0013",
+    "r0064",
+    "r0065",
+    "r0066",
+    "r0073",
+    "r0074",
+    "r0075",
+    "r0148",
+    "r0149",
+    "r0150",
+    "r0151",
+    "r0160",
+    "r0161",
+    "r0162",
+    "r0163"
+   ],
+   "requests": 32,
+   "sha256": "1cc65cb0d697f3ca42a8b68f5f1181c60c015a8ba65cd96be4333caa70200370",
+   "split": "validation",
+   "verified_sha": 32
+  }
+ },
+ "corpus_git_head": "f60e9a83037fea576bf210a3650d6f29e164f183",
+ "corpus_sha256": "adac22f1b1439be4638dad1e05809162924f796e1c7fe7ad80f3348d97ea17d5",
+ "corpus_version": 1,
+ "pair_count": 16,
+ "pair_max_token_estimate": 7680,
+ "seed": 1729
+}

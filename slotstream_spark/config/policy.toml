@@ -1,0 +1,7 @@
+# Engine policy per memory mode. Values: "off" | "resident". "streaming" is not implemented in v1 and raises.
+# D5 is set by step 78 from db/records/decisions/f6-mtp-d5.md; D1 and D2 were not measured and stay off.
+
+[mtp]
+D1 = "off"                      # off (not measured)
+D2 = "off"                      # off (not measured)
+D5 = "resident"                  # step 78: f6-mtp-d5.md (adopted)

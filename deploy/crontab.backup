@@ -1,0 +1,2 @@
+59 23 * * * /bin/bash $HOME/slotstream-spark/src/deploy/kill-all.sh >> $HOME/slotstream-spark/runs/kill-all.log 2>&1 #slotstream-spark
+59 23 * * * XDG_RUNTIME_DIR=/run/user/$(id -u) systemctl --user stop slotstream-spark.socket slotstream-spark-front.service slotstream-spark.service #slotstream-spark

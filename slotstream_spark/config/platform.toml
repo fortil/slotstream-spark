@@ -1,0 +1,61 @@
+# Platform decisions measured on the Spark. Each key names the step that sets it.
+# "unmeasured" (or 0 / -1) means not decided yet.
+
+[spark]
+memcg_delegated = "yes"   # step 4 (bootstrap): yes | no
+io_delegated = "no"      # step 4 (bootstrap): yes | no
+
+[env]
+kind = "standalone"              # step 10 (setup_env): venv | standalone | container
+python = "3.12.15"            # step 10
+torch = "2.13.0+cu130"             # step 10
+triton = "3.7.1"            # step 10
+python_h = "yes"          # step 10: yes | no
+
+[memory]
+mode_default = "D5"              # fixed by the user decision of 2026-10-11
+d1_variant = "D1"                  # step 14: D1 | D1prime
+write_path = "safe"              # fixed: the fast path is out of scope
+pool_memory = "vmm_host_numa"       # step 24: host_alloc | vmm_host_numa | device_alloc
+a_transient_mib = 2527          # step 14
+
+[ngram]
+row_bytes = 100                 # step 22 (n-gram row format): 100 | 128
+read = "odirect"                 # fixed
+
+[kernels]
+plan = "A"                       # step 23 (M0): A | B
+
+[runtime]
+wait_mechanism = "spin_flag"    # step 24: spin_flag | event_sync
+memop_in_graph = "supported"    # step 24: supported | unsupported
+
+[measured]
+gemv_2560_gbs = 184.44         # step 77c: v3 body; step 55 engine figure 135.54, step 23 bench kernel 193.75 (gemv_affine.py::gemv, 2560x2560 4-bit gs64, tuned, cold-L2 graph)
+tau_us = 5.744                   # step 23
+runtime_footprint_mib = 2516    # step 48 (M0' engine process: 2637857704 B rounded up to MiB; step 23 bare process measured 1267, m0-host.md)
+t_memcpy_ms = 0.1238                # step 24
+pool_gather_gbs = 245.57            # step 24
+nvme_temp_no_throttle_mc = 56850  # step 27 (m8): highest Composite with no throttle in a ramp that never plateaued; a record, not a limit (DIAG_F3.md, step 62a)
+nvme_temp_no_effect_mc = 59850    # 2026-10-13 f3-diag scratch run: engine decode tok/s unchanged from 45.85 to 59.85 C (informational)
+
+[lookahead]
+mode = "off"                    # step 78: db/records/decisions/f6-lookahead-d5.md (kept off)
+threshold = 0.062                # forecast margin vs the row's 10th logit (ExpertPrefetch.swift:951)
+top = 24
+issue_cap = 32                   # issues per target layer
+slot_cap = 64                    # outstanding tickets
+min_evictable = 256              # a reservation needs slots - pinned - in flight above this
+
+[pool]
+prefill = "table"   # step 77e: off | table (expert_freq_gb10.json from the F3-session traces, 2026-10-14)
+
+[server]
+queue_max = 4                   # step 83: requests that may wait behind the running generation; a further one gets 503
+
+[prefix]
+dir = "~/slotstream-spark/prefix"   # step 86: persistent prefix tier; SLOTSTREAM_PREFIX_DIR overrides it
+quota_bytes = 20000000000        # step 86: disk quota of the tier
+
+[f8]
+token_graph = false             # step 92: db/records/decisions/f8-token-graph.md (KEEP_OFF)

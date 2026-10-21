@@ -1,0 +1,29 @@
+{
+ "cases": {
+  "a": {
+   "pass": true,
+   "detail": "deadline: rc=76 cut=deadline gone<=1s;"
+  },
+  "b": {
+   "pass": true,
+   "detail": "running flip: cut after 19 s; rc=76 cut=running gone<=1s;"
+  },
+  "c": {
+   "pass": true,
+   "detail": "memavailable (threshold 117526): rc=76 cut=memavailable gone<=1s;"
+  },
+  "d": {
+   "pass": true,
+   "detail": "container: rc=76 cut=deadline gone<=1s; hostconfig=1000 proc=1000"
+  },
+  "e": {
+   "pass": true,
+   "detail": "memcg: TERM->gone 2.25s (limit 2 s + 0.5 s teardown); rc=76 cut=memcg_over gone<=1s;"
+  },
+  "k": {
+   "pass": true,
+   "detail": "kill-all rc=0 in 41 s; "
+  }
+ },
+ "all_pass": true
+}

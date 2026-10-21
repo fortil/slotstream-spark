@@ -1,0 +1,157 @@
+{
+ "adopted": 169537,
+ "adopted_late": 56327,
+ "demand_per_token_off": 185.802734375,
+ "demand_per_token_on": 110.0341796875,
+ "issued": 190987,
+ "lateness": 0.3322401599650814,
+ "mode": "attention-corrected",
+ "precision": 0.8876886908533042,
+ "prompts": [
+  {
+   "id": "r0088",
+   "kind": "reasoning",
+   "off": 23598,
+   "on": 13292,
+   "prefetch": {
+    "adopted": 21224,
+    "adopted_late": 7161,
+    "adopted_ready": 14063,
+    "discarded": 2082,
+    "failed": 0,
+    "issued": 23306,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 23561,
+    "wait_ns": 5297841818
+   }
+  },
+  {
+   "id": "r0089",
+   "kind": "reasoning",
+   "off": 23737,
+   "on": 13255,
+   "prefetch": {
+    "adopted": 21079,
+    "adopted_late": 7007,
+    "adopted_ready": 14072,
+    "discarded": 2128,
+    "failed": 0,
+    "issued": 23207,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 23658,
+    "wait_ns": 5262983915
+   }
+  },
+  {
+   "id": "r0223",
+   "kind": "multilingual",
+   "off": 26245,
+   "on": 15179,
+   "prefetch": {
+    "adopted": 22432,
+    "adopted_late": 7466,
+    "adopted_ready": 14966,
+    "discarded": 2490,
+    "failed": 0,
+    "issued": 24922,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 20716,
+    "wait_ns": 5705042042
+   }
+  },
+  {
+   "id": "r0224",
+   "kind": "multilingual",
+   "off": 22550,
+   "on": 14850,
+   "prefetch": {
+    "adopted": 21047,
+    "adopted_late": 6905,
+    "adopted_ready": 14142,
+    "discarded": 2915,
+    "failed": 0,
+    "issued": 23962,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 22394,
+    "wait_ns": 5363494202
+   }
+  },
+  {
+   "id": "r0247",
+   "kind": "structured",
+   "off": 27168,
+   "on": 18043,
+   "prefetch": {
+    "adopted": 21679,
+    "adopted_late": 7335,
+    "adopted_ready": 14344,
+    "discarded": 4293,
+    "failed": 0,
+    "issued": 25972,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 17973,
+    "wait_ns": 5821998631
+   }
+  },
+  {
+   "id": "r0248",
+   "kind": "structured",
+   "off": 27012,
+   "on": 15396,
+   "prefetch": {
+    "adopted": 23581,
+    "adopted_late": 7777,
+    "adopted_ready": 15804,
+    "discarded": 3328,
+    "failed": 0,
+    "issued": 26909,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 19585,
+    "wait_ns": 6096947372
+   }
+  },
+  {
+   "id": "r0277",
+   "kind": "dialogue",
+   "off": 18864,
+   "on": 11485,
+   "prefetch": {
+    "adopted": 19696,
+    "adopted_late": 6399,
+    "adopted_ready": 13297,
+    "discarded": 1884,
+    "failed": 0,
+    "issued": 21580,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 27192,
+    "wait_ns": 4887677312
+   }
+  },
+  {
+   "id": "r0278",
+   "kind": "dialogue",
+   "off": 21088,
+   "on": 11175,
+   "prefetch": {
+    "adopted": 18799,
+    "adopted_late": 6277,
+    "adopted_ready": 12522,
+    "discarded": 2330,
+    "failed": 0,
+    "issued": 21129,
+    "refused_cap": 0,
+    "refused_evictable": 0,
+    "skipped": 26943,
+    "wait_ns": 4806256121
+   }
+  }
+ ],
+ "tap_correction_status": "tap_correction: present 37540708 37b00d3a32d1e1889a1794bbb8e97905a157a77c0508db620c1a11f2a895f7f5"
+}

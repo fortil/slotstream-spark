@@ -1,0 +1,30 @@
+{
+ "nvml_mib": 5396,
+ "memory_current_mib": 46254,
+ "memory_stat_mib": {
+  "anon": 399,
+  "file": 45688,
+  "shmem": 621
+ },
+ "buffer_lines": [
+  "0.54.837.661 I load_tensors:   CPU_Mapped model buffer size =  6623.81 MiB",
+  "0.54.837.662 I load_tensors:   CPU_Mapped model buffer size = 37803.92 MiB",
+  "0.54.837.662 I load_tensors:   CPU_Mapped model buffer size = 30586.78 MiB",
+  "0.54.837.663 I load_tensors:        CUDA0 model buffer size =  3197.34 MiB",
+  "0.54.837.663 I load_tensors:   CPU_Mapped model buffer size = 30517.72 MiB",
+  "0.59.223.245 I llama_context:  CUDA_Host  output buffer size =     0.95 MiB",
+  "0.59.250.054 I llama_kv_cache:      CUDA0 KV buffer size =   768.00 MiB",
+  "0.59.258.758 I llama_memory_recurrent:      CUDA0 RS buffer size =   112.57 MiB",
+  "0.59.265.386 I llama_kv_cache:      CUDA0 KV buffer size =   192.00 MiB",
+  "1.00.243.797 I sched_reserve:      CUDA0 compute buffer size =   925.50 MiB",
+  "1.00.243.804 I sched_reserve:  CUDA_Host compute buffer size =   574.98 MiB"
+ ],
+ "huella_mib": 57344,
+ "memorymax_mib": 47616,
+ "memorymax_table_mib": 47616,
+ "memfree_at_start_mib": 72662,
+ "memfree_source": "/proc/meminfo before launch",
+ "op_offload": false,
+ "memfree_stop_mib": 14336,
+ "root_direct_file_mib": 10176
+}

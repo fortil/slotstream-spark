@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Fetch the slotstream reference at the pinned commit
+        run: |
+          git clone --depth 1 --filter=blob:limit=3m --no-checkout https://github.com/carloslfu/slotstream.git third_party/slotstream
+          git -C third_party/slotstream sparse-checkout set --no-cone '/*' '!/db/sources/'
+          git -C third_party/slotstream fetch --depth 1 origin 8bd579385152d547f96c9f6285181fe7885dfe29
+          git -C third_party/slotstream checkout 8bd579385152d547f96c9f6285181fe7885dfe29
+      - run: pip install -r requirements-mac.txt
+      - run: pytest -q -m 'not gate and not cuda'
+      - run: python tools/claims_gate.py
+      - run: python tools/runbook_check.py RUNBOOK.md
+      - run: python tools/docs_check.py
+      - run: python tools/db_check.py db/records/measurements/*.md db/records/decisions/*.md
+      - run: python -m slotstream_spark.config --validate
+      - name: Syntax check of every shell script
+        run: git ls-files -z '*.sh' | xargs -0 -n1 bash -n
+      - run: bash tools/acceptance.sh --list
+
+  private-terms:
+    runs-on: ubuntu-latest
+    env:
+      PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Scan tracked files
+        run: |
+          if [ -n "$PRIVATE_TERMS" ]; then
+            printf '%s\n' "$PRIVATE_TERMS" > "$RUNNER_TEMP/terms.txt"
+            python tools/private_terms_check.py --tracked --terms-file "$RUNNER_TEMP/terms.txt"
+          else
+            python tools/private_terms_check.py --tracked
+          fi
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Scan the history with the gitleaks binary
+        run: |
+          curl -sSfL -o gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  gitleaks.tar.gz" | sha256sum -c -
+          tar xzf gitleaks.tar.gz gitleaks
+          ./gitleaks git --config .gitleaks.toml --redact --no-banner

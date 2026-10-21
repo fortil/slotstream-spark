@@ -1,0 +1,5 @@
+{
+  "short": "In two sentences, explain why a mixture-of-experts model can run with only a fraction of its weights active per token.",
+  "2k": {"kind": "facts", "seed": 7, "target_chars": 8000},
+  "8k": {"kind": "facts", "seed": 7, "target_chars": 32000}
+}

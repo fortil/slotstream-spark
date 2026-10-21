@@ -1,0 +1,16 @@
+{"window": 0, "start": 0, "nll": 2030.0406093597412, "tokens": 2047, "seconds": 9.098}
+{"window": 1, "start": 2048, "nll": 1451.5057821273804, "tokens": 2047, "seconds": 5.669}
+{"window": 2, "start": 4096, "nll": 1712.7264108657837, "tokens": 2047, "seconds": 5.598}
+{"window": 3, "start": 6144, "nll": 3564.695731163025, "tokens": 2047, "seconds": 6.028}
+{"window": 4, "start": 8192, "nll": 3240.8714542388916, "tokens": 2047, "seconds": 5.819}
+{"window": 5, "start": 10240, "nll": 1895.6615447998047, "tokens": 2047, "seconds": 5.789}
+{"window": 6, "start": 12288, "nll": 1720.6780281066895, "tokens": 2047, "seconds": 5.57}
+{"window": 7, "start": 14336, "nll": 2613.0724401474, "tokens": 2047, "seconds": 5.724}
+{"window": 8, "start": 16384, "nll": 3574.532646179199, "tokens": 2047, "seconds": 5.717}
+{"window": 9, "start": 18432, "nll": 3696.3346672058105, "tokens": 2047, "seconds": 5.936}
+{"window": 10, "start": 20480, "nll": 4084.6353511810303, "tokens": 2047, "seconds": 5.829}
+{"window": 11, "start": 22528, "nll": 3928.190196990967, "tokens": 2047, "seconds": 5.609}
+{"window": 12, "start": 24576, "nll": 1960.9653692245483, "tokens": 2047, "seconds": 5.751}
+{"window": 13, "start": 26624, "nll": 4337.268483161926, "tokens": 2047, "seconds": 5.652}
+{"window": 14, "start": 28672, "nll": 3768.9957065582275, "tokens": 2047, "seconds": 5.5}
+{"window": 15, "start": 30720, "nll": 5039.096778869629, "tokens": 2047, "seconds": 5.562}

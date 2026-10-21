@@ -1,0 +1,67 @@
+{
+ "layers": 48,
+ "traces": 48,
+ "accesses": 2926080,
+ "curve": [
+  {
+   "experts_per_layer": 13,
+   "records": 624,
+   "lru": 0.352122,
+   "clock": 0.362469
+  },
+  {
+   "experts_per_layer": 30,
+   "records": 1440,
+   "lru": 0.52284,
+   "clock": 0.531459
+  },
+  {
+   "experts_per_layer": 48,
+   "records": 2304,
+   "lru": 0.623462,
+   "clock": 0.632709
+  },
+  {
+   "experts_per_layer": 81,
+   "records": 3888,
+   "lru": 0.748107,
+   "clock": 0.753351
+  },
+  {
+   "experts_per_layer": 105,
+   "records": 5040,
+   "lru": 0.809313,
+   "clock": 0.808523
+  },
+  {
+   "experts_per_layer": 150,
+   "records": 7200,
+   "lru": 0.87714,
+   "clock": 0.881424
+  },
+  {
+   "experts_per_layer": 200,
+   "records": 9600,
+   "lru": 0.942567,
+   "clock": 0.950839
+  },
+  {
+   "experts_per_layer": 300,
+   "records": 14400,
+   "lru": 0.987028,
+   "clock": 0.986849
+  },
+  {
+   "experts_per_layer": 396,
+   "records": 19008,
+   "lru": 0.992668,
+   "clock": 0.992479
+  },
+  {
+   "experts_per_layer": 512,
+   "records": 24576,
+   "lru": 0.992968,
+   "clock": 0.992968
+  }
+ ]
+}

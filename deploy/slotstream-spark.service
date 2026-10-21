@@ -1,0 +1,12 @@
+[Unit]
+Description=slotstream-spark engine (Qwen3.8-Flash-Next, experts streamed from NVMe)
+
+[Service]
+Type=simple
+Environment=SLOTSTREAM_MODE=D5 SLOTSTREAM_TAKE_LOCK=1
+Environment=CAP=%h/slotstream-spark/state
+ExecStartPre=/usr/bin/mkdir -p %h/slotstream-spark/state
+ExecStart=%h/slotstream-spark/src/tools/spark/py.sh -m slotstream_spark.cli serve
+OOMScoreAdjust=1000
+KillMode=control-group
+TimeoutStopSec=15

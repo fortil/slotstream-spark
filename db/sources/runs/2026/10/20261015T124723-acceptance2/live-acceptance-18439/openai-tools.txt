@@ -1,0 +1,25 @@
+PASS runtime context discovery agrees
+PASS nonstream returns executable OpenAI function
+PASS nonstream preserves function and typed arguments
+PASS nonstream includes call identity and usage
+PASS nonstream completes tool-result round trip
+PASS stream returns executable OpenAI function
+PASS stream preserves function and typed arguments
+PASS stream includes call identity and usage
+PASS stream completes tool-result round trip
+PASS parallel false returns one complete call
+PASS parallel stream has distinct complete calls
+PASS parallel results match by call ID
+PASS tool choice none remains text-only
+PASS multiple initial instructions survive rendering
+PASS reasoning separated from answer
+PASS orphan-result rejected before inference
+PASS missing-result rejected before inference
+PASS context-inflation rejected before inference
+PASS reasoning-conflict rejected before inference
+PASS unknown-function rejected before inference
+PASS unsupported structured output has actionable rejection
+PASS budget exhaustion reports length False
+PASS budget exhaustion reports length True
+PASS request context limit is enforced before inference
+{"passed": 24, "context": 32768, "model": "qwen38-flash-next-mlx-4bit"}

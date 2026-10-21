@@ -1,0 +1,45 @@
+{
+ "time": "2026-10-14T23:57:31-0500",
+ "epoch": 1792040251,
+ "uname": "Linux host 6.17.0-1029-nvidia #29-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul  1 00:13:52 UTC 2026 aarch64",
+ "driver": "580.173.02",
+ "meminfo": {
+  "MemTotal_kB": 127600748,
+  "MemFree_kB": 98237284,
+  "MemAvailable_kB": 121204824,
+  "Cached_kB": 25754456,
+  "Mlocked_kB": 22332,
+  "AnonPages_kB": 463424,
+  "Shmem_kB": 5468,
+  "AnonHugePages_kB": 0
+ },
+ "pressure": {
+  "memory": [
+   "some avg10=0.00 avg60=0.00 avg300=0.00 total=7755",
+   "full avg10=0.00 avg60=0.00 avg300=0.00 total=7697"
+  ],
+  "io": [
+   "some avg10=1.05 avg60=5.25 avg300=2.79 total=2125444843",
+   "full avg10=1.05 avg60=5.25 avg300=2.79 total=2019691703"
+  ],
+  "cpu": [
+   "some avg10=0.06 avg60=0.02 avg300=0.00 total=197783031",
+   "full avg10=0.00 avg60=0.00 avg300=0.00 total=0"
+  ]
+ },
+ "docker": {
+  "llama-swap": "Up 8 hours"
+ },
+ "paused": {
+  "active": true,
+  "no_windows": true,
+  "expected_containers": 1
+ },
+ "running": "{\"running\":[]}\n",
+ "hwmon1": {
+  "temp1": 35.85,
+  "temp2": 37.85,
+  "temp3": 35.85
+ },
+ "loadavg": "2.09 0.66 0.23 1/771 305369"
+}

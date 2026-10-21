@@ -1,0 +1,37 @@
+Running as unit: slotstream-spark-f9-ref.scope; invocation ID: ea601e8b87ec41c6be58ca1286df0df8
+0.00.589.402 W llama_model_loader: tensor overrides to CPU are used with mmap enabled - consider using --load-mode none for better performance
+2.07.193.258 I cmn          init: llama threadpool init, n_threads = 16
+ppl-ids: n_vocab 248320, n_ctx 2048, n_batch 2048, 32 windows, 16 scoring threads
+ppl-ids: window 1/32 nll 1957.70 (0.9564/token) 89.8 s
+ppl-ids: window 2/32 nll 1483.86 (0.7249/token) 79.0 s
+ppl-ids: window 3/32 nll 1702.18 (0.8316/token) 86.1 s
+ppl-ids: window 4/32 nll 3547.42 (1.7330/token) 84.0 s
+ppl-ids: window 5/32 nll 3177.54 (1.5523/token) 82.2 s
+ppl-ids: window 6/32 nll 1930.13 (0.9429/token) 83.0 s
+ppl-ids: window 7/32 nll 1728.11 (0.8442/token) 83.9 s
+ppl-ids: window 8/32 nll 2636.39 (1.2879/token) 86.5 s
+ppl-ids: window 9/32 nll 3551.55 (1.7350/token) 87.8 s
+ppl-ids: window 10/32 nll 3683.42 (1.7994/token) 90.4 s
+ppl-ids: window 11/32 nll 3979.41 (1.9440/token) 89.0 s
+ppl-ids: window 12/32 nll 4000.19 (1.9542/token) 86.6 s
+ppl-ids: window 13/32 nll 2016.53 (0.9851/token) 82.6 s
+ppl-ids: window 14/32 nll 4427.29 (2.1628/token) 84.4 s
+ppl-ids: window 15/32 nll 3769.52 (1.8415/token) 82.3 s
+ppl-ids: window 16/32 nll 4823.02 (2.3561/token) 77.2 s
+ppl-ids: window 17/32 nll 4651.45 (2.2723/token) 75.8 s
+ppl-ids: window 18/32 nll 3751.74 (1.8328/token) 82.9 s
+ppl-ids: window 19/32 nll 3760.27 (1.8370/token) 87.2 s
+ppl-ids: window 20/32 nll 3063.61 (1.4966/token) 91.4 s
+ppl-ids: window 21/32 nll 2113.56 (1.0325/token) 91.8 s
+ppl-ids: window 22/32 nll 2700.03 (1.3190/token) 88.8 s
+ppl-ids: window 23/32 nll 2078.87 (1.0156/token) 85.9 s
+ppl-ids: window 24/32 nll 2373.00 (1.1593/token) 91.8 s
+ppl-ids: window 25/32 nll 2418.19 (1.1813/token) 75.4 s
+ppl-ids: window 26/32 nll 2537.91 (1.2398/token) 86.3 s
+ppl-ids: window 27/32 nll 4699.87 (2.2960/token) 85.8 s
+ppl-ids: window 28/32 nll 4882.42 (2.3852/token) 91.7 s
+ppl-ids: window 29/32 nll 4323.04 (2.1119/token) 91.8 s
+ppl-ids: window 30/32 nll 3296.27 (1.6103/token) 87.7 s
+ppl-ids: window 31/32 nll 3680.49 (1.7980/token) 85.7 s
+ppl-ids: window 32/32 nll 2959.10 (1.4456/token) 89.0 s
+ppl-ids: done, 32 windows, 2743.8 s, 23.89 tok/s

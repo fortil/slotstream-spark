@@ -1,0 +1,1 @@
+{"label":"f9-ref","flags":"--memcg slotstream-spark-f9-ref","precheck":{"mode":"D5","huella_mib":57344,"memavailable_mib":118240,"memfree_mib":96383,"running":"{\"running\":[]}","containers":1,"ok":true},"start":1792078737,"pgid":1025100,"cap":"$R/runs/2026/10/20261015T103857-f9-ref"}

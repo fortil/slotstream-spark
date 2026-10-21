@@ -1,0 +1,414 @@
+{
+ "acceptance_by_depth": {
+  "depth1": {
+   "accepted": 166,
+   "attempts": 214,
+   "rate": 0.7757009345794392
+  },
+  "depth2": {
+   "accepted": 120,
+   "attempts": 165,
+   "rate": 0.7272727272727273
+  }
+ },
+ "emitted_per_round": 2.311926605504587,
+ "leaked_records": 0,
+ "prompts": [
+  {
+   "id": "r0088",
+   "kind": "reasoning",
+   "mtp": {
+    "accepted": 39,
+    "accepted_by_depth": [
+     22,
+     17
+    ],
+    "attempts_by_depth": [
+     23,
+     22
+    ],
+    "drafted": 48,
+    "emitted_by_round": [
+     3,
+     3,
+     3,
+     3,
+     2,
+     2,
+     2,
+     3,
+     2,
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     1,
+     3,
+     3,
+     1
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 24,
+    "verify_rows": 72
+   }
+  },
+  {
+   "id": "r0089",
+   "kind": "reasoning",
+   "mtp": {
+    "accepted": 39,
+    "accepted_by_depth": [
+     21,
+     18
+    ],
+    "attempts_by_depth": [
+     23,
+     21
+    ],
+    "drafted": 48,
+    "emitted_by_round": [
+     3,
+     3,
+     3,
+     1,
+     3,
+     3,
+     1,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     1
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 24,
+    "verify_rows": 72
+   }
+  },
+  {
+   "id": "r0223",
+   "kind": "multilingual",
+   "mtp": {
+    "accepted": 36,
+    "accepted_by_depth": [
+     22,
+     14
+    ],
+    "attempts_by_depth": [
+     27,
+     22
+    ],
+    "drafted": 54,
+    "emitted_by_round": [
+     2,
+     3,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     2,
+     2,
+     1,
+     3,
+     3,
+     1,
+     3,
+     3,
+     2,
+     2,
+     3,
+     1,
+     1,
+     3,
+     1,
+     3
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 27,
+    "verify_rows": 81
+   }
+  },
+  {
+   "id": "r0224",
+   "kind": "multilingual",
+   "mtp": {
+    "accepted": 36,
+    "accepted_by_depth": [
+     20,
+     16
+    ],
+    "attempts_by_depth": [
+     27,
+     20
+    ],
+    "drafted": 54,
+    "emitted_by_round": [
+     3,
+     1,
+     2,
+     1,
+     1,
+     2,
+     1,
+     3,
+     3,
+     1,
+     1,
+     3,
+     1,
+     3,
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 27,
+    "verify_rows": 81
+   }
+  },
+  {
+   "id": "r0247",
+   "kind": "structured",
+   "mtp": {
+    "accepted": 41,
+    "accepted_by_depth": [
+     21,
+     20
+    ],
+    "attempts_by_depth": [
+     22,
+     21
+    ],
+    "drafted": 44,
+    "emitted_by_round": [
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     1,
+     2,
+     3
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 22,
+    "verify_rows": 66
+   }
+  },
+  {
+   "id": "r0248",
+   "kind": "structured",
+   "mtp": {
+    "accepted": 37,
+    "accepted_by_depth": [
+     20,
+     17
+    ],
+    "attempts_by_depth": [
+     25,
+     20
+    ],
+    "drafted": 52,
+    "emitted_by_round": [
+     1,
+     2,
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     1,
+     3,
+     3,
+     3,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     1,
+     1,
+     1,
+     1
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 26,
+    "verify_rows": 78
+   }
+  },
+  {
+   "id": "r0277",
+   "kind": "dialogue",
+   "mtp": {
+    "accepted": 27,
+    "accepted_by_depth": [
+     19,
+     8
+    ],
+    "attempts_by_depth": [
+     36,
+     18
+    ],
+    "drafted": 72,
+    "emitted_by_round": [
+     1,
+     1,
+     2,
+     3,
+     1,
+     2,
+     2,
+     2,
+     1,
+     3,
+     2,
+     1,
+     1,
+     2,
+     1,
+     3,
+     2,
+     1,
+     1,
+     1,
+     3,
+     2,
+     2,
+     1,
+     3,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     3,
+     1,
+     3,
+     3,
+     2
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 36,
+    "verify_rows": 108
+   }
+  },
+  {
+   "id": "r0278",
+   "kind": "dialogue",
+   "mtp": {
+    "accepted": 31,
+    "accepted_by_depth": [
+     21,
+     10
+    ],
+    "attempts_by_depth": [
+     31,
+     21
+    ],
+    "drafted": 64,
+    "emitted_by_round": [
+     1,
+     2,
+     3,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     1,
+     1,
+     2,
+     3,
+     2,
+     1,
+     2,
+     1,
+     3,
+     1,
+     2,
+     2,
+     2,
+     1,
+     3,
+     1,
+     3,
+     2,
+     1,
+     2,
+     1,
+     3,
+     1
+    ],
+    "leaked_records": 0,
+    "plain_steps": 0,
+    "rounds": 32,
+    "verify_rows": 96
+   }
+  }
+ ],
+ "record_ring_bytes": 346927104,
+ "rounds": 218
+}

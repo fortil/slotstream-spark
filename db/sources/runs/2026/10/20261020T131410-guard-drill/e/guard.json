@@ -1,0 +1,1 @@
+{"label":"drill-e","flags":"--memcg slotstream-spark-drill-e","precheck":{"mode":"D5","footprint_mib":1536,"memavailable_mib":116498,"memfree_mib":65275,"running":"{\"running\":[]}","containers":12,"ok":true},"start":1792520230,"pgid":1547532,"cap":"$R/runs/2026/10/20261020T131710-drill-e"}

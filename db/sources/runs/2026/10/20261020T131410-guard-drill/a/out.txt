@@ -1,0 +1,12 @@
+READY 1024
+TERM 1792520110.587
+Traceback (most recent call last):
+  File "$R/tmp/drill-20261020T131406/src/tools/drills/alloc_hog.py", line 30, in <module>
+    main()
+  File "$R/tmp/drill-20261020T131406/src/tools/drills/alloc_hog.py", line 26, in main
+    time.sleep(min(1.0, max(0.0, end - time.time())))
+  File "$R/tmp/drill-20261020T131406/src/tools/drills/alloc_hog.py", line 21, in on_term
+    print(f"TERM {time.time():.3f}", flush=True)
+  File "$R/tmp/drill-20261020T131406/src/tools/drills/alloc_hog.py", line 21, in on_term
+    print(f"TERM {time.time():.3f}", flush=True)
+RuntimeError: reentrant call inside <_io.BufferedWriter name='<stdout>'>

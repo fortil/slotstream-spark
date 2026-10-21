@@ -1,0 +1,11 @@
+# Contributors: pip install pre-commit && pre-commit install
+# The terms file is optional. Set SLOTSTREAM_PRIVATE_TERMS to a file of regular
+# expressions (one per line) to also block your own host names and logins.
+repos:
+  - repo: local
+    hooks:
+      - id: private-terms
+        name: private terms and host-specific values
+        entry: python3 tools/private_terms_check.py --paths
+        language: system
+        pass_filenames: true

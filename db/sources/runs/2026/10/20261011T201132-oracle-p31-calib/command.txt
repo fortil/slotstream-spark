@@ -1,0 +1,11 @@
+tools/spark/py.sh tools/ref_layerwise.py --parity31-calibrate third_party/slotstream/bench/parity31 
+synced=7078b34-dirty-8c2d1acd
+SLOTSTREAM_CAPTURE_DIR=$R/runs/2026/10/20261011T201132-oracle-p31-calib
+SLOTSTREAM_DEADLINE=1791768692
+SLOTSTREAM_HUELLA_MIB=10240
+SLOTSTREAM_LABEL=oracle-p31-calib
+SLOTSTREAM_MODE=D5
+SLOTSTREAM_R=$R
+CAP=$R/runs/2026/10/20261011T201132-oracle-p31-calib
+hostname=redacted
+start=2026-10-11T20:11:32-05:00

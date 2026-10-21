@@ -1,0 +1,7 @@
+[Unit]
+Description=slotstream-spark front socket (loopback; an optional extra address comes from a drop-in)
+
+[Socket]
+ListenStream=127.0.0.1:18434
+Accept=no
+Service=slotstream-spark-front.service

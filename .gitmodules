@@ -1,0 +1,4 @@
+[submodule "third_party/slotstream"]
+	path = third_party/slotstream
+	url = https://github.com/carloslfu/slotstream.git
+	shallow = true

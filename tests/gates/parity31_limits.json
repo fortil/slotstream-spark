@@ -1,0 +1,35 @@
+{
+  "rule": "L_k = 2*s_k + 0.01; separable iff c_k >= 4*s_k and c_k >= 2*L_k",
+  "margin": 0.01,
+  "layers": [
+    {
+      "layer": 0,
+      "spread": 0.0093116094110429,
+      "control": 0.3722397774489564,
+      "limit": 0.0286232188220858,
+      "separable": true
+    },
+    {
+      "layer": 1,
+      "spread": 0.01860316406783641,
+      "control": 0.3195799771227131,
+      "limit": 0.04720632813567282,
+      "separable": true
+    },
+    {
+      "layer": 2,
+      "spread": 0.02694373349865577,
+      "control": 0.39008579846703834,
+      "limit": 0.06388746699731154,
+      "separable": true
+    },
+    {
+      "layer": 3,
+      "spread": 0.0770147991875322,
+      "control": 0.42374235955568196,
+      "limit": 0.16402959837506442,
+      "separable": true
+    }
+  ],
+  "source_capture": "db/sources/runs/2026/10/20261011T201132-oracle-p31-calib"
+}

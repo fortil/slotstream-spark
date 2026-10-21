@@ -1,0 +1,8 @@
+{
+ "ttft_s": 12.460673664987553,
+ "prompt_tokens": 8192,
+ "decode_tps": 21.450483350793654,
+ "decode_tokens": 192,
+ "ok_ttft": true,
+ "ok_decode": true
+}
