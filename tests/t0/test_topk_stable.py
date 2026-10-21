@@ -7,7 +7,7 @@ from slotstream_spark.kernels.topk_stable import topk_stable  # noqa: E402
 
 pytestmark = pytest.mark.cuda
 
-NS = [512, 513, 2048, 8192, 16384]
+NS = [512, 513, 2048, 8192, 16384, 32768, 65536]
 KS = [10, 512]
 
 
@@ -115,4 +115,6 @@ def test_row_invariance(k):
 
 def test_shared_memory_limit():
     topk_stable(_rand(1, 16384, 5).cuda(), 512)
+    assert gemv_affine.SHARED_BYTES["topk_stable"] <= 101_376
+    topk_stable(_rand(1, 65536, 5).cuda(), 512)                       # the widest row the indexer can ask for
     assert gemv_affine.SHARED_BYTES["topk_stable"] <= 101_376

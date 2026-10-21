@@ -126,3 +126,16 @@ def test_context_window_resolution(monkeypatch):
 def test_context_window_rejects(bad):
     with pytest.raises(ValueError):
         context_window(bad)
+
+
+def test_the_indexer_top_k_covers_the_largest_window():
+    """The QSA indexer selects among compressed blocks of 4 positions; its top-k must take a row for the model's limit."""
+    import json
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2]
+    cfg = json.loads((root / "third_party" / "qwen38-flash-next-metadata" / "config.json").read_text())
+    ratio = int(cfg["text_config"]["indexer_compress_ratio"])
+    src = (root / "slotstream_spark" / "kernels" / "topk_stable.py").read_text()      # the module needs torch; read the constant
+    max_n = int(re.search(r"^MAX_N = (\d+)$", src, re.M).group(1))
+    assert ratio == 4 and max_n * ratio >= MAX_WINDOW == ps.MODEL_LIMIT
