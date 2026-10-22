@@ -52,8 +52,10 @@ Decode speed is tokens generated per second after the first token. TTFT is the t
 | Cold, 8192 tokens | 22.033 s |
 | Follow-up, 137 new tokens on an 8192-token prefix | 1.051 s |
 | Cold, 31998 tokens | 77.47 s |
+| Cold, 78000 tokens, 131,072-token window | 221.89 s |
+| Follow-up, 1337 new tokens on a 76800-token prefix, 131,072-token window | 7.389 s |
 
-For the 29.37 tok/s row and the TTFT table: D5 mode with 48 chunks of 1 GiB in the pool, pre-filled from a frequency table; MTP head resident; lookahead off; token graph off; checkpoint revision `aa7c790e804bbf9d491ddb109c3d61bc4a555f7c`; medians of 5 runs; the host's other services paused. The MTP-off row is a median over 16 paired runs with the head not loaded. Records: [measurements](docs/measurements.md).
+For the 29.37 tok/s row and the TTFT table: D5 mode with 48 chunks of 1 GiB in the pool, pre-filled from a frequency table; MTP head resident; lookahead off; token graph off; checkpoint revision `aa7c790e804bbf9d491ddb109c3d61bc4a555f7c`; medians of 5 runs; the host's other services paused. The MTP-off row is a median over 16 paired runs with the head not loaded. The two 131,072-window rows: `SLOTSTREAM_CONTEXT_WINDOW=131072`, 38 chunks of 1 GiB in the pool, medians of 5 runs on October 21, 2026. Records: [measurements](docs/measurements.md).
 
 ### By memory mode
 
@@ -62,6 +64,7 @@ For the 29.37 tok/s row and the TTFT table: D5 mode with 48 chunks of 1 GiB in t
 | D1 | 9.37 tok/s | informative, median of 3, the cold 32K cell failed |
 | D2 | not measured | |
 | D5 | 29.37 tok/s | gated, median of 5 |
+| D5, 131,072-token window | 26.918 tok/s | informative, median of 5, 37 chunks |
 
 ### Against llama.cpp
 
@@ -73,6 +76,7 @@ Against unmodified llama.cpp with Q4_1 and the experts cached on the GPU (arm B)
 - Medians of short runs, not a long soak.
 - The host's other services were paused, so how the engine behaves next to a loaded neighbor is not measured here.
 - The pool was pre-filled before the runs. A cold pool starts slower.
+- The 131,072-window rows come from one synthetic text, and one 78K conversation is kept in the prefix cache at a time.
 - 23 tok/s was a floor set before the runs, not a result.
 - No other GPU, NVMe drive or amount of RAM was measured.
 
@@ -134,6 +138,8 @@ The engine does not take a fixed amount of memory. A governor recomputes the all
 
 During the final job: no oom-kill, MemAvailable >= 8 GiB, with a minimum MemAvailable of 59853 MiB. The host's other services were paused by the user during the final runs, so the criteria for their latency, memory pressure and quiet windows were recorded as not applicable. The criteria for oom, free memory and container count were gates and passed.
 
+With a 131,072-token window the ledger's fixed bytes are 25,270,020,452 B and the pool held 38 chunks during the window campaign (40 at the D5 ceiling). During the window job: no oom-kill, MemAvailable >= 8 GiB, with a minimum MemAvailable of 25582 MiB.
+
 Three switches have a recorded decision:
 
 - Lookahead of experts stays off: paired median 0.8761 against an adoption bar of 1.02, stopped after 4 clean pairs.
@@ -183,7 +189,7 @@ The model code is PyTorch with Triton kernels instead of Swift on MLX. slotstrea
 
 - Text only. The vision tower is not loaded.
 - One generation at a time, with a queue of 4.
-- Context window 32,768 tokens by default. `SLOTSTREAM_CONTEXT_WINDOW=131072` raises it to 131,072, where one 78K conversation is kept in the prefix cache at a time; the figures above were measured at the default window.
+- Context window 32,768 tokens by default. `SLOTSTREAM_CONTEXT_WINDOW=131072` raises it to 131,072, where one 78K conversation is kept in the prefix cache at a time; the figures above were measured at the default window except the rows that name the 131,072-token window.
 - One checkpoint, one machine, no authentication: loopback only, reach it through an ssh tunnel.
 - The only comparison with llama.cpp is the one above.
 - Not a product: no releases, no wheels, no support promise.

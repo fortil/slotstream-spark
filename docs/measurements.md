@@ -37,6 +37,12 @@ One row per claim record. The Needle column is the text the gate looks for, unsp
 | Lookahead stays off | paired median 0.8761 | 4 clean pairs, adoption bar 1.02, stopped for futility; decision KEEP_OFF | [f6-lookahead-d5](../db/records/decisions/f6-lookahead-d5.md) |
 | MTP head stays resident | paired median 1.1609 | 16 clean pairs, 14 of 16 positive, bar 1.05, outputs identical; decision ADOPT_RESIDENT | [f6-mtp-d5](../db/records/decisions/f6-mtp-d5.md) |
 | Token graph stays off | paired median 0.9914 | 6 clean pairs, bar 1.05 not met, soak skipped because the A/B did not pass; decision KEEP_OFF | [f8-token-graph](../db/records/decisions/f8-token-graph.md) |
+| Cold 78K prompt at a 131,072-token window, time to first token | 221.89 s | 78000 tokens, campaign N=5, 38 chunks, measured 2026-10-21; published, not gated | [w131k-campaign-d5](../db/records/measurements/w131k-campaign-d5.md) |
+| Follow-up after a 76800-token prefix, 131,072-token window | 7.389 | median of 5, 76800 tokens reused, 1337 new; limit 12 s, reuse floor 70000 | [w131k-campaign-d5](../db/records/measurements/w131k-campaign-d5.md) |
+| D5 decode at a 131,072-token window | 26.918 | median of 5, decode-8k cell, 37 chunks, MTP head resident; informative beside the 29.37 tok/s of the default window; floor 23 tok/s | [w131k-campaign-d5](../db/records/measurements/w131k-campaign-d5.md) |
+| Pool ledger in D5 at a 131,072-token window | 38 chunks | 37 chunks in the decode cell and 38 in the TTFT cells, fixed bytes 25,270,020,452 B; 40 at the D5 ceiling, calculated | [w131k-campaign-d5](../db/records/measurements/w131k-campaign-d5.md) |
+| Memory impact of the window job | no oom-kill, MemAvailable >= 8 GiB | w131k-engine job window, production paused by the user; latency, PSI and quiet-window criteria are not applicable there | [w131k-impact](../db/records/measurements/w131k-impact.md) |
+| Lowest MemAvailable in the window job | 25582 | MiB, from the 1 s samples of the w131k-engine job | [w131k-impact](../db/records/measurements/w131k-impact.md) |
 
 ## Decode and first-token campaign
 
@@ -52,11 +58,29 @@ Individual samples, same record: decode-8k 32.08, 30.37, 28.63, 29.37 and 27.39 
 
 The D1 campaign of the same job ran 3 samples and is informative only ([f9-campaign-d1](../db/records/measurements/f9-campaign-d1.md)): decode-8k 9.37 tok/s, cold 2K first token 8.42 s, cold 8K first token 24.50 s with a follow-up of 14.46 s. All three cold 32K samples failed with "the stream ended without a final frame", so D1 has no 32K figure.
 
+## Context window 131,072
+
+The same campaign runner, with the engine started at a 131,072-token window (`SLOTSTREAM_CONTEXT_WINDOW=131072`), ran 5 samples per cell on 2026-10-21 ([w131k-campaign-d5](../db/records/measurements/w131k-campaign-d5.md)). The `ttft-cold-78k` cell cuts a 78000-token prompt from its own frozen text (`bench/prompts/ttft_long.json`) and sends a second turn on the same server. Gates and limits from that record:
+
+| Cell | Median | Limit | Passed |
+|---|---|---|---|
+| D5 decode, decode-8k (tok/s), 37 chunks | 26.918 | at least 23 | yes |
+| Cold 8K first token (s) | 22.407 | at most 30 | yes |
+| Follow-up first token (s), 8K | 1.187 | at most 12 | yes |
+| Cold 78K first token (s) | 221.89 | published, not gated | |
+| Follow-up first token (s), 78K | 7.389 | at most 12 | yes |
+| Follow-up reused tokens, 78K, least sample | 76800 | at least 70000 | yes |
+| Peak of the worst cell against the ledger (B) | 56438362112 | at most 66072209764 (38 chunks) | yes |
+
+Individual samples, same record: decode-8k 30.79, 26.92, 27.49, 25.29 and 24.37 tok/s; cold 8K first token 22.53, 22.49, 22.41, 22.39 and 22.37 s; cold 78K first token 221.91, 222.41, 220.81, 221.89 and 221.24 s (prefill 351.9 tok/s); follow-up 78K 7.39, 7.39, 7.37, 7.39 and 7.37 s with 76800 tokens reused and 1337 new in every sample. The pool held 37 chunks in the decode cell and 38 in the TTFT cells; 40 is the calculated count at the D5 ceiling. The job's impact ([w131k-impact](../db/records/measurements/w131k-impact.md)): no oom-kill, lowest MemAvailable 25582 MiB, 14 containers up. The decision to serve 131,072 in production and its reversal rule are in [context-window](../db/records/decisions/context-window.md).
+
+Before this campaign could run, two limits had to go: the stable top-k kernel of the indexer accepted rows of 16,384 compressed blocks (65,536 positions), and the first request of a server left every pool slot pinned after a prefill of several passes, so its first decode step raised `slotio.Exhausted` (CHANGELOG, Unreleased).
+
 ## Prefill envelope
 
 The F5 run measured prefill with 5 cold samples ([f5-prefill](../db/records/measurements/f5-prefill.md), 2026-10-13, earlier than the campaign, so its numbers differ from the table above): cold 8K first token median 23.831 s, follow-up median 1.213 s, cold 8K prefill 344.2 tok/s, 10.72 times the llama.cpp arm B prefill of 32.1 tok/s. One 2K pass took 8.36 s (245.7 tok/s) and one 32K pass 92.74 s (353.5 tok/s).
 
-Prefill pass size matters for expert reads. At 16K tokens with a read scope of 0, a pass of 4096 read 89017 records and ran at 384.2 tok/s, and a pass of 1024 read 304421 records and ran at 161.5 tok/s (same record). The CUDA transient and launch time per pass are in [f5-prefill-envelope](../db/records/measurements/f5-prefill-envelope.md): the largest launch measured was 49.6 ms and the measured grid covers contexts up to 32,768 tokens only.
+Prefill pass size matters for expert reads. At 16K tokens with a read scope of 0, a pass of 4096 read 89017 records and ran at 384.2 tok/s, and a pass of 1024 read 304421 records and ran at 161.5 tok/s (same record). The CUDA transient and launch time per pass are in [f5-prefill-envelope](../db/records/measurements/f5-prefill-envelope.md): the largest launch measured was 49.6 ms and the measured grid covers contexts up to 32,768 tokens only. A second grid at 65,536 and 131,072 tokens is in [w131k-envelope](../db/records/measurements/w131k-envelope.md): every cell up to a 4096-token pass at 131,072 tokens fits (transient 709,820,416 B, attention 108.3 ms), so the largest product that fits on that grid is 553,648,128 against the stored 150,994,944; the stored envelope was not rewritten, which is why a 78000-token prompt still runs 31 passes.
 
 ## Decode A/B decisions
 
