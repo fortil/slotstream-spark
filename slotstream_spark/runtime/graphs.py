@@ -231,6 +231,7 @@ class GraphSet:
                 body()
             self.graphs.append(g)
         torch.cuda.synchronize()
+        self.detach()                       # the eager probes attached the graphs; a fresh set starts like any request ends
 
     def _probe_tokens(self):
         return [1] * self.rows
@@ -244,13 +245,20 @@ class GraphSet:
 
     # ------------------------------------------------------------------ attach / detach
     def attach(self):
-        if self.rb.attached:
-            return
+        """Make seq the pool's progress word, with the step generations above every pin the eager path made.
+
+        Called at every step boundary, attached or not: a sweep prefill that ran while the graphs were attached (the
+        first request of a server, whose graphs were left attached by the capture) advanced `seg.gen` past `rb.base`
+        without moving seq, and its pins only retire once the step generations pass them. Without the re-base the
+        pins of a prompt of a few passes outlive the whole first step and `ensure` finds no victim."""
         seg = self.seg
-        self.rb.base = max(self.rb.base, ((int(seg.gen) + 1 + LAYERS - 1) // LAYERS) * LAYERS)
+        base = max(self.rb.base, ((int(seg.gen) + 1 + LAYERS - 1) // LAYERS) * LAYERS)
+        if self.rb.attached and base == self.rb.base:
+            return
+        self.rb.base = base
         # seq must stay below the first target of the step (base): when the eager passes left progress == base (gen + 1 a
         # multiple of 49), max(progress, base - 1) made wait(base + 0) return before G(0) had written layer 0's ids
-        self.rb.set_seq(self.rb.base - 1)
+        self.rb.set_seq(base - 1)
         seg.pool.set_progress_ptr(self.rb.seq_addr)
         self.rb.attached = True
 
@@ -280,8 +288,7 @@ class GraphSet:
             raise ValueError(f"this graph set takes {R} tokens per step")
         if st.pos + R > self.model.max_ctx:
             raise ValueError(f"context {st.pos + R} exceeds max_ctx {self.model.max_ctx}")
-        if not self.rb.attached:
-            self.attach()
+        self.attach()
         if self.record is not None and not eager:
             self.record.begin()
         clk = self.clock

@@ -171,8 +171,7 @@ class TokenGraph:
             raise ValueError("this graph set takes 1 token per step")
         if st.pos + R > gs.model.max_ctx:
             raise ValueError(f"context {st.pos + R} exceeds max_ctx {gs.model.max_ctx}")
-        if not rb.attached:
-            gs.attach()
+        gs.attach()                       # re-bases when a sweep ran while attached (see GraphSet.attach)
         if self.ring.armed():
             raise RuntimeError("token graph: a ready word is still raised from the previous token")
         with torch.no_grad():

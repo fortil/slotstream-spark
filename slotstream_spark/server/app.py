@@ -11,8 +11,10 @@ import contextlib
 import json
 import secrets
 import signal
+import sys
 import threading
 import time
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 
@@ -454,9 +456,11 @@ class Generation:
                     control.fail(*done.error)
             except EngineFailure as e:
                 control.fail(e.code, e.message)
-            except Exception:  # noqa: BLE001 - the engine's internals must not reach the wire
+            except Exception:  # noqa: BLE001 - the engine's internals must not reach the wire, but they go to the log
                 control.fail("inference_error", "inference failed")
                 ctx.metrics.inc("engine_exceptions_total")
+                print(f"engine exception on {self.route} ({len(self.ids)} prompt tokens):\n{traceback.format_exc()}",
+                      file=sys.stderr, flush=True)
             if state["admitted"]:
                 code, message = control.failure
                 put(flow.stream_error(status_for(code), code, message))
