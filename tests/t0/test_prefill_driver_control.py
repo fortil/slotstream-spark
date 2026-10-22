@@ -70,7 +70,7 @@ def test_cached_prefill_admits_only_on_the_last_run(monkeypatch):
                                    admitted=5 if admit else 0, scopes=[])
 
     cache = SimpleNamespace(take=lambda *a, **k: pc.Miss("miss"), decision="miss",
-                            store_checkpoint=lambda *a, **k: True)
+                            would_store_checkpoint=lambda *a, **k: True, store_checkpoint=lambda *a, **k: True)
     monkeypatch.setattr(pc, "snapshot_state", lambda st: SimpleNamespace(nbytes=1))
     monkeypatch.setattr(pc, "restore_state", lambda st, snap: None)
     monkeypatch.setattr(pc, "snapshot_end", lambda *a, **k: 4096)
