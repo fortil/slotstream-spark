@@ -217,7 +217,11 @@ else case "$R" in *4*) bad "stop sequence ignored" "got '$(printf %s "$R" | tr '
 # --- limits and protocol ---
 R=$(python3 - "$PORT" <<'PY'
 import json,sys,urllib.request
-port,big=sys.argv[1],"word "*40000
+port=sys.argv[1]
+# one "word " is one token; the served window comes from /v1/models, so the prompt overflows a 131,072-token server too
+with urllib.request.urlopen(f"http://127.0.0.1:{port}/v1/models",timeout=20) as m:
+    ctx=int(json.load(m)["data"][0]["context_window"])
+big="word "*(ctx+4096)
 req=urllib.request.Request(f"http://127.0.0.1:{port}/api/chat",
     data=json.dumps({"stream":False,"messages":[{"role":"user","content":big}]}).encode(),
     headers={"Content-Type":"application/json"})
