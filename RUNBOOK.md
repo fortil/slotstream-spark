@@ -26,6 +26,8 @@ quiet-window criteria were recorded as not applicable.
 - Lookahead stays off (paired median 0.8761). The MTP head stays resident (paired median 1.1609). The token graph stays
   off (paired median 0.9914, bar 1.05, 6 clean pairs).
 - D5 pool: 48 chunks of 1 GiB at the default 32,768-token window. Cold 2K TTFT 6.80 s. D1 decode 9.37 tok/s (informative, median of 3).
+- At the 131,072-token window (`serve.env`): decode 26.918 tok/s with 37 chunks (informative), cold 78000-token TTFT 221.89 s,
+  follow-up on a 76800-token prefix 7.389 s, 38 chunks in the pool during the TTFT cells, lowest MemAvailable of the job 25582 MiB.
 - Reference repack: exact except the 7 named exceptions, with `ple_conv1d` written as F32 and the 194 hyper-connection
   matrices stored as BF16 in the llama.cpp reference. Engine against llama.cpp on the same windows:
   engine 4.7216, llama.cpp 4.7239.
@@ -53,10 +55,11 @@ and the front unit load that file: the front's start floor follows the window th
 
 Above the default window the ledger charges the KV cache at the window and sizes the in-memory prefix cache in tokens
 of the window, so a long conversation keeps its state between turns. In D5 at 131,072 tokens the fixed bytes are
-25,270,020,452 B, the floor 26,148 MiB and the pool 40 chunks at the ceiling (39 with 82,000 MiB available), calculated
-from the code and not yet recorded; the formula is in [memory-modes](docs/memory-modes.md). The acceptance script, the
-campaign and the drills start the engine without systemd, so they take the variable on their command line. Windows above
-131,072 are accepted by the code and not measured.
+25,270,020,452 B and the floor 26,148 MiB; the pool is 40 chunks at the ceiling (calculated) and held 37 to 38 chunks
+during the campaign of 2026-10-21 (`db/records/measurements/w131k-campaign-d5.md`); the formula is in
+[memory-modes](docs/memory-modes.md). The acceptance script, the campaign and the drills start the engine without
+systemd, so they take the variable on their command line. Windows above 131,072 are accepted by the code and not
+measured. The decision and its reversal rule are in `db/records/decisions/context-window.md`.
 
 Two switches have a recorded decision: `SLOTSTREAM_MTP=off|resident` (default resident, `db/records/decisions/f6-mtp-d5.md`)
 and `SLOTSTREAM_LOOKAHEAD=off` (default off, `db/records/decisions/f6-lookahead-d5.md`). The token graph stays off
@@ -165,8 +168,8 @@ Every figure, its conditions and its record are listed in [docs/measurements.md]
 - CUDA context loss: the engine process exits; the front starts a new one on the next request. If it repeats, stop the
   service and read `journalctl -k`.
 - Client timeouts on a cold prompt: a cold 8K prompt takes about 22 s and a 32K one about 77 s, so clients need
-  a read timeout above 120 s. A follow-up on the same prefix takes about 1 s. A cold prompt near the 131,072-token
-  window takes minutes (not measured yet): give those clients a read timeout of 600 s.
+  a read timeout above 120 s. A follow-up on the same prefix takes about 1 s. At the 131,072-token window a cold
+  78000-token prompt took 221.89 s and its follow-up 7.389 s: give those clients a read timeout of 600 s.
 - Memory pressure from production: the front starts the engine only when the governor rule allows it, and answers 503
   with Retry-After otherwise.
 
