@@ -24,5 +24,6 @@ Command: tools/spark/jobs.sh start w131k-engine --heavy w131k-engine auto 10800 
 - peak decode-8k: once 48,055,496,704 B, nonpool 7,973,154,816 B, MemAvailable drop 48,226,791,424 B, ledger 64,998,467,940 B (37 chunks at a 131072-token window)
 - peak ttft-cold-8k: once 53,967,507,456 B, nonpool 13,165,318,144 B, MemAvailable drop 54,216,871,936 B, ledger 66,072,209,764 B (38 chunks at a 131072-token window)
 - peak ttft-cold-78k: once 55,901,581,312 B, nonpool 15,099,392,000 B, MemAvailable drop 56,438,362,112 B, ledger 66,072,209,764 B (38 chunks at a 131072-token window)
+- partial acceptance at the same window (ACCEPTANCE_ONLY, record kept in the captures only; this line is added by hand, a `--write` of the judge drops it): self-impact PASS (capture 20261021T203826-acc131k); t0-suite 1649 passed, prefix-exact 7 passed, live-acceptance 80 passed with the over-length probe sized to the served window (capture 20261021T213812-acc131k)
 
 Verdict: PASS — decode, cold 8K, both follow-ups, the 78K reuse floor and every peak within the bars at a 131,072-token window
