@@ -76,7 +76,7 @@ The comments in `slotstream_spark/runtime/graphs.py` document the same segments.
 
 `ensure(layer, ids)` is transactional:
 
-1. Experts already in the pool are pinned for the current generation. The pin generation of layer l at step t is `t * 49 + l`, and the sequence word is also the progress pointer that releases pins of earlier layers.
+1. Experts already in the pool are pinned for the current generation. The pin generation of layer l at step t is `t * 49 + l`, and the sequence word is also the progress pointer that releases pins of earlier layers. A sweep prefill pins with the eager counter (`seg.gen`, two per layer) and nothing releases those pins until a step's generations pass them, so `GraphSet.attach()` re-bases the step above the counter at every step boundary.
 2. For each miss, a victim slot is chosen by CLOCK before any read starts. CLOCK is global over the pool, with one reference bit per slot. Pinned slots are skipped.
 3. The victim's map entry is cleared, then the record is read with `pread` and O_DIRECT, 2,764,800 B per expert. The queue holds at most 12 reads; demand reads go first, speculative reads next, sweep reads last.
 4. When all reads of the layer have joined, the map entries are published and the layer launches.
