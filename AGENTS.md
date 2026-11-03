@@ -22,6 +22,13 @@ RETENTION_DAYS: 7
 
 If `private/AGENTS.local.md` exists, read it: it holds the rules of the host this project is developed on.
 
+## Tasky: deploy
+
+CMD: bash tools/spark/sync.sh && bash -c '. tools/spark/env.sh && spark_ssh "systemctl --user stop slotstream-spark.service && systemctl --user try-restart slotstream-spark-front.service"'
+CHECK: bash tools/mac/tunnel.sh up && bash tools/mac/tunnel.sh status
+
+`sync.sh` copies the merged tree to `$SRC` on the Spark. The engine is stopped so its next start, under the start rules, loads the new code; the front is restarted only if it was running. The check needs the front up, which is the case inside the serving window (04:00 to 23:59) or while production is paused; outside it the check fails and the run asks.
+
 <!-- regla-privacidad v1 -->
 ## Privacy rule: never share user data
 
